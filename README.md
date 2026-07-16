@@ -1,10 +1,19 @@
-# QuoteForge v2.0.0
+# QuoteForge v2.1.0 — FIX CACHE
 
-Cotizador profesional de software en un solo archivo, listo para GitHub Pages.
+Esta compilación reemplaza la interfaz antigua de 6 pasos.
 
-## Publicación
-1. Sube `index.html` a la raíz del repositorio.
-2. Activa GitHub Pages desde la rama `main` y carpeta `/root`.
-3. La versión visible debe decir `2.0.0` en la cabecera y en el pie.
+## Archivos que debes subir a la raíz del repositorio
+- index.html
+- sw.js
+- sw-v120.js
+- sw-v130.js
 
-No utiliza Service Worker ni archivos externos, por lo que evita problemas de caché de versiones anteriores.
+## Importante
+1. En GitHub, abre el repositorio que publica `mjm03.github.io`.
+2. Elimina o reemplaza el `index.html` antiguo de la rama configurada en Pages.
+3. Sube estos cuatro archivos a la raíz, no dentro de una carpeta.
+4. Espera a que finalice el despliegue de GitHub Pages.
+5. Abre la web en una pestaña privada una vez.
+
+La versión correcta muestra una etiqueta fija abajo a la derecha:
+`QUOTEFORGE v2.1.0 · BUILD NUEVO`.
