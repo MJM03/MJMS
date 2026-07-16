@@ -1,4 +1,4 @@
-# QuoteForge v1.0.0
+# QuoteForge v1.1.0
 
 Cotizador profesional de software, 100% frontend y listo para GitHub Pages.
 
@@ -19,3 +19,11 @@ Cotizador profesional de software, 100% frontend y listo para GitHub Pages.
 
 ## Nota
 Los valores son estimaciones comerciales. Antes de emitir una propuesta contractual, valida alcance, exclusiones, impuestos, licencias y costos de terceros.
+
+
+## Cambios v1.1.0
+- Perfiles Freelance, Estudio y Software Factory.
+- Landing mínima recalibrada desde 14 horas.
+- Fórmula aditiva que evita multiplicadores excesivos.
+- Valores iniciales: 3 pantallas, complejidad básica y 8% de contingencia.
+- Configuración versionada para evitar arrastrar tarifas antiguas.
