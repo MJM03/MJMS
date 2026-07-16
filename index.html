@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="Cotizador profesional de software basado en alcance, esfuerzo, costos operativos, riesgo y mercado." />
+  <title>QuoteForge — Cotizador de Software</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">QF</div>
+        <div><strong>QuoteForge</strong><span>Cotizador de software</span></div>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-view="builder"><span>◈</span> Nueva cotización</button>
+        <button class="nav-btn" data-view="history"><span>▤</span> Historial</button>
+        <button class="nav-btn" data-view="catalog"><span>⌘</span> Catálogo</button>
+        <button class="nav-btn" data-view="settings"><span>⚙</span> Configuración</button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="status-dot"></div>
+        <div><strong>Motor local</strong><span>Datos guardados en este dispositivo</span></div>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="icon-btn mobile-only" id="menuBtn" aria-label="Abrir menú">☰</button>
+        <div>
+          <p class="eyebrow" id="viewEyebrow">ESTIMACIÓN COMERCIAL</p>
+          <h1 id="viewTitle">Nueva cotización</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
+          <button class="btn secondary" id="resetBtn">Reiniciar</button>
+          <button class="btn primary" id="saveBtn">Guardar</button>
+        </div>
+      </header>
+
+      <section class="view active" id="builderView">
+        <div class="progress-wrap">
+          <div class="progress-meta"><span id="stepLabel">Paso 1 de 6</span><span id="progressPct">17%</span></div>
+          <div class="progress-track"><div id="progressBar"></div></div>
+        </div>
+
+        <div class="workspace">
+          <div class="form-panel card">
+            <div class="step active" data-step="1">
+              <div class="section-heading"><div><p class="eyebrow">CONTEXTO</p><h2>Información del proyecto</h2></div><span class="step-badge">01</span></div>
+              <div class="grid two">
+                <label>Nombre del proyecto<input id="projectName" placeholder="Ej. Plataforma logística" /></label>
+                <label>Cliente<input id="clientName" placeholder="Empresa o contacto" /></label>
+                <label>Tipo de solución<select id="projectType"></select></label>
+                <label>Moneda<select id="currency"><option value="PEN">PEN — Soles</option><option value="USD">USD — Dólares</option></select></label>
+              </div>
+              <label>Descripción<textarea id="description" rows="4" placeholder="Objetivo, usuarios y problema que resolverá..."></textarea></label>
+            </div>
+
+            <div class="step" data-step="2">
+              <div class="section-heading"><div><p class="eyebrow">ALCANCE</p><h2>Dimensión y complejidad</h2></div><span class="step-badge">02</span></div>
+              <div class="choice-grid" id="complexityChoices"></div>
+              <div class="grid three">
+                <label>Pantallas / vistas<input type="number" id="screens" min="1" value="8" /></label>
+                <label>Usuarios esperados<select id="users"><option value="1">1–5</option><option value="1.06">6–20</option><option value="1.13">21–100</option><option value="1.22">101–500</option><option value="1.35">500+</option></select></label>
+                <label>Plataformas<select id="platforms"><option value="1">Web</option><option value="1.18">Web + PWA</option><option value="1.35">Android + iOS</option><option value="1.55">Web + Android + iOS</option></select></label>
+              </div>
+              <div class="grid two">
+                <label>Diseño visual<select id="design"><option value="0">Plantilla adaptada</option><option value="16">Diseño personalizado</option><option value="32">Premium / sistema de diseño</option><option value="50">Alta fidelidad + prototipo UX</option></select></label>
+                <label>Calidad requerida<select id="quality"><option value="1">MVP funcional</option><option value="1.15">Producción estándar</option><option value="1.32">Alta disponibilidad</option><option value="1.52">Misión crítica</option></select></label>
+              </div>
+            </div>
+
+            <div class="step" data-step="3">
+              <div class="section-heading"><div><p class="eyebrow">FUNCIONALIDAD</p><h2>Selecciona módulos</h2></div><span class="step-badge">03</span></div>
+              <div class="toolbar"><input id="moduleSearch" placeholder="Buscar módulo..." /><span id="moduleCount">0 seleccionados</span></div>
+              <div class="module-grid" id="moduleGrid"></div>
+            </div>
+
+            <div class="step" data-step="4">
+              <div class="section-heading"><div><p class="eyebrow">TECNOLOGÍA</p><h2>Arquitectura e integraciones</h2></div><span class="step-badge">04</span></div>
+              <div class="grid two">
+                <label>Frontend<select id="frontend"></select></label>
+                <label>Backend<select id="backend"></select></label>
+                <label>Base de datos<select id="database"></select></label>
+                <label>Infraestructura<select id="hosting"></select></label>
+              </div>
+              <h3 class="subheading">Integraciones</h3>
+              <div class="module-grid compact" id="integrationGrid"></div>
+            </div>
+
+            <div class="step" data-step="5">
+              <div class="section-heading"><div><p class="eyebrow">OPERACIÓN</p><h2>Riesgo, urgencia y soporte</h2></div><span class="step-badge">05</span></div>
+              <div class="grid two">
+                <label>Estado de requisitos<select id="requirements"><option value="1">Bien definidos</option><option value="1.08">Parcialmente definidos</option><option value="1.18">Exploratorios</option></select></label>
+                <label>Urgencia<select id="urgency"><option value="1">Plazo flexible</option><option value="1.12">Prioritario</option><option value="1.25">Urgente</option><option value="1.42">Crítico</option></select></label>
+                <label>Soporte incluido<select id="support"><option value="0">30 días</option><option value="16">3 meses</option><option value="36">6 meses</option><option value="70">12 meses</option></select></label>
+                <label>Capacitación<select id="training"><option value="0">No incluida</option><option value="6">1 sesión</option><option value="14">Programa básico</option><option value="28">Programa empresarial</option></select></label>
+              </div>
+              <div class="range-card"><div><strong>Contingencia técnica</strong><span>Reserva por cambios, retrabajo e incertidumbre.</span></div><output id="contingencyOut">12%</output><input type="range" id="contingency" min="0" max="35" value="12" /></div>
+              <div class="risk-list" id="riskList"></div>
+            </div>
+
+            <div class="step" data-step="6">
+              <div class="section-heading"><div><p class="eyebrow">PROPUESTA</p><h2>Revisión final</h2></div><span class="step-badge">06</span></div>
+              <div class="review-box" id="reviewBox"></div>
+              <div class="scenario-tabs"><button class="scenario active" data-scenario="competitive">Competitivo</button><button class="scenario" data-scenario="recommended">Recomendado</button><button class="scenario" data-scenario="premium">Premium</button></div>
+              <label>Notas comerciales<textarea id="commercialNotes" rows="5" placeholder="Condiciones, exclusiones o acuerdos..."></textarea></label>
+            </div>
+
+            <div class="step-actions">
+              <button class="btn secondary" id="prevBtn">Anterior</button>
+              <button class="btn primary" id="nextBtn">Continuar</button>
+            </div>
+          </div>
+
+          <aside class="estimate-panel card">
+            <div class="estimate-head"><div><p class="eyebrow">ESTIMACIÓN EN VIVO</p><h2 id="estimatePrice">S/ 0</h2></div><span class="confidence" id="confidence">Media</span></div>
+            <div class="metric-grid">
+              <div><span>Horas</span><strong id="totalHours">0 h</strong></div>
+              <div><span>Duración</span><strong id="duration">0 sem.</strong></div>
+              <div><span>Costo interno</span><strong id="internalCost">S/ 0</strong></div>
+              <div><span>Utilidad</span><strong id="profit">S/ 0</strong></div>
+            </div>
+            <div class="breakdown">
+              <div class="breakdown-title"><strong>Distribución del esfuerzo</strong><span id="marginLabel">Margen 0%</span></div>
+              <div id="effortBars"></div>
+            </div>
+            <div class="price-range"><span>Rango razonable</span><strong id="priceRange">S/ 0 — S/ 0</strong></div>
+            <div class="warning" id="marketSignal">Completa el alcance para comparar el precio con el mercado.</div>
+            <button class="btn primary full" id="printBtn">Generar propuesta / PDF</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="historyView"><div class="content-card card"><div class="section-heading"><div><p class="eyebrow">REGISTROS</p><h2>Cotizaciones guardadas</h2></div><button class="btn secondary" id="exportHistoryBtn">Exportar JSON</button></div><div id="historyList" class="history-list"></div></div></section>
+      <section class="view" id="catalogView"><div class="content-card card"><div class="section-heading"><div><p class="eyebrow">BASE DE CÁLCULO</p><h2>Catálogo de módulos</h2></div><span class="pill">Editable desde app.js</span></div><div class="catalog-table-wrap"><table><thead><tr><th>Módulo</th><th>Categoría</th><th>Horas base</th><th>Complejidad</th></tr></thead><tbody id="catalogBody"></tbody></table></div></div></section>
+      <section class="view" id="settingsView"><div class="content-card card"><div class="section-heading"><div><p class="eyebrow">MOTOR FINANCIERO</p><h2>Configuración</h2></div><button class="btn secondary" id="defaultsBtn">Restaurar</button></div><div class="grid two settings-grid"><label>Costo interno por hora (PEN)<input type="number" id="costRate" /></label><label>Tarifa comercial base (PEN)<input type="number" id="sellRate" /></label><label>Margen objetivo (%)<input type="number" id="targetMargin" /></label><label>Horas productivas por semana<input type="number" id="weeklyHours" /></label><label>IGV (%)<input type="number" id="taxRate" /></label><label>Tipo de cambio referencial<input type="number" id="fxRate" step="0.01" /></label><label>Costos fijos asignados (%)<input type="number" id="overhead" /></label><label>Descuento máximo sugerido (%)<input type="number" id="maxDiscount" /></label></div><div class="note-box"><strong>Fórmula central</strong><p>Horas ajustadas × costo interno + overhead + contingencia = costo real. El precio comercial se calcula con margen objetivo y luego se contrasta con el benchmark del tipo de proyecto.</p></div></div></section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
