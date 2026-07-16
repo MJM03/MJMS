@@ -9,7 +9,7 @@
 <title>QuoteForge — Cotizador de Software</title>
 <link href="manifest.webmanifest" rel="manifest"/>
 <link href="icon.svg" rel="icon" type="image/svg+xml"/>
-<link href="styles.css" rel="stylesheet"/>
+<link href="styles-v120.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="app-shell">
@@ -26,7 +26,7 @@
 </nav>
 <div class="sidebar-foot">
 <div class="status-dot"></div>
-<div><strong>Motor local</strong><span>Datos guardados en este dispositivo</span></div>
+<div><strong>Motor local</strong><span>Datos guardados en este dispositivo · <b data-app-version>v1.2.0</b></span></div>
 </div>
 </aside>
 <main>
@@ -34,7 +34,7 @@
 <button aria-label="Abrir menú" class="icon-btn mobile-only" id="menuBtn">☰</button>
 <div>
 <p class="eyebrow" id="viewEyebrow">ESTIMACIÓN COMERCIAL</p>
-<h1 id="viewTitle">Nueva cotización</h1>
+<h1 id="viewTitle">Nueva cotización</h1><span class="version-badge" data-app-version>v1.2.0</span>
 </div>
 <div class="top-actions">
 <button aria-label="Cambiar tema" class="icon-btn" id="themeBtn">◐</button>
@@ -134,6 +134,10 @@
 </main>
 </div>
 <div class="toast" id="toast"></div>
-<script src="app.js"></script>
+<script>
+// Limpieza de cachés antiguos de QuoteForge para evitar que GitHub Pages muestre una versión anterior.
+if ('caches' in window) caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith('quoteforge-') && k !== 'quoteforge-v1.2.0').map(k => caches.delete(k))));
+</script>
+<script src="app-v120.js?v=1.2.0"></script>
 </body>
 </html>

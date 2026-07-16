@@ -1,29 +1,10 @@
-# QuoteForge v1.1.0
+# QuoteForge v1.2.0
 
-Cotizador profesional de software, 100% frontend y listo para GitHub Pages.
+Cotizador de software listo para GitHub Pages.
 
-## Funciones
-- Motor por horas, complejidad, tecnología, módulos, integraciones, riesgo y contingencia.
-- Tres escenarios comerciales: competitivo, recomendado y premium.
-- Costo interno, precio, utilidad, margen, duración y rango razonable.
-- Historial local y exportación JSON.
-- Impresión / Guardar como PDF.
-- Tema claro/oscuro, responsive y PWA instalable.
-- Configuración editable de tarifas, margen, overhead, IGV y tipo de cambio.
+## Actualización importante
+Esta versión usa archivos versionados y un Service Worker nuevo para evitar que el navegador conserve la versión anterior.
 
-## Publicar en GitHub Pages
-1. Sube todos los archivos a la raíz del repositorio.
-2. En GitHub: Settings → Pages.
-3. Selecciona Deploy from a branch, rama main y carpeta /(root).
-4. Abre la URL publicada y recarga una vez para activar el modo offline.
+Sube todos los archivos a la raíz del repositorio, reemplazando los anteriores. Es recomendable eliminar también `app.js`, `styles.css` y `sw.js` antiguos del repositorio.
 
-## Nota
-Los valores son estimaciones comerciales. Antes de emitir una propuesta contractual, valida alcance, exclusiones, impuestos, licencias y costos de terceros.
-
-
-## Cambios v1.1.0
-- Perfiles Freelance, Estudio y Software Factory.
-- Landing mínima recalibrada desde 14 horas.
-- Fórmula aditiva que evita multiplicadores excesivos.
-- Valores iniciales: 3 pantallas, complejidad básica y 8% de contingencia.
-- Configuración versionada para evitar arrastrar tarifas antiguas.
+La versión visible dentro de la aplicación debe mostrar **v1.2.0**.
