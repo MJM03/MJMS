@@ -1,21 +1,32 @@
-# QuoteForge v3.0.0
+# QuoteForge Ultimate v4.0.0
 
-Cotizador profesional de software listo para GitHub Pages.
+Aplicación web estática para cotizar proyectos de software, analizar rentabilidad, gestionar clientes y generar propuestas comerciales imprimibles en PDF.
 
-## Publicación
-1. Elimina el `index.html` anterior del repositorio.
-2. Sube este `index.html` a la raíz.
-3. No subas archivos `sw.js` antiguos. Esta versión no usa Service Worker.
-4. Abre la web y verifica el texto `v3.0.0` en la cabecera y el pie.
+## Publicación en GitHub Pages
+
+Sube todos estos archivos directamente a la raíz del repositorio, sin carpetas:
+
+- index.html
+- styles.css
+- app.js
+- manifest.webmanifest
+- icon.svg
+- README.md
+
+Elimina cualquier archivo antiguo `sw.js`, `service-worker.js`, `app-v*.js` o `styles-v*.css`. Esta versión no registra Service Worker para evitar problemas de caché.
 
 ## Funciones
-- Vista comercial y análisis interno separados.
-- Horas editables solo para uso interno.
-- Plazos expresados en días, semanas o meses.
-- Precio mínimo rentable, costo, utilidad y margen.
-- Modalidad de precio cerrado, bolsa de horas o sprints.
-- Historial con abrir, duplicar, PDF y eliminar.
-- Propuesta PDF A4 sin mostrar horas por módulo.
-- Configuración financiera y datos del proveedor.
-- Tema claro/oscuro.
-- Sin dependencias externas ni caché PWA.
+
+- Interfaz responsive inspirada en iOS.
+- Versión visible v4.0.0.
+- Tres escenarios: Express, Recomendado y Premium.
+- Precios piso configurables.
+- Factor de reutilización.
+- Simulación de descuentos y margen.
+- Análisis privado por actividad y horas.
+- CRM básico de clientes.
+- Historial recuperable, duplicable y filtrable.
+- Propuesta comercial A4 para guardar como PDF.
+- Importación y exportación de respaldos JSON.
+- Tema claro y oscuro.
+- Almacenamiento local del navegador.
