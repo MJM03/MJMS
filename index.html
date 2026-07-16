@@ -1,236 +1,149 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<meta content="#0b1020" name="theme-color"/>
-<meta content="Cotizador profesional de software basado en alcance, esfuerzo, costos operativos, riesgo y mercado." name="description"/>
-<title>QuoteForge — Cotizador de Software</title>
-<link href="manifest.webmanifest" rel="manifest"/>
-<link href="icon.svg" rel="icon" type="image/svg+xml"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0b1020" />
+<title>QuoteForge v2.0.0</title>
 <style>
-:root{--bg:#f3f5fa;--surface:#fff;--surface2:#f7f8fc;--text:#111827;--muted:#667085;--line:#e5e7ef;--primary:#5b5cf0;--primary2:#4546d8;--success:#087f5b;--warning:#b54708;--shadow:0 18px 50px rgba(16,24,40,.08);--radius:22px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}body.dark{--bg:#090d18;--surface:#101625;--surface2:#161d2e;--text:#f5f7fb;--muted:#9aa4b5;--line:#252d3f;--primary:#7c7dfa;--primary2:#9697ff;--shadow:0 18px 50px rgba(0,0,0,.25)}button,input,select,textarea{font:inherit}.app-shell{min-height:100vh;display:grid;grid-template-columns:260px 1fr}.sidebar{position:sticky;top:0;height:100vh;background:#0b1020;color:#fff;padding:24px 18px;display:flex;flex-direction:column;z-index:20}.brand{display:flex;gap:12px;align-items:center;padding:4px 8px 28px}.brand-mark{width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,#8a8bff,#5758ed);display:grid;place-items:center;font-weight:900;box-shadow:0 8px 24px rgba(91,92,240,.45)}.brand strong,.brand span{display:block}.brand span{font-size:12px;color:#9ca6bc;margin-top:3px}.sidebar nav{display:grid;gap:8px}.nav-btn{border:0;background:transparent;color:#aab3c7;padding:13px 14px;border-radius:13px;text-align:left;cursor:pointer;display:flex;gap:11px;align-items:center}.nav-btn:hover,.nav-btn.active{background:#1a2235;color:#fff}.sidebar-foot{margin-top:auto;padding:16px 10px;display:flex;gap:10px;align-items:center;border-top:1px solid #222c40}.sidebar-foot strong,.sidebar-foot span{display:block}.sidebar-foot strong{font-size:13px}.sidebar-foot span{font-size:11px;color:#8d98ae;margin-top:2px}.status-dot{width:9px;height:9px;border-radius:50%;background:#32d583;box-shadow:0 0 0 5px rgba(50,213,131,.12)}main{min-width:0}.topbar{height:90px;padding:18px 30px;background:rgba(255,255,255,.76);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:15}.dark .topbar{background:rgba(16,22,37,.78)}h1,h2,h3,p{margin:0}h1{font-size:25px}h2{font-size:21px}.eyebrow{font-size:11px;letter-spacing:.12em;font-weight:800;color:var(--primary);margin-bottom:5px}.top-actions{display:flex;gap:9px}.btn,.icon-btn{border:0;border-radius:12px;padding:11px 16px;font-weight:750;cursor:pointer}.icon-btn{width:42px;height:42px;padding:0;background:var(--surface2);color:var(--text)}.btn.primary{background:var(--primary);color:white}.btn.primary:hover{background:var(--primary2)}.btn.secondary{background:var(--surface2);color:var(--text);border:1px solid var(--line)}.btn.full{width:100%;margin-top:18px}.view{display:none;padding:24px 30px 40px}.view.active{display:block}.progress-wrap{max-width:1280px;margin:0 auto 18px}.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:700}.progress-track{height:6px;background:var(--line);border-radius:99px;margin-top:8px;overflow:hidden}.progress-track div{height:100%;width:17%;background:linear-gradient(90deg,var(--primary),#9b8afb);border-radius:99px;transition:.3s}.workspace{max-width:1280px;margin:auto;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.form-panel{padding:26px}.estimate-panel{padding:22px;position:sticky;top:114px}.step{display:none}.step.active{display:block}.section-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.step-badge{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:var(--surface2);color:var(--primary);font-weight:900}.grid{display:grid;gap:16px;margin-bottom:16px}.grid.two{grid-template-columns:repeat(2,1fr)}.grid.three{grid-template-columns:repeat(3,1fr)}label{display:grid;gap:8px;font-size:13px;font-weight:750;color:var(--text)}input,select,textarea{width:100%;border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:12px;padding:12px 13px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(91,92,240,.12)}textarea{resize:vertical}.choice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}.choice{border:1px solid var(--line);background:var(--surface2);padding:16px;border-radius:15px;cursor:pointer}.choice strong,.choice span{display:block}.choice span{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}.choice.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(91,92,240,.12);background:rgba(91,92,240,.07)}.toolbar{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:15px}.toolbar span{font-size:12px;color:var(--muted);white-space:nowrap}.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-height:430px;overflow:auto;padding-right:4px}.module-grid.compact{max-height:none}.module-card{border:1px solid var(--line);background:var(--surface2);padding:13px;border-radius:14px;cursor:pointer;display:flex;gap:10px;align-items:flex-start}.module-card input{width:auto;margin-top:3px}.module-card strong,.module-card span{display:block}.module-card span{font-size:11px;color:var(--muted);margin-top:4px}.module-card.selected{border-color:var(--primary);background:rgba(91,92,240,.07)}.subheading{font-size:15px;margin:24px 0 12px}.range-card{border:1px solid var(--line);border-radius:16px;padding:17px;margin:18px 0;display:grid;grid-template-columns:1fr auto;gap:8px}.range-card span{display:block;color:var(--muted);font-size:12px;margin-top:4px}.range-card input{grid-column:1/-1;padding:0}.risk-list{display:grid;gap:8px}.risk-item{display:flex;justify-content:space-between;padding:12px 14px;border-radius:12px;background:var(--surface2);font-size:13px}.review-box{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}.review-item{padding:14px;border:1px solid var(--line);border-radius:14px}.review-item span,.review-item strong{display:block}.review-item span{font-size:11px;color:var(--muted);margin-bottom:5px}.scenario-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}.scenario{border:1px solid var(--line);background:var(--surface2);padding:11px;border-radius:12px;color:var(--text);font-weight:750;cursor:pointer}.scenario.active{background:var(--primary);border-color:var(--primary);color:white}.step-actions{display:flex;justify-content:space-between;margin-top:26px;padding-top:18px;border-top:1px solid var(--line)}.estimate-head{display:flex;justify-content:space-between;align-items:flex-start}.estimate-head h2{font-size:34px}.confidence{font-size:11px;padding:7px 10px;border-radius:99px;background:rgba(8,127,91,.1);color:var(--success);font-weight:800}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:18px 0}.metric-grid div{background:var(--surface2);padding:13px;border-radius:13px}.metric-grid span,.metric-grid strong{display:block}.metric-grid span{font-size:10px;color:var(--muted);margin-bottom:5px}.metric-grid strong{font-size:14px}.breakdown{padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.breakdown-title{display:flex;justify-content:space-between;font-size:12px;margin-bottom:13px}.effort-row{margin:10px 0}.effort-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:5px}.effort-track{height:7px;background:var(--line);border-radius:99px;overflow:hidden}.effort-track div{height:100%;background:var(--primary);border-radius:99px}.price-range{margin:16px 0}.price-range span,.price-range strong{display:block}.price-range span{font-size:11px;color:var(--muted);margin-bottom:4px}.warning,.note-box{padding:13px;border-radius:13px;background:#fff7ed;color:var(--warning);font-size:12px;line-height:1.5}.dark .warning,.dark .note-box{background:#271b12}.content-card{max-width:1280px;margin:auto;padding:26px}.history-list{display:grid;gap:12px}.history-item{display:grid;grid-template-columns:1fr auto;gap:16px;padding:17px;border:1px solid var(--line);border-radius:16px}.history-item p{font-size:12px;color:var(--muted);margin-top:5px}.history-item-actions{display:flex;align-items:center;gap:8px}.pill{font-size:11px;background:var(--surface2);padding:7px 10px;border-radius:99px;color:var(--muted)}.catalog-table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px;border-bottom:1px solid var(--line);font-size:13px}th{font-size:11px;color:var(--muted)}.settings-grid{max-width:800px}.note-box{margin-top:20px}.note-box p{margin-top:6px}.toast{position:fixed;right:24px;bottom:24px;background:#101828;color:white;padding:13px 17px;border-radius:12px;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s;z-index:99}.toast.show{opacity:1;transform:none}.mobile-only{display:none}@media(max-width:1050px){.workspace{grid-template-columns:1fr}.estimate-panel{position:relative;top:auto}.choice-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.app-shell{display:block}.sidebar{position:fixed;left:-280px;width:260px;transition:.25s}.sidebar.open{left:0}.mobile-only{display:inline-grid;place-items:center}.topbar{height:auto;min-height:76px;padding:13px 14px;gap:10px}.topbar h1{font-size:20px}.top-actions .secondary{display:none}.view{padding:15px 12px 30px}.form-panel,.content-card{padding:18px}.grid.two,.grid.three,.module-grid,.review-box{grid-template-columns:1fr}.choice-grid{grid-template-columns:1fr 1fr}.workspace{gap:14px}.estimate-head h2{font-size:29px}.top-actions{margin-left:auto}.top-actions .btn.primary{padding:10px 12px}.toolbar{align-items:stretch;flex-direction:column}.module-grid{max-height:none}.history-item{grid-template-columns:1fr}.history-item-actions{justify-content:space-between}.scenario-tabs{grid-template-columns:1fr}.step-actions{position:sticky;bottom:0;background:var(--surface);padding-bottom:max(0px,env(safe-area-inset-bottom))}}
-@media print{.sidebar,.topbar,.progress-wrap,.step-actions,.estimate-panel .btn,.toast{display:none!important}.app-shell{display:block}.view{padding:0}.workspace{display:block}.form-panel,.estimate-panel{box-shadow:none;border:0}.step{display:block!important;page-break-inside:avoid}.step:not([data-step="6"]){display:none!important}.estimate-panel{display:block;position:static;margin-top:20px}.scenario-tabs{display:none}}
-
-.field-help{display:block;margin-top:6px;font-size:12px;line-height:1.35;color:var(--muted);font-weight:500}
-
-.version-badge{display:inline-flex;align-items:center;padding:.28rem .55rem;border:1px solid var(--border);border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--accent);background:var(--surface-2);margin-top:.35rem}.sidebar-foot b{color:var(--accent)}
-
+:root{--bg:#0b1020;--panel:#121a2f;--panel2:#18223d;--text:#f7f9ff;--muted:#9ba8c7;--line:#283554;--accent:#6ea8fe;--ok:#66d49b;--warn:#ffcc66;--danger:#ff7a90;--shadow:0 18px 50px rgba(0,0,0,.28);--radius:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(160deg,#08101f,#0f1730 45%,#0b1020);color:var(--text);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1500px;margin:auto;padding:18px}.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;margin-bottom:18px;background:rgba(11,16,32,.82);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.08);border-radius:18px;box-shadow:var(--shadow)}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#6ea8fe,#8c7bff);font-weight:900;color:#07101f}.brand h1{font-size:18px;margin:0}.version{font-size:12px;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:none;border-radius:14px;padding:11px 14px;background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn.primary{background:linear-gradient(145deg,#4d8ef7,#7c63ff);border:none}.btn.ghost{background:transparent}.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}.card{background:linear-gradient(180deg,rgba(24,34,61,.96),rgba(18,26,47,.96));border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.card h2,.card h3{margin-top:0}.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.section-title p{margin:0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.field{display:flex;flex-direction:column;gap:7px}.field label{font-size:13px;color:#dbe4ff}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px 13px;background:#0d1529;color:var(--text);outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(110,168,254,.14)}.range-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.pill{font-size:12px;color:#d9e4ff;padding:7px 10px;background:#0d1529;border:1px solid var(--line);border-radius:999px}.modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.module{position:relative}.module input{position:absolute;opacity:0}.module label{display:block;padding:12px;border-radius:14px;background:#0d1529;border:1px solid var(--line);min-height:76px}.module input:checked+label{border-color:var(--accent);background:rgba(110,168,254,.12)}.module strong{display:block;font-size:13px}.module small{color:var(--muted)}.summary{position:sticky;top:96px}.hero-price{padding:18px;border-radius:18px;background:linear-gradient(145deg,rgba(78,142,247,.25),rgba(124,99,255,.18));border:1px solid rgba(110,168,254,.35)}.hero-price .label{font-size:13px;color:#ced8f4}.hero-price .price{font-size:38px;font-weight:900;letter-spacing:-1.5px;margin:5px 0}.hero-price .range{font-size:13px;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.metric{background:#0d1529;border:1px solid var(--line);border-radius:15px;padding:12px}.metric span{display:block;font-size:12px;color:var(--muted)}.metric strong{font-size:18px}.bar{height:9px;background:#0d1529;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#66d49b,#6ea8fe);width:40%}.breakdown{margin-top:14px}.row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}.row:last-child{border-bottom:0}.muted{color:var(--muted)}.tag{display:inline-flex;padding:6px 9px;border-radius:999px;background:#0d1529;border:1px solid var(--line);font-size:12px}.footer{margin:18px 0 6px;text-align:center;color:var(--muted);font-size:12px}.history{margin-top:18px}.history-item{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border-bottom:0}.history-item h4{margin:0 0 4px}.history-item small{color:var(--muted)}.hidden{display:none!important}@media(max-width:980px){.layout{grid-template-columns:1fr}.summary{position:static}.modules{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.app{padding:10px}.topbar{align-items:flex-start}.grid,.grid.three{grid-template-columns:1fr}.modules{grid-template-columns:1fr}.actions .btn{padding:9px 10px}.hero-price .price{font-size:32px}}
+@media print{body{background:#fff;color:#111}.topbar,.actions,.no-print{display:none!important}.app{max-width:none;padding:0}.layout{display:block}.card{box-shadow:none;border:1px solid #ddd;background:#fff;color:#111;margin-bottom:14px}.summary{position:static}.field input,.field select,.field textarea,.metric,.module label,.pill,.tag{background:#fff;color:#111;border-color:#ddd}.muted,.version,.section-title p,.metric span,.hero-price .label,.hero-price .range{color:#555}.hero-price{background:#f3f6ff;border-color:#ccd8ff}.bar{border-color:#ddd;background:#eee}.footer{color:#555}}
 </style>
 </head>
 <body>
-<div class="app-shell">
-<aside class="sidebar" id="sidebar">
-<div class="brand">
-<div class="brand-mark">QF</div>
-<div><strong>QuoteForge</strong><span>Cotizador de software</span></div>
-</div>
-<nav>
-<button class="nav-btn active" data-view="builder"><span>◈</span> Nueva cotización</button>
-<button class="nav-btn" data-view="history"><span>▤</span> Historial</button>
-<button class="nav-btn" data-view="catalog"><span>⌘</span> Catálogo</button>
-<button class="nav-btn" data-view="settings"><span>⚙</span> Configuración</button>
-</nav>
-<div class="sidebar-foot">
-<div class="status-dot"></div>
-<div><strong>Motor local</strong><span>Datos guardados en este dispositivo · <b data-app-version>v1.2.0</b></span></div>
-</div>
-</aside>
-<main>
+<div class="app">
 <header class="topbar">
-<button aria-label="Abrir menú" class="icon-btn mobile-only" id="menuBtn">☰</button>
-<div>
-<p class="eyebrow" id="viewEyebrow">ESTIMACIÓN COMERCIAL</p><span class="pill" data-app-version>v1.3.0</span>
-<h1 id="viewTitle">Nueva cotización</h1><span class="version-badge" data-app-version>v1.2.0</span>
-</div>
-<div class="top-actions">
-<button aria-label="Cambiar tema" class="icon-btn" id="themeBtn">◐</button>
-<button class="btn secondary" id="resetBtn">Reiniciar</button>
-<button class="btn primary" id="saveBtn">Guardar</button>
-</div>
+  <div class="brand"><div class="logo">QF</div><div><h1>QuoteForge</h1><div class="version">Cotizador profesional de software · versión 2.0.0</div></div></div>
+  <div class="actions"><button class="btn" id="resetBtn">Nueva</button><button class="btn" id="saveBtn">Guardar</button><button class="btn primary" id="printBtn">PDF / Imprimir</button></div>
 </header>
-<section class="view active" id="builderView">
-<div class="progress-wrap">
-<div class="progress-meta"><span id="stepLabel">Paso 1 de 6</span><span id="progressPct">17%</span></div>
-<div class="progress-track"><div id="progressBar"></div></div>
-</div>
-<div class="workspace">
-<div class="form-panel card">
-<div class="step active" data-step="1">
-<div class="section-heading"><div><p class="eyebrow">CONTEXTO</p><h2>Información del proyecto</h2></div><span class="step-badge">01</span></div>
-<div class="grid two">
-<label>Nombre del proyecto<input id="projectName" placeholder="Ej. Plataforma logística"/></label>
-<label>Cliente<input id="clientName" placeholder="Empresa o contacto"/></label>
-<label>Perfil comercial<select id="profile"></select><small class="field-help">Ajusta tarifas, margen y benchmark automáticamente.</small></label><label>Tipo de solución<select id="projectType"></select></label>
-<label>Moneda<select id="currency"><option value="PEN">PEN — Soles</option><option value="USD">USD — Dólares</option></select></label>
-</div>
-<label>Descripción<textarea id="description" placeholder="Objetivo, usuarios y problema que resolverá..." rows="4"></textarea></label>
-</div>
-<div class="step" data-step="2">
-<div class="section-heading"><div><p class="eyebrow">ALCANCE</p><h2>Dimensión y complejidad</h2></div><span class="step-badge">02</span></div>
-<div class="choice-grid" id="complexityChoices"></div>
-<div class="grid three">
-<label>Pantallas / vistas<input id="screens" min="1" type="number" value="3"/></label>
-<label>Usuarios esperados<select id="users"><option value="1">1–5</option><option value="1.06">6–20</option><option value="1.13">21–100</option><option value="1.22">101–500</option><option value="1.35">500+</option></select></label>
-<label>Plataformas<select id="platforms"><option value="1">Web</option><option value="1.18">Web + PWA</option><option value="1.35">Android + iOS</option><option value="1.55">Web + Android + iOS</option></select></label>
-</div>
-<div class="grid two">
-<label>Diseño visual<select id="design"><option value="0">Plantilla adaptada</option><option value="16">Diseño personalizado</option><option value="32">Premium / sistema de diseño</option><option value="50">Alta fidelidad + prototipo UX</option></select></label>
-<label>Calidad requerida<select id="quality"><option value="1">MVP funcional</option><option value="1.15">Producción estándar</option><option value="1.32">Alta disponibilidad</option><option value="1.52">Misión crítica</option></select></label>
-</div>
-</div>
-<div class="step" data-step="3">
-<div class="section-heading"><div><p class="eyebrow">FUNCIONALIDAD</p><h2>Selecciona módulos</h2></div><span class="step-badge">03</span></div>
-<div class="toolbar"><input id="moduleSearch" placeholder="Buscar módulo..."/><span id="moduleCount">0 seleccionados</span></div>
-<div class="module-grid" id="moduleGrid"></div>
-</div>
-<div class="step" data-step="4">
-<div class="section-heading"><div><p class="eyebrow">TECNOLOGÍA</p><h2>Arquitectura e integraciones</h2></div><span class="step-badge">04</span></div>
-<div class="grid two">
-<label>Frontend<select id="frontend"></select></label>
-<label>Backend<select id="backend"></select></label>
-<label>Base de datos<select id="database"></select></label>
-<label>Infraestructura<select id="hosting"></select></label>
-</div>
-<h3 class="subheading">Integraciones</h3>
-<div class="module-grid compact" id="integrationGrid"></div>
-</div>
-<div class="step" data-step="5">
-<div class="section-heading"><div><p class="eyebrow">OPERACIÓN</p><h2>Riesgo, urgencia y soporte</h2></div><span class="step-badge">05</span></div>
-<div class="grid two">
-<label>Estado de requisitos<select id="requirements"><option value="1">Bien definidos</option><option value="1.08">Parcialmente definidos</option><option value="1.18">Exploratorios</option></select></label>
-<label>Urgencia<select id="urgency"><option value="1">Plazo flexible</option><option value="1.12">Prioritario</option><option value="1.25">Urgente</option><option value="1.42">Crítico</option></select></label>
-<label>Soporte incluido<select id="support"><option value="0">30 días</option><option value="16">3 meses</option><option value="36">6 meses</option><option value="70">12 meses</option></select></label>
-<label>Capacitación<select id="training"><option value="0">No incluida</option><option value="6">1 sesión</option><option value="14">Programa básico</option><option value="28">Programa empresarial</option></select></label>
-</div>
-<div class="range-card"><div><strong>Contingencia técnica</strong><span>Reserva por cambios, retrabajo e incertidumbre.</span></div><output id="contingencyOut">8%</output><input id="contingency" max="35" min="0" type="range" value="8"/></div>
-<div class="risk-list" id="riskList"></div>
-</div>
-<div class="step" data-step="6">
-<div class="section-heading"><div><p class="eyebrow">PROPUESTA</p><h2>Revisión final</h2></div><span class="step-badge">06</span></div>
-<div class="review-box" id="reviewBox"></div>
-<div class="scenario-tabs"><button class="scenario active" data-scenario="competitive">Competitivo</button><button class="scenario" data-scenario="recommended">Recomendado</button><button class="scenario" data-scenario="premium">Premium</button></div>
-<label>Notas comerciales<textarea id="commercialNotes" placeholder="Condiciones, exclusiones o acuerdos..." rows="5"></textarea></label>
-</div>
-<div class="step-actions">
-<button class="btn secondary" id="prevBtn">Anterior</button>
-<button class="btn primary" id="nextBtn">Continuar</button>
-</div>
-</div>
-<aside class="estimate-panel card">
-<div class="estimate-head"><div><p class="eyebrow">ESTIMACIÓN EN VIVO</p><h2 id="estimatePrice">S/ 0</h2></div><span class="confidence" id="confidence">Media</span></div>
-<div class="metric-grid">
-<div><span>Horas</span><strong id="totalHours">0 h</strong></div>
-<div><span>Duración</span><strong id="duration">0 sem.</strong></div>
-<div><span>Costo interno</span><strong id="internalCost">S/ 0</strong></div>
-<div><span>Utilidad</span><strong id="profit">S/ 0</strong></div>
-</div>
-<div class="breakdown">
-<div class="breakdown-title"><strong>Distribución del esfuerzo</strong><span id="marginLabel">Margen 0%</span></div>
-<div id="effortBars"></div>
-</div>
-<div class="price-range"><span>Rango razonable</span><strong id="priceRange">S/ 0 — S/ 0</strong></div>
-<div class="warning" id="marketSignal">Completa el alcance para comparar el precio con el mercado.</div>
-<button class="btn primary full" id="printBtn">Generar propuesta / PDF</button>
-</aside>
+<div class="layout">
+<main>
+<section class="card">
+<div class="section-title"><div><h2>Datos del proyecto</h2><p>Define el alcance comercial y técnico.</p></div><span class="tag">Motor v2</span></div>
+<div class="grid">
+<div class="field"><label>Nombre del proyecto</label><input id="projectName" value="Landing comercial" /></div>
+<div class="field"><label>Cliente</label><input id="clientName" placeholder="Nombre del cliente" /></div>
+<div class="field"><label>Tipo de producto</label><select id="projectType"></select></div>
+<div class="field"><label>Perfil comercial</label><select id="profile"></select></div>
+<div class="field"><label>Complejidad</label><select id="complexity"><option value="1">Básica</option><option value="1.18">Media</option><option value="1.45">Alta</option><option value="1.8">Empresarial</option></select></div>
+<div class="field"><label>Escenario de venta</label><select id="scenario"><option value="0.9">Competitivo</option><option value="1" selected>Recomendado</option><option value="1.22">Premium</option></select></div>
 </div>
 </section>
-<section class="view" id="historyView"><div class="content-card card"><div class="section-heading"><div><p class="eyebrow">REGISTROS</p><h2>Cotizaciones guardadas</h2></div><button class="btn secondary" id="exportHistoryBtn">Exportar JSON</button></div><div class="history-list" id="historyList"></div></div></section>
-<section class="view" id="catalogView"><div class="content-card card"><div class="section-heading"><div><p class="eyebrow">BASE DE CÁLCULO</p><h2>Catálogo de módulos</h2></div><span class="pill">Incluido en index.html</span></div><div class="catalog-table-wrap"><table><thead><tr><th>Módulo</th><th>Categoría</th><th>Horas base</th><th>Complejidad</th></tr></thead><tbody id="catalogBody"></tbody></table></div></div></section>
-<section class="view" id="settingsView"><div class="content-card card"><div class="section-heading"><div><p class="eyebrow">MOTOR FINANCIERO</p><h2>Configuración</h2></div><button class="btn secondary" id="defaultsBtn">Restaurar</button></div><div class="grid two settings-grid"><label>Costo interno por hora (PEN)<input id="costRate" type="number"/></label><label>Tarifa comercial base (PEN)<input id="sellRate" type="number"/></label><label>Margen objetivo (%)<input id="targetMargin" type="number"/></label><label>Horas productivas por semana<input id="weeklyHours" type="number"/></label><label>IGV (%)<input id="taxRate" type="number"/></label><label>Tipo de cambio referencial<input id="fxRate" step="0.01" type="number"/></label><label>Costos fijos asignados (%)<input id="overhead" type="number"/></label><label>Descuento máximo sugerido (%)<input id="maxDiscount" type="number"/></label></div><div class="note-box"><strong>Fórmula central</strong><p>Horas aditivas por alcance + ajustes moderados de tecnología, complejidad y riesgo = esfuerzo real. El perfil comercial define tarifas y benchmark sin forzar precios empresariales en proyectos sencillos.</p></div></div></section>
-</main>
+<section class="card">
+<div class="section-title"><div><h2>Dimensión y operación</h2><p>Los valores bajos ya no activan costos empresariales.</p></div></div>
+<div class="grid three">
+<div class="field"><label>Pantallas</label><div class="range-row"><input type="range" id="screens" min="1" max="50" value="1"><span class="pill" id="screensVal">1</span></div></div>
+<div class="field"><label>Usuarios estimados</label><select id="users"><option value="0">1–5</option><option value="3">6–20</option><option value="8">21–100</option><option value="18">101–500</option><option value="35">500+</option></select></div>
+<div class="field"><label>Plataformas</label><select id="platforms"><option value="1">Web responsive</option><option value="1.18">Web + PWA</option><option value="1.38">Web + Android/iOS</option><option value="1.65">Multiplataforma completa</option></select></div>
+<div class="field"><label>Urgencia</label><select id="urgency"><option value="1">Normal</option><option value="1.12">Prioritaria</option><option value="1.3">Urgente</option></select></div>
+<div class="field"><label>Contingencia</label><div class="range-row"><input type="range" id="contingency" min="0" max="25" value="8"><span class="pill" id="contingencyVal">8%</span></div></div>
+<div class="field"><label>IGV</label><select id="tax"><option value="0">No incluir</option><option value="0.18">Incluir 18%</option></select></div>
 </div>
-<div class="toast" id="toast"></div><div id="fatalError" style="display:none;position:fixed;inset:16px;z-index:99999;background:#181b2a;color:#fff;border:1px solid #ff6b6b;border-radius:18px;padding:20px;overflow:auto"><strong>No se pudo iniciar QuoteForge v1.3.0</strong><p id="fatalErrorText"></p></div>
-
+</section>
+<section class="card">
+<div class="section-title"><div><h2>Módulos</h2><p>Cada módulo suma horas concretas, sin multiplicadores descontrolados.</p></div><span class="pill" id="moduleCount">0 seleccionados</span></div>
+<div class="modules" id="modules"></div>
+</section>
+<section class="card">
+<div class="section-title"><div><h2>Configuración económica</h2><p>Ajusta el modelo sin tocar código.</p></div></div>
+<div class="grid three">
+<div class="field"><label>Costo interno / hora</label><input id="internalRate" type="number" min="1" value="18"></div>
+<div class="field"><label>Tarifa comercial / hora</label><input id="sellRate" type="number" min="1" value="42"></div>
+<div class="field"><label>Overhead operativo</label><input id="overhead" type="number" min="0" max="100" value="5"></div>
+<div class="field"><label>Horas por semana</label><input id="weeklyHours" type="number" min="1" value="30"></div>
+<div class="field"><label>Soporte incluido</label><select id="support"><option value="0">7 días</option><option value="3">30 días</option><option value="8">3 meses</option><option value="16">6 meses</option></select></div>
+<div class="field"><label>Moneda</label><select id="currency"><option value="S/">Soles (S/)</option><option value="$">Dólares ($)</option></select></div>
+</div>
+</section>
+<section class="card history no-print">
+<div class="section-title"><div><h2>Historial local</h2><p>Guardado solo en este dispositivo.</p></div><button class="btn ghost" id="clearHistory">Limpiar</button></div>
+<div id="historyList" class="muted">Aún no hay cotizaciones guardadas.</div>
+</section>
+</main>
+<aside>
+<section class="card summary">
+<div class="section-title"><div><h2>Resultado</h2><p id="confidenceText">Estimación de confianza alta</p></div><span class="tag" id="profileTag">Freelance</span></div>
+<div class="hero-price"><div class="label">Precio recomendado</div><div class="price" id="finalPrice">S/ 0</div><div class="range" id="priceRange">Rango: S/ 0 – S/ 0</div></div>
+<div class="metrics">
+<div class="metric"><span>Horas estimadas</span><strong id="hours">0 h</strong></div>
+<div class="metric"><span>Duración</span><strong id="weeks">0 sem</strong></div>
+<div class="metric"><span>Costo interno</span><strong id="internalCost">S/ 0</strong></div>
+<div class="metric"><span>Utilidad estimada</span><strong id="profit">S/ 0</strong></div>
+</div>
+<div class="breakdown">
+<div class="row"><span class="muted">Horas base</span><strong id="baseHours">0 h</strong></div>
+<div class="row"><span class="muted">Módulos</span><strong id="moduleHours">0 h</strong></div>
+<div class="row"><span class="muted">QA, gestión y despliegue</span><strong id="opsHours">0 h</strong></div>
+<div class="row"><span class="muted">Margen real</span><strong id="margin">0%</strong></div>
+<div class="row"><span class="muted">Complejidad</span><strong id="complexityLabel">Básica</strong></div>
+</div>
+<div style="margin-top:14px"><div class="muted" style="font-size:12px">Nivel de carga</div><div class="bar"><i id="loadBar"></i></div></div>
+<div style="margin-top:16px" class="muted" id="recommendation">Selecciona módulos para obtener una recomendación técnica.</div>
+</section>
+</aside>
+</div>
+<div class="footer">QuoteForge v2.0.0 · Cotizador profesional de software</div>
+</div>
 <script>
-const VERSION='1.3.0';
-const PROJECTS=[
- {id:'landing',name:'Landing page',base:12,min:450,max:1500},{id:'corporate',name:'Web corporativa',base:34,min:1400,max:4500},{id:'ecommerce',name:'E-commerce',base:90,min:4000,max:16000},{id:'webapp',name:'Plataforma web / SaaS',base:130,min:6500,max:32000},{id:'mobile',name:'Aplicación móvil',base:165,min:9000,max:45000},{id:'erp',name:'ERP / sistema empresarial',base:300,min:18000,max:100000},{id:'crm',name:'CRM',base:175,min:10000,max:50000},{id:'inventory',name:'Inventario / logística',base:135,min:7500,max:35000},{id:'automation',name:'Automatización',base:35,min:1800,max:14000},{id:'dashboard',name:'Dashboard / BI',base:55,min:2800,max:14000},{id:'api',name:'API / backend',base:70,min:3800,max:22000},{id:'ai',name:'IA / agente inteligente',base:115,min:6500,max:50000},{id:'custom',name:'Software a medida',base:110,min:6000,max:60000}
+const VERSION='2.0.0';
+const projectTypes=[
+ {id:'landing',name:'Landing page',base:10,min:450,max:1800},
+ {id:'corporate',name:'Web corporativa',base:22,min:1200,max:5000},
+ {id:'ecommerce',name:'Tienda online',base:48,min:3500,max:18000},
+ {id:'pwa',name:'PWA / App web',base:38,min:2800,max:16000},
+ {id:'mobile',name:'App móvil',base:65,min:6000,max:40000},
+ {id:'dashboard',name:'Dashboard',base:34,min:2500,max:15000},
+ {id:'automation',name:'Automatización',base:26,min:1500,max:12000},
+ {id:'inventory',name:'Inventario',base:70,min:6000,max:35000},
+ {id:'crm',name:'CRM',base:85,min:8000,max:50000},
+ {id:'erp',name:'ERP',base:140,min:15000,max:120000},
+ {id:'api',name:'API / Backend',base:45,min:3500,max:25000},
+ {id:'ai',name:'Solución con IA',base:80,min:7000,max:60000},
+ {id:'custom',name:'Software personalizado',base:55,min:4000,max:80000}
 ];
-const PROFILES={
- freelance:{name:'Freelance competitivo',costRate:18,sellRate:42,targetMargin:28,weeklyHours:30,overhead:5,effortFactor:1,benchmarkFactor:.92},
- studio:{name:'Estudio profesional',costRate:35,sellRate:72,targetMargin:38,weeklyHours:30,overhead:12,effortFactor:1.08,benchmarkFactor:1.55},
- factory:{name:'Software factory',costRate:55,sellRate:115,targetMargin:42,weeklyHours:32,overhead:18,effortFactor:1.18,benchmarkFactor:2.4}
+const profiles={
+ freelance:{name:'Freelance competitivo',internal:18,sell:42,overhead:5,factor:.92},
+ studio:{name:'Estudio profesional',internal:30,sell:68,overhead:12,factor:1.08},
+ factory:{name:'Software Factory',internal:48,sell:110,overhead:20,factor:1.25}
 };
-const COMPLEXITIES=[{id:'basic',name:'Básica',desc:'Flujos directos y pocas reglas',mult:1},{id:'medium',name:'Media',desc:'Roles, reportes y lógica moderada',mult:1.25},{id:'high',name:'Alta',desc:'Procesos críticos e integraciones',mult:1.55},{id:'enterprise',name:'Empresarial',desc:'Escala, auditoría y resiliencia',mult:1.95}];
-const MODULES=[
- ['auth','Login y recuperación','Acceso',12,'Baja'],['roles','Roles y permisos','Acceso',18,'Media'],['users','Gestión de usuarios','Acceso',16,'Media'],['dashboard','Dashboard ejecutivo','Analítica',24,'Media'],['reports','Reportes configurables','Analítica',30,'Alta'],['pdf','Generación de PDF','Documentos',12,'Media'],['excel','Excel / importación','Documentos',15,'Media'],['clients','Clientes','Comercial',18,'Media'],['quotes','Cotizaciones','Comercial',28,'Alta'],['sales','Ventas','Comercial',32,'Alta'],['purchases','Compras','Operación',30,'Alta'],['inventory','Inventario','Operación',45,'Alta'],['warehouse','Almacenes y ubicaciones','Operación',38,'Alta'],['pos','Punto de venta','Operación',42,'Alta'],['payments','Pagos y conciliación','Finanzas',40,'Alta'],['billing','Facturación electrónica','Finanzas',55,'Muy alta'],['subscriptions','Suscripciones','Finanzas',35,'Alta'],['workflow','Flujos y aprobaciones','Operación',36,'Alta'],['notifications','Notificaciones','Comunicación',14,'Media'],['chat','Chat en tiempo real','Comunicación',32,'Alta'],['email','Correos transaccionales','Comunicación',12,'Media'],['calendar','Calendario / agenda','Productividad',24,'Media'],['files','Archivos y documentos','Documentos',20,'Media'],['search','Búsqueda avanzada','UX',18,'Media'],['offline','Modo offline / sincronización','Plataforma',40,'Muy alta'],['scanner','Código de barras / QR','Dispositivo',25,'Alta'],['gps','GPS y geolocalización','Dispositivo',38,'Alta'],['maps','Mapas y rutas','Dispositivo',36,'Alta'],['signature','Firma digital','Documentos',28,'Alta'],['audit','Auditoría y logs','Seguridad',30,'Alta'],['2fa','Autenticación 2FA','Seguridad',18,'Alta'],['ai-assistant','Asistente IA','IA',50,'Muy alta'],['ai-analysis','Análisis predictivo','IA',75,'Muy alta'],['multitenant','Multiempresa / multitenant','Arquitectura',55,'Muy alta'],['admin','Panel administrador','Operación',30,'Alta'],['settings','Configuración general','Operación',14,'Media']
-].map(([id,name,category,hours,level])=>({id,name,category,hours,level}));
-const INTEGRATIONS=[['sheets','Google Sheets',12],['firebase','Firebase',18],['supabase','Supabase',18],['whatsapp','WhatsApp API',28],['openai','OpenAI / IA',32],['maps-api','Google Maps',24],['payment','Pasarela de pago',34],['sunat','SUNAT',48],['reniec','RENIEC',30],['erp-api','ERP externo',40],['email-api','Servicio de correo',12],['storage','Cloud storage',16]].map(([id,name,hours])=>({id,name,hours}));
-const TECH={frontend:[['html','HTML/CSS/JS',1],['react','React',1.08],['vue','Vue',1.07],['angular','Angular',1.18],['flutter','Flutter',1.2],['reactnative','React Native',1.2],['native','Nativo iOS/Android',1.38]],backend:[['none','Sin backend',.9],['appscript','Apps Script',.98],['node','Node.js',1.08],['python','Python',1.1],['php','PHP/Laravel',1.06],['java','Java/Spring',1.2],['dotnet','.NET',1.18]],database:[['none','Sin base de datos',.9],['firebase','Firebase / Firestore',1],['supabase','Supabase / PostgreSQL',1.02],['mysql','MySQL',1.04],['postgres','PostgreSQL',1.06],['sqlserver','SQL Server',1.14],['mongo','MongoDB',1.08]],hosting:[['github','GitHub Pages',1],['firebase','Firebase Hosting',1.01],['vercel','Vercel / Netlify',1.01],['cloud','Cloud administrado',1.08],['vps','VPS',1.1],['onprem','Servidor propio',1.2]]};
-const DEFAULT_SETTINGS={profile:'freelance',costRate:18,sellRate:42,targetMargin:28,weeklyHours:30,taxRate:18,fxRate:3.75,overhead:5,maxDiscount:10};
-let settings=JSON.parse(localStorage.getItem('qf_settings_v1_3')||'null')||{...DEFAULT_SETTINGS};
-let state={step:1,complexity:'basic',modules:[],integrations:[],scenario:'competitive'};
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const fmt=(n,currency=$('#currency')?.value||'PEN')=>new Intl.NumberFormat('es-PE',{style:'currency',currency,maximumFractionDigits:0}).format(currency==='USD'?n/settings.fxRate:n);
-function init(){populate();bind();loadSettings();calculate();renderCatalog();renderHistory();document.querySelectorAll('[data-app-version]').forEach(el=>el.textContent='v'+VERSION);if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>r.unregister())).catch(()=>{}); if('caches' in window){caches.keys().then(keys=>Promise.all(keys.map(k=>caches.delete(k)))).catch(()=>{});}}}
-function populate(){Object.entries(PROFILES).forEach(([id,p])=>$('#profile').add(new Option(p.name,id)));PROJECTS.forEach(p=>$('#projectType').add(new Option(p.name,p.id))); COMPLEXITIES.forEach(c=>$('#complexityChoices').insertAdjacentHTML('beforeend',`<button class="choice ${c.id===state.complexity?'active':''}" data-complexity="${c.id}"><strong>${c.name}</strong><span>${c.desc}</span></button>`));renderModules();renderIntegrations();Object.entries(TECH).forEach(([key,items])=>items.forEach(([id,name])=>$('#'+key).add(new Option(name,id))));}
-function renderModules(filter=''){const grid=$('#moduleGrid');grid.innerHTML='';MODULES.filter(m=>m.name.toLowerCase().includes(filter.toLowerCase())).forEach(m=>grid.insertAdjacentHTML('beforeend',`<label class="module-card ${state.modules.includes(m.id)?'selected':''}"><input type="checkbox" value="${m.id}" ${state.modules.includes(m.id)?'checked':''}><span><strong>${m.name}</strong><span>${m.category} · ${m.hours} h</span></span></label>`));bindChecks();updateModuleCount();}
-function renderIntegrations(){INTEGRATIONS.forEach(i=>$('#integrationGrid').insertAdjacentHTML('beforeend',`<label class="module-card"><input type="checkbox" value="${i.id}"><span><strong>${i.name}</strong><span>+${i.hours} h base</span></span></label>`));}
-function bindChecks(){$$('#moduleGrid input').forEach(input=>input.onchange=()=>{state.modules=input.checked?[...new Set([...state.modules,input.value])]:state.modules.filter(x=>x!==input.value);input.closest('.module-card').classList.toggle('selected',input.checked);updateModuleCount();calculate();});}
-function bind(){
- $$('.nav-btn').forEach(b=>b.onclick=()=>switchView(b.dataset.view)); $('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open'); $('#themeBtn').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('qf_theme',document.body.classList.contains('dark')?'dark':'light')}; if(localStorage.getItem('qf_theme')==='dark')document.body.classList.add('dark');
- $$('#complexityChoices .choice').forEach(b=>b.onclick=()=>{$$('#complexityChoices .choice').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.complexity=b.dataset.complexity;calculate();});
- $('#profile').onchange=e=>applyProfile(e.target.value,true);
- $('#moduleSearch').oninput=e=>renderModules(e.target.value); $('#integrationGrid').onchange=e=>{if(e.target.matches('input')){state.integrations=e.target.checked?[...new Set([...state.integrations,e.target.value])]:state.integrations.filter(x=>x!==e.target.value);e.target.closest('.module-card').classList.toggle('selected',e.target.checked);calculate();}};
- $$('input,select,textarea').forEach(el=>el.addEventListener('input',calculate)); $('#contingency').oninput=e=>{$('#contingencyOut').textContent=e.target.value+'%';calculate();};
- $('#nextBtn').onclick=()=>{if(state.step<6){state.step++;showStep()}else saveQuote()}; $('#prevBtn').onclick=()=>{if(state.step>1){state.step--;showStep()}}; $('#saveBtn').onclick=saveQuote; $('#resetBtn').onclick=resetForm; $('#printBtn').onclick=()=>window.print();
- $$('.scenario').forEach(b=>b.onclick=()=>{$$('.scenario').forEach(x=>x.classList.remove('active'));b.classList.add('active');state.scenario=b.dataset.scenario;calculate();});
- $('#exportHistoryBtn').onclick=exportHistory; $('#defaultsBtn').onclick=()=>{settings={...DEFAULT_SETTINGS};applyProfile('freelance');toast('Configuración restaurada')};
- ['costRate','sellRate','targetMargin','weeklyHours','taxRate','fxRate','overhead','maxDiscount'].forEach(id=>$('#'+id).oninput=()=>{settings[id]=Number($('#'+id).value);saveSettings();calculate();});
+const modules=[
+ ['responsive','Diseño responsive',3],['contact','Formulario de contacto',3],['whatsapp','WhatsApp',1],['seo','SEO básico',4],['analytics','Analítica',2],['cms','Panel administrable',18],
+ ['auth','Login y recuperación',10],['roles','Roles y permisos',12],['users','Gestión de usuarios',10],['clients','Clientes',10],['products','Productos',14],['inventory','Inventario',22],
+ ['quotes','Cotizaciones',18],['sales','Ventas',18],['purchases','Compras',18],['dashboard','Dashboard',14],['reports','Reportes',14],['pdf','PDF',7],['excel','Excel',6],
+ ['payments','Pasarela de pago',20],['notifications','Notificaciones',10],['offline','Modo offline',18],['scanner','Escáner de códigos',14],['maps','Mapas y GPS',22],['chat','Chat',20],
+ ['calendar','Agenda / calendario',12],['audit','Auditoría y logs',14],['api','API externa',12],['firebase','Firebase / Supabase',10],['ai','Asistente IA',32]
+];
+const $=id=>document.getElementById(id);const money=n=>`${$('currency').value} ${Math.round(n).toLocaleString('es-PE')}`;
+function init(){
+ $('projectType').innerHTML=projectTypes.map(x=>`<option value="${x.id}">${x.name}</option>`).join('');
+ $('profile').innerHTML=Object.entries(profiles).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join('');
+ $('modules').innerHTML=modules.map(([id,n,h])=>`<div class="module"><input type="checkbox" id="m_${id}" data-hours="${h}"><label for="m_${id}"><strong>${n}</strong><small>+${h} h</small></label></div>`).join('');
+ document.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',calculate));
+ $('profile').addEventListener('change',applyProfile);$('screens').addEventListener('input',()=>{$('screensVal').textContent=$('screens').value});
+ $('contingency').addEventListener('input',()=>{$('contingencyVal').textContent=$('contingency').value+'%'});
+ $('saveBtn').onclick=saveQuote;$('printBtn').onclick=()=>window.print();$('resetBtn').onclick=resetForm;$('clearHistory').onclick=()=>{localStorage.removeItem('qf_history_v2');renderHistory()};
+ applyProfile();renderHistory();calculate();
 }
-function switchView(view){$$('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===view));$$('.view').forEach(v=>v.classList.remove('active'));$('#'+view+'View').classList.add('active');const map={builder:['ESTIMACIÓN COMERCIAL','Nueva cotización'],history:['REGISTROS','Historial'],catalog:['BASE DE CÁLCULO','Catálogo'],settings:['MOTOR FINANCIERO','Configuración']};$('#viewEyebrow').textContent=map[view][0];$('#viewTitle').textContent=map[view][1];$('#sidebar').classList.remove('open');}
-function showStep(){$$('.step').forEach(s=>s.classList.toggle('active',Number(s.dataset.step)===state.step));$('#stepLabel').textContent=`Paso ${state.step} de 6`;$('#progressPct').textContent=Math.round(state.step/6*100)+'%';$('#progressBar').style.width=(state.step/6*100)+'%';$('#prevBtn').style.visibility=state.step===1?'hidden':'visible';$('#nextBtn').textContent=state.step===6?'Guardar cotización':'Continuar';window.scrollTo({top:0,behavior:'smooth'});calculate();}
-function val(id,fallback=0){return Number($('#'+id)?.value||fallback)}
+function applyProfile(){const p=profiles[$('profile').value];$('internalRate').value=p.internal;$('sellRate').value=p.sell;$('overhead').value=p.overhead;$('profileTag').textContent=p.name;calculate()}
 function calculate(){
- const project=PROJECTS.find(p=>p.id===$('#projectType').value)||PROJECTS[0], comp=COMPLEXITIES.find(c=>c.id===state.complexity)||COMPLEXITIES[0], profile=PROFILES[settings.profile]||PROFILES.freelance;
- const moduleHours=state.modules.reduce((a,id)=>a+(MODULES.find(m=>m.id===id)?.hours||0),0), integrationHours=state.integrations.reduce((a,id)=>a+(INTEGRATIONS.find(i=>i.id===id)?.hours||0),0);
- const screens=val('screens',3), includedScreens=project.id==='landing'?3:5, screenHours=Math.max(0,screens-includedScreens)*(project.id==='landing'?2.2:3.2);
- const extras=val('design')+val('support')+val('training');
- const raw=(project.base+moduleHours+integrationHours+screenHours+extras)*profile.effortFactor;
- const techValues=['frontend','backend','database','hosting'].map(k=>TECH[k].find(t=>t[0]===$('#'+k).value)?.[2]||1);
- const techMult=techValues.reduce((a,b)=>a+b,0)/techValues.length;
- const scopeMult=1+(comp.mult-1)*.72+(val('platforms',1)-1)*.70+(val('quality',1)-1)*.55;
- const riskMult=1+(val('requirements',1)-1)*.65+(val('urgency',1)-1)*.70;
- const userLoad=Math.max(0,val('users',1)-1)*0.10;
- const contingency=val('contingency',8)/100;
- let hours=(raw*techMult*scopeMult*(1+userLoad))*riskMult*(1+contingency);
- const overhead=settings.overhead/100;
- const internal=hours*settings.costRate*(1+overhead);
- const scenarioConfig={competitive:{marginDelta:-.07,rateMult:.92},recommended:{marginDelta:0,rateMult:1},premium:{marginDelta:.08,rateMult:1.16}}[state.scenario];
- const margin=Math.min(.7,Math.max(.12,settings.targetMargin/100+scenarioConfig.marginDelta));
- const floorPrice=internal/(1-margin);
- const ratePrice=hours*settings.sellRate*scenarioConfig.rateMult;
- const benchmarkMin=project.min*profile.benchmarkFactor*(.9+(comp.mult-1)*.45);
- const benchmarkMax=project.max*profile.benchmarkFactor*(.9+(comp.mult-1)*.55);
- let price=Math.max(floorPrice,ratePrice);
- // El benchmark orienta, pero no fuerza una landing sencilla a precio de agencia.
- price=Math.max(price,benchmarkMin*(state.scenario==='competitive'?.78:state.scenario==='recommended'?.95:1.12));
- const profit=price-internal, weeks=Math.max(.5,hours/settings.weeklyHours), lower=Math.max(floorPrice,price*.88), upper=Math.min(Math.max(price*1.18,lower),benchmarkMax*1.15);
- const risk=Math.round((comp.mult+val('requirements',1)+val('urgency',1)+val('platforms',1)-4)*24+contingency*100); const confidence=risk<22?'Alta':risk<50?'Media':'Baja';
- $('#estimatePrice').textContent=fmt(price);$('#totalHours').textContent=Math.round(hours)+' h';$('#duration').textContent=(weeks<10?weeks.toFixed(1):Math.round(weeks))+' sem.';$('#internalCost').textContent=fmt(internal);$('#profit').textContent=fmt(profit);$('#marginLabel').textContent='Margen '+Math.round(profit/price*100)+'%';$('#priceRange').textContent=`${fmt(lower)} — ${fmt(upper)}`;$('#confidence').textContent=confidence;
- renderEffort(project.base,moduleHours,integrationHours,screenHours+extras,hours); renderRisks(comp); renderReview({project,comp,hours,weeks,price,internal,profit});
- const signal=price<benchmarkMin?'Precio de entrada competitivo para este perfil.':price>benchmarkMax?'Precio alto: valida valor diferencial, alcance y comprador objetivo.':'Precio alineado con el perfil '+profile.name.toLowerCase()+'.';$('#marketSignal').textContent=signal;
- state.last={project,comp,profile:settings.profile,hours,weeks,price,internal,profit,lower,upper,benchmarkMin,benchmarkMax};
+ const type=projectTypes.find(x=>x.id===$('projectType').value)||projectTypes[0];const p=profiles[$('profile').value];
+ const selected=[...document.querySelectorAll('.module input:checked')];const mHours=selected.reduce((s,x)=>s+Number(x.dataset.hours),0);$('moduleCount').textContent=`${selected.length} seleccionados`;
+ const screens=Math.max(1,Number($('screens').value));const extraScreens=Math.max(0,screens-1)*1.4;const userHours=Number($('users').value);const support=Number($('support').value);
+ const raw=(type.base+extraScreens+mHours+userHours+support)*Number($('complexity').value)*Number($('platforms').value)*Number($('urgency').value)*p.factor;
+ const ops=Math.max(4,raw*.12);const totalHours=Math.round(raw+ops);const contingency=Number($('contingency').value)/100;const sellRate=Number($('sellRate').value);const internalRate=Number($('internalRate').value);const overhead=Number($('overhead').value)/100;
+ const internal=totalHours*internalRate*(1+overhead);const commercial=totalHours*sellRate*(1+contingency)*Number($('scenario').value);const floor=Math.max(type.min,commercial*.88);const ceiling=Math.min(type.max,Math.max(commercial*1.18,floor*1.12));const benchmarked=Math.min(type.max,Math.max(floor,commercial));const tax=Number($('tax').value);const final=benchmarked*(1+tax);const profit=final-internal;const margin=final?profit/final*100:0;
+ $('finalPrice').textContent=money(final);$('priceRange').textContent=`Rango: ${money(floor*(1+tax))} – ${money(ceiling*(1+tax))}`;$('hours').textContent=totalHours+' h';$('weeks').textContent=(totalHours/Number($('weeklyHours').value)).toFixed(1)+' sem';$('internalCost').textContent=money(internal);$('profit').textContent=money(profit);$('baseHours').textContent=Math.round(type.base+extraScreens+userHours+support)+' h';$('moduleHours').textContent=mHours+' h';$('opsHours').textContent=Math.round(ops)+' h';$('margin').textContent=Math.round(margin)+'%';$('complexityLabel').textContent=$('complexity').selectedOptions[0].text;$('loadBar').style.width=Math.min(100,totalHours/2.5)+'%';
+ $('confidenceText').textContent=selected.length<2?'Estimación preliminar':'Estimación de confianza alta';
+ $('recommendation').textContent=totalHours<25?'Producto de entrada ideal para captar clientes y construir portafolio.':totalHours<80?'Proyecto comercial viable para una entrega por fases.':'Conviene dividir el proyecto en MVP y fases posteriores.';
+ window.currentQuote={version:VERSION,name:$('projectName').value||type.name,client:$('clientName').value,total:Math.round(final),hours:totalHours,date:new Date().toISOString()};
 }
-function renderEffort(base,mods,ints,extras,total){const arr=[['Base',base],['Módulos',mods],['Integraciones',ints],['Diseño y soporte',extras]];const sum=arr.reduce((a,x)=>a+x[1],0)||1;$('#effortBars').innerHTML=arr.map(([n,v])=>`<div class="effort-row"><div class="effort-meta"><span>${n}</span><span>${Math.round(v)} h</span></div><div class="effort-track"><div style="width:${Math.max(3,v/sum*100)}%"></div></div></div>`).join('');}
-function renderRisks(comp){const risks=[['Complejidad',comp.name],['Requisitos',$('#requirements').selectedOptions[0].text],['Urgencia',$('#urgency').selectedOptions[0].text],['Contingencia',$('#contingency').value+'%']];$('#riskList').innerHTML=risks.map(x=>`<div class="risk-item"><span>${x[0]}</span><strong>${x[1]}</strong></div>`).join('');}
-function renderReview(x){$('#reviewBox').innerHTML=[['Proyecto',$('#projectName').value||'Sin nombre'],['Tipo',x.project.name],['Complejidad',x.comp.name],['Módulos',state.modules.length],['Esfuerzo',Math.round(x.hours)+' horas'],['Duración',x.weeks.toFixed(1)+' semanas'],['Precio sugerido',fmt(x.price)],['Utilidad estimada',fmt(x.profit)]].map(([a,b])=>`<div class="review-item"><span>${a}</span><strong>${b}</strong></div>`).join('');}
-function updateModuleCount(){$('#moduleCount').textContent=state.modules.length+' seleccionados'}
-function collect(){return{version:VERSION,id:crypto.randomUUID?.()||Date.now().toString(),createdAt:new Date().toISOString(),name:$('#projectName').value||'Proyecto sin nombre',client:$('#clientName').value||'Sin cliente',description:$('#description').value,projectType:$('#projectType').value,currency:$('#currency').value,complexity:state.complexity,screens:val('screens'),users:$('#users').value,platforms:$('#platforms').value,design:$('#design').value,quality:$('#quality').value,modules:state.modules,integrations:state.integrations,frontend:$('#frontend').value,backend:$('#backend').value,database:$('#database').value,hosting:$('#hosting').value,requirements:$('#requirements').value,urgency:$('#urgency').value,support:$('#support').value,training:$('#training').value,contingency:$('#contingency').value,scenario:state.scenario,notes:$('#commercialNotes').value,result:state.last};}
-function saveQuote(){const q=collect(),history=JSON.parse(localStorage.getItem('qf_quotes')||'[]');history.unshift(q);localStorage.setItem('qf_quotes',JSON.stringify(history.slice(0,100)));renderHistory();toast('Cotización guardada correctamente');}
-function renderHistory(){const list=$('#historyList');if(!list)return;const h=JSON.parse(localStorage.getItem('qf_quotes')||'[]');list.innerHTML=h.length?h.map(q=>`<article class="history-item"><div><strong>${q.name}</strong><p>${q.client} · ${new Date(q.createdAt).toLocaleDateString('es-PE')} · ${PROJECTS.find(p=>p.id===q.projectType)?.name||''}</p></div><div class="history-item-actions"><strong>${fmt(q.result?.price||0,q.currency)}</strong><button class="btn secondary" onclick="deleteQuote('${q.id}')">Eliminar</button></div></article>`).join(''):'<div class="note-box">Aún no hay cotizaciones guardadas.</div>';}
-window.deleteQuote=id=>{const h=JSON.parse(localStorage.getItem('qf_quotes')||'[]').filter(q=>q.id!==id);localStorage.setItem('qf_quotes',JSON.stringify(h));renderHistory();toast('Cotización eliminada')};
-function exportHistory(){const data=localStorage.getItem('qf_quotes')||'[]',blob=new Blob([data],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='quoteforge-cotizaciones.json';a.click();URL.revokeObjectURL(a.href);}
-function renderCatalog(){$('#catalogBody').innerHTML=MODULES.map(m=>`<tr><td>${m.name}</td><td>${m.category}</td><td>${m.hours} h</td><td>${m.level}</td></tr>`).join('');}
-function applyProfile(id,notify=false){const p=PROFILES[id]||PROFILES.freelance;settings.profile=id;settings.costRate=p.costRate;settings.sellRate=p.sellRate;settings.targetMargin=p.targetMargin;settings.weeklyHours=p.weeklyHours;settings.overhead=p.overhead;loadSettings();saveSettings();calculate();if(notify)toast('Perfil '+p.name+' aplicado');}
-function loadSettings(){if($('#profile'))$('#profile').value=settings.profile||'freelance';Object.keys(DEFAULT_SETTINGS).filter(k=>k!=='profile').forEach(k=>$('#'+k).value=settings[k]);}
-function saveSettings(){localStorage.setItem('qf_settings_v1_3',JSON.stringify(settings));}
-function resetForm(){if(!confirm('¿Reiniciar la cotización actual?'))return;document.querySelectorAll('input[type="text"],textarea').forEach(x=>x.value='');document.querySelectorAll('input[type="checkbox"]').forEach(x=>{x.checked=false;x.closest('.module-card')?.classList.remove('selected')});state={step:1,complexity:'basic',modules:[],integrations:[],scenario:'competitive'};$('#screens').value=3;$('#contingency').value=8;$('#contingencyOut').textContent='8%';$$('.choice').forEach(x=>x.classList.toggle('active',x.dataset.complexity==='basic'));$$('.scenario').forEach(x=>x.classList.toggle('active',x.dataset.scenario==='competitive'));showStep();updateModuleCount();toast('Formulario reiniciado');}
-function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+function saveQuote(){calculate();const h=JSON.parse(localStorage.getItem('qf_history_v2')||'[]');h.unshift(window.currentQuote);localStorage.setItem('qf_history_v2',JSON.stringify(h.slice(0,20)));renderHistory();alert('Cotización guardada en este dispositivo.');}
+function renderHistory(){const h=JSON.parse(localStorage.getItem('qf_history_v2')||'[]');$('historyList').innerHTML=h.length?h.map((q,i)=>`<div class="history-item"><div><h4>${q.name}</h4><small>${q.client||'Sin cliente'} · ${new Date(q.date).toLocaleDateString('es-PE')} · ${q.hours} h</small></div><strong>${$('currency').value} ${Number(q.total).toLocaleString('es-PE')}</strong></div>`).join(''):'Aún no hay cotizaciones guardadas.'}
+function resetForm(){if(!confirm('¿Crear una cotización nueva?'))return;document.querySelectorAll('.module input').forEach(x=>x.checked=false);$('projectName').value='Landing comercial';$('clientName').value='';$('projectType').value='landing';$('profile').value='freelance';$('complexity').value='1';$('scenario').value='1';$('screens').value='1';$('screensVal').textContent='1';$('users').value='0';$('platforms').value='1';$('urgency').value='1';$('contingency').value='8';$('contingencyVal').textContent='8%';$('tax').value='0';applyProfile();calculate();}
 init();
-
 </script>
 </body>
 </html>
