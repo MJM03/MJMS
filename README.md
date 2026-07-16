@@ -1,10 +1,8 @@
-# QuoteForge v1.2.0
+# QuoteForge v1.3.0
 
-Cotizador de software listo para GitHub Pages.
+Versión de archivo único para GitHub Pages.
 
-## Actualización importante
-Esta versión usa archivos versionados y un Service Worker nuevo para evitar que el navegador conserve la versión anterior.
+Sube `index.html`, `manifest.webmanifest` e `icon.svg` a la raíz del repositorio.
+Elimina los archivos antiguos `app*.js`, `styles*.css` y `sw*.js`.
 
-Sube todos los archivos a la raíz del repositorio, reemplazando los anteriores. Es recomendable eliminar también `app.js`, `styles.css` y `sw.js` antiguos del repositorio.
-
-La versión visible dentro de la aplicación debe mostrar **v1.2.0**.
+Esta versión no instala Service Worker para evitar caché persistente durante las pruebas.
