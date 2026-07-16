@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#0b1020" />
-<title>QuoteForge v2.1.0</title>
+<title>QuoteForge v2.2.0</title>
 <style>
 :root{--bg:#0b1020;--panel:#121a2f;--panel2:#18223d;--text:#f7f9ff;--muted:#9ba8c7;--line:#283554;--accent:#6ea8fe;--ok:#66d49b;--warn:#ffcc66;--danger:#ff7a90;--shadow:0 18px 50px rgba(0,0,0,.28);--radius:22px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(160deg,#08101f,#0f1730 45%,#0b1020);color:var(--text);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
@@ -16,7 +16,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 </style>
 </head>
 <body>
-<div class="build-badge">QUOTEFORGE v2.1.0 · BUILD NUEVO</div>
+<div class="build-badge">QUOTEFORGE v2.2.0 · HISTORIAL + PDF PRO</div>
 <script>
 // Limpieza defensiva de versiones antiguas.
 (async()=>{
@@ -34,13 +34,13 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 </script>
 <div class="app">
 <header class="topbar">
-  <div class="brand"><div class="logo">QF</div><div><h1>QuoteForge</h1><div class="version">Cotizador profesional de software · versión 2.1.0</div></div></div>
+  <div class="brand"><div class="logo">QF</div><div><h1>QuoteForge</h1><div class="version">Cotizador profesional de software · versión 2.2.0</div></div></div>
   <div class="actions"><button class="btn" id="resetBtn">Nueva</button><button class="btn" id="saveBtn">Guardar</button><button class="btn primary" id="printBtn">PDF / Imprimir</button></div>
 </header>
 <div class="layout">
 <main>
 <section class="card">
-<div class="section-title"><div><h2>Datos del proyecto</h2><p>Define el alcance comercial y técnico.</p></div><span class="tag">Motor v2.1</span></div>
+<div class="section-title"><div><h2>Datos del proyecto</h2><p>Define el alcance comercial y técnico.</p></div><span class="tag">Motor v2.2</span></div>
 <div class="grid">
 <div class="field"><label>Nombre del proyecto</label><input id="projectName" value="Landing comercial" /></div>
 <div class="field"><label>Cliente</label><input id="clientName" placeholder="Nombre del cliente" /></div>
@@ -103,10 +103,10 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1
 </section>
 </aside>
 </div>
-<div class="footer">QuoteForge v2.1.0 · Cotizador profesional de software</div>
+<div class="footer">QuoteForge v2.2.0 · Cotizador profesional de software</div>
 </div>
 <script>
-const VERSION='2.1.0';
+const VERSION='2.2.0';
 const projectTypes=[
  {id:'landing',name:'Landing page',base:10,min:450,max:1800},
  {id:'corporate',name:'Web corporativa',base:22,min:1200,max:5000},
@@ -142,7 +142,7 @@ function init(){
  document.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',calculate));
  $('profile').addEventListener('change',applyProfile);$('screens').addEventListener('input',()=>{$('screensVal').textContent=$('screens').value});
  $('contingency').addEventListener('input',()=>{$('contingencyVal').textContent=$('contingency').value+'%'});
- $('saveBtn').onclick=saveQuote;$('printBtn').onclick=()=>window.print();$('resetBtn').onclick=resetForm;$('clearHistory').onclick=()=>{localStorage.removeItem('qf_history_v2');renderHistory()};
+ $('saveBtn').onclick=saveQuote;$('printBtn').onclick=generateProposal;$('resetBtn').onclick=resetForm;$('clearHistory').onclick=()=>{if(confirm('¿Eliminar todo el historial?')){localStorage.removeItem('qf_history_v2');renderHistory()}};
  applyProfile();renderHistory();calculate();
 }
 function applyProfile(){const p=profiles[$('profile').value];$('internalRate').value=p.internal;$('sellRate').value=p.sell;$('overhead').value=p.overhead;$('profileTag').textContent=p.name;calculate()}
@@ -156,10 +156,17 @@ function calculate(){
  $('finalPrice').textContent=money(final);$('priceRange').textContent=`Rango: ${money(floor*(1+tax))} – ${money(ceiling*(1+tax))}`;$('hours').textContent=totalHours+' h';$('weeks').textContent=(totalHours/Number($('weeklyHours').value)).toFixed(1)+' sem';$('internalCost').textContent=money(internal);$('profit').textContent=money(profit);$('baseHours').textContent=Math.round(type.base+extraScreens+userHours+support)+' h';$('moduleHours').textContent=mHours+' h';$('opsHours').textContent=Math.round(ops)+' h';$('margin').textContent=Math.round(margin)+'%';$('complexityLabel').textContent=$('complexity').selectedOptions[0].text;$('loadBar').style.width=Math.min(100,totalHours/2.5)+'%';
  $('confidenceText').textContent=selected.length<2?'Estimación preliminar':'Estimación de confianza alta';
  $('recommendation').textContent=totalHours<25?'Producto de entrada ideal para captar clientes y construir portafolio.':totalHours<80?'Proyecto comercial viable para una entrega por fases.':'Conviene dividir el proyecto en MVP y fases posteriores.';
- window.currentQuote={version:VERSION,name:$('projectName').value||type.name,client:$('clientName').value,total:Math.round(final),hours:totalHours,date:new Date().toISOString()};
+ window.currentQuote={id:window.currentQuote?.id||String(Date.now()),version:VERSION,name:$('projectName').value||type.name,client:$('clientName').value,projectType:type.id,projectTypeName:type.name,profile:$('profile').value,profileName:p.name,complexity:$('complexity').value,complexityName:$('complexity').selectedOptions[0].text,scenario:$('scenario').value,scenarioName:$('scenario').selectedOptions[0].text,screens:Number($('screens').value),users:$('users').value,platforms:$('platforms').value,urgency:$('urgency').value,contingency:Number($('contingency').value),tax:$('tax').value,support:$('support').value,currency:$('currency').value,internalRate:Number($('internalRate').value),sellRate:Number($('sellRate').value),overhead:Number($('overhead').value),weeklyHours:Number($('weeklyHours').value),modules:selected.map(x=>x.id.replace('m_','')),total:Math.round(final),subtotal:Math.round(benchmarked),taxAmount:Math.round(final-benchmarked),hours:totalHours,weeks:(totalHours/Number($('weeklyHours').value)).toFixed(1),internal:Math.round(internal),profit:Math.round(profit),margin:Math.round(margin),rangeMin:Math.round(floor*(1+tax)),rangeMax:Math.round(ceiling*(1+tax)),date:new Date().toISOString()};
 }
-function saveQuote(){calculate();const h=JSON.parse(localStorage.getItem('qf_history_v2')||'[]');h.unshift(window.currentQuote);localStorage.setItem('qf_history_v2',JSON.stringify(h.slice(0,20)));renderHistory();alert('Cotización guardada en este dispositivo.');}
-function renderHistory(){const h=JSON.parse(localStorage.getItem('qf_history_v2')||'[]');$('historyList').innerHTML=h.length?h.map((q,i)=>`<div class="history-item"><div><h4>${q.name}</h4><small>${q.client||'Sin cliente'} · ${new Date(q.date).toLocaleDateString('es-PE')} · ${q.hours} h</small></div><strong>${$('currency').value} ${Number(q.total).toLocaleString('es-PE')}</strong></div>`).join(''):'Aún no hay cotizaciones guardadas.'}
+function readHistory(){try{const keys=['qf_history_v2','qf_history_v1','qf_history'];for(const k of keys){const v=JSON.parse(localStorage.getItem(k)||'[]');if(Array.isArray(v)&&v.length)return v}return[]}catch(e){return[]}}
+function writeHistory(h){localStorage.setItem('qf_history_v2',JSON.stringify(h))}
+function saveQuote(){calculate();const h=readHistory();const q={...window.currentQuote,id:window.currentQuote.id||String(Date.now()),date:new Date().toISOString()};const i=h.findIndex(x=>x.id===q.id);if(i>=0)h[i]=q;else h.unshift(q);writeHistory(h.slice(0,50));renderHistory();alert('Cotización guardada. Ya puedes abrirla desde el historial.');}
+function renderHistory(){const h=readHistory();$('historyList').innerHTML=h.length?h.map(q=>`<div class="history-item"><div><h4>${escapeHtml(q.name||'Sin nombre')}</h4><small>${escapeHtml(q.client||'Sin cliente')} · ${new Date(q.date).toLocaleDateString('es-PE')} · ${q.hours||0} h</small><div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:9px"><button class="btn" onclick="openQuote('${q.id}')">Abrir</button><button class="btn" onclick="proposalFromHistory('${q.id}')">PDF</button><button class="btn" onclick="deleteQuote('${q.id}')">Eliminar</button></div></div><strong>${q.currency||'S/'} ${Number(q.total||0).toLocaleString('es-PE')}</strong></div>`).join(''):'Aún no hay cotizaciones guardadas.'}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function openQuote(id){const q=readHistory().find(x=>String(x.id)===String(id));if(!q)return alert('No se encontró la cotización.');window.currentQuote={...q};$('projectName').value=q.name||'';$('clientName').value=q.client||'';$('projectType').value=q.projectType||'landing';$('profile').value=q.profile||'freelance';$('complexity').value=String(q.complexity||1);$('scenario').value=String(q.scenario||1);$('screens').value=q.screens||1;$('screensVal').textContent=$('screens').value;$('users').value=String(q.users??0);$('platforms').value=String(q.platforms||1);$('urgency').value=String(q.urgency||1);$('contingency').value=q.contingency??8;$('contingencyVal').textContent=$('contingency').value+'%';$('tax').value=String(q.tax||0);$('support').value=String(q.support||0);$('currency').value=q.currency||'S/';$('internalRate').value=q.internalRate||18;$('sellRate').value=q.sellRate||42;$('overhead').value=q.overhead??5;$('weeklyHours').value=q.weeklyHours||30;document.querySelectorAll('.module input').forEach(x=>x.checked=(q.modules||[]).includes(x.id.replace('m_','')));$('profileTag').textContent=profiles[$('profile').value].name;calculate();scrollTo({top:0,behavior:'smooth'});}
+function deleteQuote(id){if(!confirm('¿Eliminar esta cotización?'))return;writeHistory(readHistory().filter(x=>String(x.id)!==String(id)));renderHistory()}
+function proposalFromHistory(id){const q=readHistory().find(x=>String(x.id)===String(id));if(q)generateProposal(q)}
+function generateProposal(source){calculate();const q=source&&source.id?source:window.currentQuote;const selected=(q.modules||[]).map(id=>modules.find(m=>m[0]===id)).filter(Boolean);const rows=selected.length?selected.map(m=>`<tr><td>${escapeHtml(m[1])}</td><td>${m[2]} h</td></tr>`).join(''):'<tr><td>Alcance base del producto</td><td>Incluido</td></tr>';const issued=new Date().toLocaleDateString('es-PE');const html=`<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Propuesta ${escapeHtml(q.name)}</title><style>@page{size:A4;margin:18mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#172033;margin:0;line-height:1.5;font-size:11.5pt}header{display:flex;justify-content:space-between;border-bottom:3px solid #6d63f6;padding-bottom:16px;margin-bottom:24px}.brand{font-size:24px;font-weight:800}.brand small{display:block;font-size:9pt;color:#687086;font-weight:400}.doc{text-align:right;color:#687086}.doc strong{display:block;color:#172033;font-size:14pt}h1{font-size:25pt;margin:0 0 5px}h2{font-size:14pt;border-bottom:1px solid #d9deea;padding-bottom:6px;margin:24px 0 12px}.lead{color:#4e586d;font-size:12.5pt}.info{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:22px 0}.box{border:1px solid #d9deea;background:#f7f8fb;border-radius:10px;padding:11px}.box span{display:block;font-size:8pt;text-transform:uppercase;color:#7a8294}.price{background:#172033;color:white;border-radius:14px;padding:20px;margin:18px 0}.price b{display:block;font-size:29pt}.price small{color:#cbd2e3}table{width:100%;border-collapse:collapse}th,td{padding:9px;border-bottom:1px solid #e2e6ef;text-align:left}th{background:#f2f4f8}th:last-child,td:last-child{text-align:right}.totals{width:55%;margin-left:auto}.totals div{display:flex;justify-content:space-between;padding:5px 0}.grand{border-top:2px solid #172033;font-size:14pt;font-weight:800}.sign{display:grid;grid-template-columns:1fr 1fr;gap:45px;margin-top:55px}.line{border-top:1px solid #687086;text-align:center;padding-top:7px;color:#687086}.print{position:fixed;right:16px;top:16px;background:#6d63f6;color:white;border:0;border-radius:8px;padding:10px 14px;font-weight:bold}@media print{.print{display:none}}</style></head><body><button class="print" onclick="window.print()">Guardar como PDF</button><header><div class="brand">QuoteForge<small>Propuesta comercial de desarrollo de software</small></div><div class="doc"><strong>PROPUESTA</strong>${issued}<br>Versión ${escapeHtml(q.version||VERSION)}</div></header><h1>${escapeHtml(q.name)}</h1><div class="lead">Propuesta preparada para <strong>${escapeHtml(q.client||'el cliente')}</strong>.</div><div class="info"><div class="box"><span>Tipo de solución</span><strong>${escapeHtml(q.projectTypeName||'Software')}</strong></div><div class="box"><span>Perfil</span><strong>${escapeHtml(q.profileName||'Freelance')}</strong></div><div class="box"><span>Complejidad</span><strong>${escapeHtml(q.complexityName||'Básica')}</strong></div><div class="box"><span>Plazo estimado</span><strong>${q.weeks||'-'} semanas · ${q.hours||0} h</strong></div></div><h2>Alcance funcional</h2><table><thead><tr><th>Componente</th><th>Estimación</th></tr></thead><tbody>${rows}</tbody></table><h2>Inversión</h2><div class="price"><span>Inversión total propuesta</span><b>${q.currency||'S/'} ${Number(q.total||0).toLocaleString('es-PE')}</b><small>Rango técnico: ${q.currency||'S/'} ${Number(q.rangeMin||q.total||0).toLocaleString('es-PE')} – ${q.currency||'S/'} ${Number(q.rangeMax||q.total||0).toLocaleString('es-PE')}</small></div><div class="totals"><div><span>Subtotal</span><strong>${q.currency||'S/'} ${Number(q.subtotal||q.total||0).toLocaleString('es-PE')}</strong></div>${q.taxAmount?`<div><span>IGV</span><strong>${q.currency||'S/'} ${Number(q.taxAmount).toLocaleString('es-PE')}</strong></div>`:''}<div class="grand"><span>Total</span><span>${q.currency||'S/'} ${Number(q.total||0).toLocaleString('es-PE')}</span></div></div><h2>Condiciones comerciales</h2><ul><li>50% al inicio, 30% con avance funcional y 20% contra entrega.</li><li>Cambios fuera del alcance se cotizan por separado.</li><li>Vigencia de la propuesta: 15 días calendario.</li></ul><div class="sign"><div class="line">Proveedor / Responsable</div><div class="line">Cliente / Aprobación</div></div></body></html>`;const w=window.open('','_blank');if(!w)return alert('Safari bloqueó la ventana. Activa las ventanas emergentes.');w.document.write(html);w.document.close()}
 function resetForm(){if(!confirm('¿Crear una cotización nueva?'))return;document.querySelectorAll('.module input').forEach(x=>x.checked=false);$('projectName').value='Landing comercial';$('clientName').value='';$('projectType').value='landing';$('profile').value='freelance';$('complexity').value='1';$('scenario').value='1';$('screens').value='1';$('screensVal').textContent='1';$('users').value='0';$('platforms').value='1';$('urgency').value='1';$('contingency').value='8';$('contingencyVal').textContent='8%';$('tax').value='0';applyProfile();calculate();}
 init();
 </script>
