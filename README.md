@@ -1,4 +1,4 @@
-# MJM Solutions QuoteOS v5.0.0
+# MJM Solutions QuoteOS v5.1.0
 
 Archivos planos para GitHub Pages.
 
@@ -22,6 +22,12 @@ Elimina archivos antiguos `sw.js` o `service-worker.js` para evitar caché de ve
 - Historial local.
 - Propuesta comercial imprimible/PDF.
 - Logo inicial MJM Solutions.
-- Versión visible v5.0.0.
+- Versión visible v5.1.0.
 
 Los precios son referencias configurables y deben validarse antes de presentar una propuesta definitiva.
+
+
+## v5.1.0
+- Sistemas de escritorio, POS y multiusuario.
+- Diagnóstico guiado por puntuación y múltiples señales.
+- Explicación, confianza y alternativas evaluadas.
