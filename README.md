@@ -1,4 +1,4 @@
-# MJM Solutions QuoteOS v5.2.0
+# MJM Solutions QuoteOS v5.2.1
 
 Versión Dynamic Architect Edition, lista para GitHub Pages y con archivos planos.
 
@@ -13,7 +13,7 @@ Versión Dynamic Architect Edition, lista para GitHub Pages y con archivos plano
 - Riesgos y preguntas técnicas pendientes.
 - Costos de terceros adaptados al proyecto.
 - Propuesta comercial usa los pasos dinámicos de la solución activa.
-- Versión visible: v5.2.0.
+- Versión visible: v5.2.1.
 
 ## Publicación
 Sube directamente a la raíz:
@@ -26,3 +26,6 @@ Sube directamente a la raíz:
 - README.md
 
 Elimina `sw.js` o `service-worker.js` antiguos para evitar caché.
+
+
+Esta compilación corrige la etiqueta estática del menú y agrega cache-busting a CSS/JS.

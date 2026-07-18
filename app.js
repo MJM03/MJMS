@@ -1,5 +1,5 @@
 
-const V='5.2.0',QKEY='mjm_quoteos_quotes_v5',SKEY='mjm_quoteos_settings_v5';
+const V='5.2.1',QKEY='mjm_quoteos_quotes_v5',SKEY='mjm_quoteos_settings_v5';
 const $=s=>document.querySelector(s), money=(n,c='PEN')=>new Intl.NumberFormat('es-PE',{style:'currency',currency:c,maximumFractionDigits:0}).format(n||0);
 const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
