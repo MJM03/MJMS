@@ -1,27 +1,28 @@
-# MJM Solutions QuoteOS v5.0.0
+# MJM Solutions QuoteOS v5.2.0
 
-Archivos planos para GitHub Pages.
+Versión Dynamic Architect Edition, lista para GitHub Pages y con archivos planos.
 
-## Subida
-Sube todos estos archivos directamente a la raíz del repositorio:
+## Cambios principales
+- Ruta de implementación 100% dinámica.
+- Arquitectura distinta para web, móvil, escritorio, POS, ERP, CRM, inventario e IA.
+- Ajustes automáticos por offline, escáner, impresión, APIs, mapas, multiempresa e IA.
+- Nuevo módulo Arquitecto de Software.
+- Mapa visual del proyecto.
+- Explicación de por qué se recomienda cada tecnología.
+- Comparador de alternativas.
+- Riesgos y preguntas técnicas pendientes.
+- Costos de terceros adaptados al proyecto.
+- Propuesta comercial usa los pasos dinámicos de la solución activa.
+- Versión visible: v5.2.0.
+
+## Publicación
+Sube directamente a la raíz:
 - index.html
 - styles.css
 - app.js
 - logo.svg
 - icon.svg
 - manifest.webmanifest
+- README.md
 
-Elimina archivos antiguos `sw.js` o `service-worker.js` para evitar caché de versiones anteriores.
-
-## Incluye
-- Cotizador competitivo Perú e internacional.
-- Perfiles Portafolio, Consultora junior y Estudio.
-- Consultor guiado.
-- Ruta de implementación.
-- Costos de terceros.
-- Historial local.
-- Propuesta comercial imprimible/PDF.
-- Logo inicial MJM Solutions.
-- Versión visible v5.0.0.
-
-Los precios son referencias configurables y deben validarse antes de presentar una propuesta definitiva.
+Elimina `sw.js` o `service-worker.js` antiguos para evitar caché.
