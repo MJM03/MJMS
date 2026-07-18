@@ -3,244 +3,32 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="Cotizador profesional de software, CRM y propuestas comerciales.">
-  <title>QuoteForge Ultimate v4.0.0</title>
+  <meta name="theme-color" content="#0a1222">
+  <title>MJM Solutions QuoteOS</title>
+  <link rel="icon" href="icon.svg">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=4.0.0">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="app-shell">
-  <header class="topbar glass">
-    <div class="brand">
-      <div class="brand-icon">QF</div>
-      <div>
-        <h1>QuoteForge Ultimate</h1>
-        <p>Cotizador comercial de software · <strong>v4.0.0</strong></p>
+  <div class="layout">
+    <aside id="sidebar">
+      <div class="brand">
+        <img src="logo.svg" alt="MJM Solutions">
+        <div><b>MJM Solutions</b><small>Software · Automatización · IA</small></div>
       </div>
-    </div>
-    <div class="top-actions">
-      <button class="icon-btn" id="themeBtn" aria-label="Cambiar tema">◐</button>
-      <button class="btn secondary" id="newQuoteBtn">Nueva</button>
-      <button class="btn primary" id="saveQuoteBtn">Guardar</button>
-    </div>
-  </header>
-
-  <nav class="segmented glass" id="mainNav">
-    <button class="nav-btn active" data-view="dashboard">Resumen</button>
-    <button class="nav-btn" data-view="quote">Cotizar</button>
-    <button class="nav-btn" data-view="internal">Análisis</button>
-    <button class="nav-btn" data-view="clients">Clientes</button>
-    <button class="nav-btn" data-view="history">Historial</button>
-    <button class="nav-btn" data-view="settings">Ajustes</button>
-  </nav>
-
-  <main>
-    <section class="view active" id="view-dashboard">
-      <div class="hero glass">
-        <div>
-          <span class="eyebrow">Centro comercial</span>
-          <h2>Cotiza con criterio técnico y comercial</h2>
-          <p>Controla precio mínimo rentable, reutilización, descuentos, margen y propuesta final sin exponer tus costos internos al cliente.</p>
-          <div class="hero-actions">
-            <button class="btn primary" data-go="quote">Crear cotización</button>
-            <button class="btn secondary" data-go="history">Ver historial</button>
-          </div>
-        </div>
-        <div class="score-ring" id="dashboardScore"><span>—</span><small>competitividad</small></div>
-      </div>
-
-      <div class="kpi-grid">
-        <article class="kpi glass"><span>Cotizaciones</span><strong id="kpiQuotes">0</strong><small>guardadas localmente</small></article>
-        <article class="kpi glass"><span>Pipeline</span><strong id="kpiPipeline">S/ 0</strong><small>valor potencial</small></article>
-        <article class="kpi glass"><span>Ticket promedio</span><strong id="kpiAverage">S/ 0</strong><small>propuestas emitidas</small></article>
-        <article class="kpi glass"><span>Margen promedio</span><strong id="kpiMargin">0%</strong><small>rentabilidad estimada</small></article>
-      </div>
-
-      <div class="two-col">
-        <article class="card glass">
-          <div class="section-head"><div><h3>Actividad reciente</h3><p>Últimas cotizaciones guardadas.</p></div></div>
-          <div id="recentQuotes" class="list"></div>
-        </article>
-        <article class="card glass">
-          <div class="section-head"><div><h3>Distribución comercial</h3><p>Estados de tus oportunidades.</p></div></div>
-          <div id="pipelineChart" class="bar-chart"></div>
-        </article>
-      </div>
-    </section>
-
-    <section class="view" id="view-quote">
-      <div class="quote-layout">
-        <div class="stack">
-          <article class="card glass">
-            <div class="section-head"><div><span class="step">01</span><h3>Proyecto y cliente</h3><p>Información que aparecerá en la propuesta.</p></div><span class="version-pill">v4.0.0</span></div>
-            <div class="form-grid">
-              <label class="field"><span>Nombre del proyecto</span><input id="projectName" value="Landing comercial"></label>
-              <label class="field"><span>Cliente</span><input id="clientName" placeholder="Empresa o contacto"></label>
-              <label class="field"><span>Tipo de software</span><select id="projectType"></select></label>
-              <label class="field"><span>Perfil comercial</span><select id="profile"><option value="freelance">Freelance competitivo</option><option value="studio">Estudio profesional</option><option value="factory">Software Factory</option></select></label>
-              <label class="field"><span>Estado</span><select id="quoteStatus"><option value="draft">Borrador</option><option value="sent">Enviada</option><option value="negotiation">Negociación</option><option value="won">Ganada</option><option value="lost">Perdida</option></select></label>
-              <label class="field"><span>Modalidad</span><select id="contractMode"><option value="fixed">Precio cerrado</option><option value="hours">Bolsa de horas</option><option value="sprints">Por sprints</option></select></label>
-            </div>
-            <label class="field full"><span>Objetivo / necesidad</span><textarea id="description" placeholder="Describe el problema que resolverá el software..."></textarea></label>
-          </article>
-
-          <article class="card glass">
-            <div class="section-head"><div><span class="step">02</span><h3>Alcance y contexto</h3><p>Ajusta los factores que realmente modifican el esfuerzo.</p></div></div>
-            <div class="form-grid three">
-              <label class="field"><span>Complejidad</span><select id="complexity"><option value="0.88">Básica</option><option value="1" selected>Media</option><option value="1.28">Alta</option><option value="1.65">Empresarial</option></select></label>
-              <label class="field"><span>Plataformas</span><select id="platforms"><option value="1">Web responsive</option><option value="1.18">Web + PWA</option><option value="1.38">Web + Android/iOS</option><option value="1.62">Multiplataforma completa</option></select></label>
-              <label class="field"><span>Usuarios</span><select id="users"><option value="0">Hasta 10</option><option value="3">11–50</option><option value="7">51–250</option><option value="14">251–1000</option><option value="28">Más de 1000</option></select></label>
-              <label class="field"><span>Pantallas</span><div class="range-row"><input id="screens" type="range" min="1" max="40" value="3"><output id="screensOut">3</output></div></label>
-              <label class="field"><span>Reutilización</span><select id="reuse"><option value="1">Todo desde cero</option><option value="0.82" selected>Base propia reutilizable</option><option value="0.62">Proyecto similar existente</option><option value="0.42">Adaptación / actualización</option></select></label>
-              <label class="field"><span>Urgencia</span><select id="urgency"><option value="1">Normal</option><option value="1.12">Prioritaria</option><option value="1.28">Urgente</option></select></label>
-            </div>
-          </article>
-
-          <article class="card glass">
-            <div class="section-head"><div><span class="step">03</span><h3>Funcionalidades</h3><p>Selecciona el alcance. Las horas solo se muestran en el análisis interno.</p></div><span class="counter" id="moduleCount">0 seleccionadas</span></div>
-            <div class="filter-row"><input id="moduleSearch" placeholder="Buscar módulo..."><select id="moduleCategory"><option value="all">Todas las categorías</option></select></div>
-            <div class="modules-grid" id="modulesGrid"></div>
-          </article>
-
-          <article class="card glass">
-            <div class="section-head"><div><span class="step">04</span><h3>Condiciones comerciales</h3><p>Define pago, soporte, impuesto y vigencia.</p></div></div>
-            <div class="form-grid three">
-              <label class="field"><span>Forma de pago</span><select id="payment"><option>50% al iniciar y 50% contra entrega</option><option>40% / 30% / 30%</option><option>Pago mensual por sprint</option><option>100% adelantado</option></select></label>
-              <label class="field"><span>Garantía</span><select id="warranty"><option value="0">15 días</option><option value="1">30 días</option><option value="3">3 meses</option><option value="6">6 meses</option></select></label>
-              <label class="field"><span>Vigencia</span><select id="validity"><option>7 días</option><option selected>15 días</option><option>30 días</option></select></label>
-              <label class="field"><span>Impuesto</span><select id="tax"><option value="0">Sin IGV</option><option value="0.18">Añadir IGV 18%</option></select></label>
-              <label class="field"><span>Descuento comercial</span><div class="range-row"><input id="discount" type="range" min="0" max="30" value="0"><output id="discountOut">0%</output></div></label>
-              <label class="field"><span>Moneda</span><select id="currency"><option value="PEN">Soles (PEN)</option><option value="USD">Dólares (USD)</option></select></label>
-            </div>
-          </article>
-        </div>
-
-        <aside class="stack sticky-col">
-          <article class="card glass summary-card">
-            <div class="section-head"><div><span class="eyebrow">Resultado comercial</span><h3 id="summaryTitle">Landing comercial</h3></div><span class="health-dot" id="healthDot"></span></div>
-            <div class="main-price"><span>Inversión recomendada</span><strong id="recommendedPrice">S/ 0</strong><small id="recommendedRange">Rango: —</small></div>
-            <div class="summary-grid">
-              <div><span>Plazo</span><strong id="durationText">—</strong></div>
-              <div><span>Complejidad</span><strong id="complexityText">—</strong></div>
-              <div><span>Entregables</span><strong id="deliverablesText">0</strong></div>
-              <div><span>Competitividad</span><strong id="competitivenessText">—</strong></div>
-            </div>
-            <div class="profit-alert" id="profitAlert"></div>
-            <div class="button-stack">
-              <button class="btn primary wide" id="pdfBtn">Generar propuesta PDF</button>
-              <button class="btn secondary wide" data-go="internal">Ver análisis privado</button>
-            </div>
-          </article>
-
-          <article class="card glass">
-            <div class="section-head"><div><h3>Escenarios automáticos</h3><p>Tres formas de presentar la inversión.</p></div></div>
-            <div class="scenario-list">
-              <button class="scenario" data-scenario="express"><span><b>Express</b><small>Precio de entrada</small></span><strong id="expressPrice">S/ 0</strong></button>
-              <button class="scenario active" data-scenario="recommended"><span><b>Recomendado</b><small>Mejor equilibrio</small></span><strong id="scenarioRecommendedPrice">S/ 0</strong></button>
-              <button class="scenario" data-scenario="premium"><span><b>Premium</b><small>Mayor cobertura</small></span><strong id="premiumPrice">S/ 0</strong></button>
-            </div>
-          </article>
-        </aside>
-      </div>
-    </section>
-
-    <section class="view" id="view-internal">
-      <div class="two-col internal-layout">
-        <div class="stack">
-          <article class="card glass">
-            <div class="section-head"><div><h3>Análisis técnico privado</h3><p>Este desglose no aparece en el PDF de precio cerrado.</p></div><span class="private-pill">PRIVADO</span></div>
-            <div class="internal-kpis">
-              <div><span>Horas totales</span><strong id="internalHours">0 h</strong></div>
-              <div><span>Costo interno</span><strong id="internalCost">S/ 0</strong></div>
-              <div><span>Piso rentable</span><strong id="minimumPrice">S/ 0</strong></div>
-              <div><span>Utilidad</span><strong id="profitValue">S/ 0</strong></div>
-              <div><span>Margen</span><strong id="marginValue">0%</strong></div>
-              <div><span>Descuento máximo</span><strong id="maxDiscount">0%</strong></div>
-            </div>
-            <div id="internalAlert" class="profit-alert"></div>
-          </article>
-          <article class="card glass">
-            <div class="section-head"><div><h3>Actividades y horas</h3><p>Edita las horas sin alterar el catálogo global.</p></div><button class="btn secondary small" id="resetHoursBtn">Recalcular</button></div>
-            <div class="table-wrap"><table><thead><tr><th>Actividad</th><th>Categoría</th><th>Activa</th><th>Horas</th></tr></thead><tbody id="activitiesBody"></tbody></table></div>
-          </article>
-        </div>
-        <div class="stack">
-          <article class="card glass">
-            <div class="section-head"><div><h3>Simulación de precio</h3><p>Comprueba el impacto antes de negociar.</p></div></div>
-            <label class="field"><span>Precio manual (opcional)</span><input id="manualPrice" type="number" min="0" step="10" placeholder="Usar cálculo automático"></label>
-            <label class="field"><span>Tarifa comercial por hora</span><input id="sellRate" type="number" min="1" step="1"></label>
-            <label class="field"><span>Costo interno por hora</span><input id="internalRate" type="number" min="1" step="1"></label>
-            <div class="mini-breakdown" id="financialBreakdown"></div>
-          </article>
-          <article class="card glass">
-            <div class="section-head"><div><h3>Distribución del esfuerzo</h3><p>Horas agrupadas por categoría.</p></div></div>
-            <div id="effortChart" class="bar-chart"></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="view" id="view-clients">
-      <div class="section-title"><div><h2>Clientes y oportunidades</h2><p>CRM ligero integrado para organizar tus propuestas.</p></div><button class="btn primary" id="addClientBtn">Nuevo cliente</button></div>
-      <div class="card glass client-form hidden" id="clientForm">
-        <div class="form-grid three">
-          <label class="field"><span>Nombre / empresa</span><input id="crmName"></label>
-          <label class="field"><span>Contacto</span><input id="crmContact"></label>
-          <label class="field"><span>Correo</span><input id="crmEmail" type="email"></label>
-          <label class="field"><span>Teléfono</span><input id="crmPhone"></label>
-          <label class="field"><span>Industria</span><input id="crmIndustry"></label>
-          <label class="field"><span>Seguimiento</span><input id="crmFollowup" type="date"></label>
-        </div>
-        <label class="field full"><span>Notas</span><textarea id="crmNotes"></textarea></label>
-        <div class="inline-actions"><button class="btn primary" id="saveClientBtn">Guardar cliente</button><button class="btn secondary" id="cancelClientBtn">Cancelar</button></div>
-      </div>
-      <div id="clientsList" class="cards-grid"></div>
-    </section>
-
-    <section class="view" id="view-history">
-      <div class="section-title"><div><h2>Historial de cotizaciones</h2><p>Abre, duplica, exporta o genera nuevamente una propuesta.</p></div><div class="inline-actions"><button class="btn secondary" id="importBtn">Importar</button><button class="btn secondary" id="exportBtn">Exportar</button></div></div>
-      <div class="filter-row"><input id="historySearch" placeholder="Buscar por proyecto o cliente..."><select id="historyStatus"><option value="all">Todos los estados</option><option value="draft">Borrador</option><option value="sent">Enviada</option><option value="negotiation">Negociación</option><option value="won">Ganada</option><option value="lost">Perdida</option></select></div>
-      <div id="historyList" class="list"></div>
-      <input type="file" id="importFile" accept="application/json" hidden>
-    </section>
-
-    <section class="view" id="view-settings">
-      <div class="settings-grid">
-        <article class="card glass">
-          <div class="section-head"><div><h3>Empresa y propuesta</h3><p>Datos visibles en el documento comercial.</p></div></div>
-          <div class="form-grid">
-            <label class="field"><span>Nombre comercial</span><input id="companyName"></label>
-            <label class="field"><span>Responsable</span><input id="companyOwner"></label>
-            <label class="field"><span>Correo</span><input id="companyEmail"></label>
-            <label class="field"><span>Teléfono</span><input id="companyPhone"></label>
-          </div>
-        </article>
-        <article class="card glass">
-          <div class="section-head"><div><h3>Rentabilidad</h3><p>Parámetros privados del motor.</p></div></div>
-          <div class="form-grid">
-            <label class="field"><span>Overhead operativo (%)</span><input id="overhead" type="number" min="0" max="100"></label>
-            <label class="field"><span>Contingencia (%)</span><input id="contingency" type="number" min="0" max="100"></label>
-            <label class="field"><span>Margen mínimo (%)</span><input id="minimumMargin" type="number" min="1" max="90"></label>
-            <label class="field"><span>Horas productivas / semana</span><input id="weeklyHours" type="number" min="5" max="60"></label>
-          </div>
-        </article>
-        <article class="card glass full-card">
-          <div class="section-head"><div><h3>Precios piso por categoría</h3><p>El motor nunca recomendará menos de estos importes antes de impuestos.</p></div></div>
-          <div id="floorPrices" class="floor-grid"></div>
-        </article>
-        <article class="card glass full-card">
-          <div class="section-head"><div><h3>Datos y mantenimiento</h3><p>La información se almacena únicamente en este navegador.</p></div></div>
-          <div class="inline-actions"><button class="btn primary" id="saveSettingsBtn">Guardar ajustes</button><button class="btn secondary" id="resetSettingsBtn">Restaurar valores</button><button class="btn danger" id="clearDataBtn">Borrar todos los datos</button></div>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer>QuoteForge Ultimate · versión 4.0.0 · almacenamiento local · sin Service Worker</footer>
-</div>
-<div class="toast" id="toast"></div>
-<script src="app.js?v=4.0.0"></script>
+      <nav id="nav"></nav>
+      <div class="build">QuoteOS <b>v5.0.0</b><small>Perú Launch Edition</small></div>
+    </aside>
+    <main>
+      <header>
+        <button id="menu">☰</button>
+        <div><h1 id="title">Dashboard</h1><p id="subtitle">Centro comercial y técnico</p></div>
+        <button id="theme">◐</button>
+      </header>
+      <section id="view"></section>
+    </main>
+  </div>
+  <div id="toast"></div>
+  <script src="app.js"></script>
 </body>
 </html>

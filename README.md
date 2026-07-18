@@ -1,32 +1,27 @@
-# QuoteForge Ultimate v4.0.0
+# MJM Solutions QuoteOS v5.0.0
 
-Aplicación web estática para cotizar proyectos de software, analizar rentabilidad, gestionar clientes y generar propuestas comerciales imprimibles en PDF.
+Archivos planos para GitHub Pages.
 
-## Publicación en GitHub Pages
-
-Sube todos estos archivos directamente a la raíz del repositorio, sin carpetas:
-
+## Subida
+Sube todos estos archivos directamente a la raíz del repositorio:
 - index.html
 - styles.css
 - app.js
-- manifest.webmanifest
+- logo.svg
 - icon.svg
-- README.md
+- manifest.webmanifest
 
-Elimina cualquier archivo antiguo `sw.js`, `service-worker.js`, `app-v*.js` o `styles-v*.css`. Esta versión no registra Service Worker para evitar problemas de caché.
+Elimina archivos antiguos `sw.js` o `service-worker.js` para evitar caché de versiones anteriores.
 
-## Funciones
+## Incluye
+- Cotizador competitivo Perú e internacional.
+- Perfiles Portafolio, Consultora junior y Estudio.
+- Consultor guiado.
+- Ruta de implementación.
+- Costos de terceros.
+- Historial local.
+- Propuesta comercial imprimible/PDF.
+- Logo inicial MJM Solutions.
+- Versión visible v5.0.0.
 
-- Interfaz responsive inspirada en iOS.
-- Versión visible v4.0.0.
-- Tres escenarios: Express, Recomendado y Premium.
-- Precios piso configurables.
-- Factor de reutilización.
-- Simulación de descuentos y margen.
-- Análisis privado por actividad y horas.
-- CRM básico de clientes.
-- Historial recuperable, duplicable y filtrable.
-- Propuesta comercial A4 para guardar como PDF.
-- Importación y exportación de respaldos JSON.
-- Tema claro y oscuro.
-- Almacenamiento local del navegador.
+Los precios son referencias configurables y deben validarse antes de presentar una propuesta definitiva.
