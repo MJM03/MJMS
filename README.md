@@ -1,17 +1,17 @@
-# MJM Solutions QuoteOS v5.3.0
+# MJM Solutions QuoteOS v5.4.0
 
-Infrastructure & Revenue Edition.
+Productivity Engine Edition.
 
-## Implementado
-- Módulo de infraestructura y costos recurrentes.
-- Dominio, hosting, backend, base de datos, correo, APIs, tiendas móviles, backups y firma de código.
-- Tres modalidades: cliente paga directamente, MJM administra/refactura o infraestructura promocional.
-- Planes de mantenimiento Esencial, Negocio y Administrado.
-- Margen configurable de administración.
-- Cálculo del primer año: desarrollo + terceros + mantenimiento.
-- PDF profesional con costos externos separados.
-- Reglas comerciales y propiedad de cuentas.
-- Versión visible y archivos con cache-busting v5.3.0.
+## Cambios
+- Estimación módulo por módulo.
+- Perfil de productividad: MJM Solutions, semi senior, junior, estudiante y equipo pequeño.
+- Reutilización ajustada sin inflar horas.
+- QA y coordinación visibles como horas internas.
+- Plazo calculado usando capacidad productiva semanal.
+- POS básico recalibrado: aproximadamente 45–65 horas y 2–3 semanas con perfil MJM, según módulos.
+- El plazo aumenta solo con multiusuario, sincronización, hardware, integraciones, multiempresa o complejidad.
+- Desglose interno en cotización y diagnóstico.
+- Capacidad semanal configurable.
+- Versión visible v5.4.0 y cache-busting.
 
-## Publicación
-Sube todos los archivos a la raíz de GitHub Pages. Elimina cualquier Service Worker antiguo.
+Sube todos los archivos a la raíz de GitHub Pages y elimina Service Workers antiguos.
