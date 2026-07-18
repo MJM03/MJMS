@@ -1,9 +1,9 @@
 
-const V='5.2.1',QKEY='mjm_quoteos_quotes_v5',SKEY='mjm_quoteos_settings_v5';
+const V='5.3.0',QKEY='mjm_quoteos_quotes_v5',SKEY='mjm_quoteos_settings_v5';
 const $=s=>document.querySelector(s), money=(n,c='PEN')=>new Intl.NumberFormat('es-PE',{style:'currency',currency:c,maximumFractionDigits:0}).format(n||0);
 const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-let settings={cost:18,sale:32,margin:22,cont:6,business:'MJM Solutions',tagline:'Software · Automatización · IA',email:'',phone:'',...JSON.parse(localStorage.getItem(SKEY)||'{}')};
+let settings={cost:18,sale:32,margin:22,cont:6,business:'MJM Solutions',tagline:'Software · Automatización · IA',email:'',phone:'',infraAdminMargin:25,maintenanceBasic:120,maintenanceBusiness:250,maintenanceManaged:480,...JSON.parse(localStorage.getItem(SKEY)||'{}')};
 let quotes=JSON.parse(localStorage.getItem(QKEY)||'[]'), current=null, page='dashboard';
 
 const markets={PE:{name:'Perú',currency:'PEN',fx:1,m:{portfolio:.72,junior:1,studio:1.5}},US:{name:'Estados Unidos',currency:'USD',fx:.27,m:{portfolio:1.8,junior:2.5,studio:3.7}},ES:{name:'España',currency:'EUR',fx:.25,m:{portfolio:1.5,junior:2.1,studio:3}},CL:{name:'Chile',currency:'USD',fx:.27,m:{portfolio:1.1,junior:1.5,studio:2.2}},CO:{name:'Colombia',currency:'USD',fx:.27,m:{portfolio:.95,junior:1.25,studio:1.8}},MX:{name:'México',currency:'USD',fx:.27,m:{portfolio:1.15,junior:1.55,studio:2.3}}};
@@ -19,16 +19,16 @@ mobile:{stack:['Flutter o React Native','Firebase, Supabase o API propia','Googl
 desktop:{stack:['C#/.NET, Electron o Java','SQLite para uso local o PostgreSQL/SQL Server para red','Instalador y actualizador','Backups locales y/o nube'],steps:['Definir equipos, usuarios y red','Diseñar flujos de escritorio','Modelar datos y permisos','Construir módulos principales','Integrar impresión, escáner u otro hardware','Crear instalador y política de actualización','Probar en Windows objetivo','Entregar instalador, respaldo y manual'],third:[['Licencia de base de datos','Según tecnología','Gratis o mensual','Cliente'],['Certificado de firma','Opcional','Anual','Cliente/proveedor'],['Servidor local o nube','Solo multiusuario','Único o mensual','Cliente'],['Soporte remoto','Recomendado','Mensual','Cliente']]},
 default:{stack:['Frontend responsive','Backend serverless o API','Firebase, Supabase o PostgreSQL','Hosting, dominio y respaldos'],steps:['Levantar proceso actual','Definir usuarios, reglas y datos','Diseñar prototipo','Construir módulos prioritarios','Configurar autenticación y seguridad','Probar con datos reales','Migrar y publicar','Capacitar y dar garantía'],third:[['Dominio','Recomendado','Anual','Cliente'],['Hosting/backend','Obligatorio','Gratis inicial o mensual','Cliente'],['Base de datos','Obligatorio','Gratis inicial o mensual','Cliente'],['Backups','Recomendado','Mensual','Cliente']]}
 };
-const navItems=[['dashboard','◫','Dashboard'],['quote','＋','Nueva cotización'],['consult','✦','Consultor junior'],['route','✓','Ruta de implementación'],['architect','⌘','Arquitecto de Software'],['history','⌕','Cotizaciones'],['settings','⚙','Configuración']];
+const navItems=[['dashboard','◫','Dashboard'],['quote','＋','Nueva cotización'],['consult','✦','Consultor junior'],['route','✓','Ruta de implementación'],['architect','⌘','Arquitecto de Software'],['infrastructure','◈','Infraestructura y recurrentes'],['history','⌕','Cotizaciones'],['settings','⚙','Configuración']];
 function save(){localStorage.setItem(QKEY,JSON.stringify(quotes));localStorage.setItem(SKEY,JSON.stringify(settings))}
 function toast(t){$('#toast').textContent=t;$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),2200)}
 function product(id){return products.find(x=>x.id===id)||products[0]}
-function blank(){return{id:uid(),name:'Nueva solución digital',client:'',company:'',country:'PE',profile:'portfolio',product:'landing',complexity:'basic',reuse:'high',urgency:'normal',screens:1,modules:['responsive','contact','whatsapp','seo'],objective:'Presentar servicios y generar contactos.',status:'Borrador',created:new Date().toISOString()}}
+function blank(){return{id:uid(),name:'Nueva solución digital',client:'',company:'',country:'PE',profile:'portfolio',product:'landing',complexity:'basic',reuse:'high',urgency:'normal',screens:1,modules:['responsive','contact','whatsapp','seo'],objective:'Presentar servicios y generar contactos.',status:'Borrador',infraMode:'direct',maintenancePlan:'none',infraCustom:[],created:new Date().toISOString()}}
 function calc(q){let p=product(q.product), selected=modules.filter(m=>(q.modules||[]).includes(m.id)), h=p.base+selected.reduce((a,b)=>a+b.hours,0)+(Number(q.screens||1)-1)*1.4;h*=({basic:1,medium:1.25,high:1.6,enterprise:2}[q.complexity]||1)*({high:.58,medium:.76,low:.9,none:1}[q.reuse]||1)*({normal:1,fast:1.15,urgent:1.3}[q.urgency]||1);h=Math.max(6,Math.round(h));let mk=markets[q.country], mult=mk.m[q.profile], internal=h*settings.cost, base=h*settings.sale*mult, min=internal*(1+settings.margin/100)+base*settings.cont/100, rec=Math.max(min,base,p.floor*mult), fx=mk.fx;return{p,selected,h,currency:mk.currency,internal:internal*fx,min:min*fx,express:Math.round(Math.max(min,rec*.82)*fx/10)*10,rec:Math.round(rec*fx/10)*10,premium:Math.round(rec*1.35*fx/10)*10,low:p.low*fx,high:p.high*fx}}
 function nav(){ $('#nav').innerHTML=navItems.map(x=>`<button class="nav ${page===x[0]?'active':''}" data-p="${x[0]}">${x[1]} &nbsp; ${x[2]}</button>`).join('');document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>go(b.dataset.p))}
 function title(a,b){$('#title').textContent=a;$('#subtitle').textContent=b}
 function go(p){page=p;$('#sidebar').classList.remove('open');render()}
-function render(){nav();({dashboard,quote,consult,route,architect,history,settingsView}[page]||dashboard)()}
+function render(){nav();({dashboard,quote,consult,route,architect,infrastructure,history,settingsView}[page]||dashboard)()}
 function dashboard(){title('Dashboard','Centro comercial y técnico');let won=quotes.filter(q=>q.status==='Ganada').length;$('#view').innerHTML=`<div class="card hero"><span class="eyebrow">MJM Solutions · QuoteOS v${V}</span><h2>Empieza a vender software con una metodología profesional.</h2><p>Diagnostica, cotiza, explica la implementación y genera una propuesta comercial limpia.</p><div class="buttons"><button class="btn primary" onclick="newQuote()">Crear cotización</button><button class="btn secondary" onclick="go('consult')">Abrir consultor junior</button></div></div><div class="grid g4" style="margin-top:18px"><div class="card kpi"><span class="muted">Cotizaciones</span><b>${quotes.length}</b><small>Guardadas localmente</small></div><div class="card kpi"><span class="muted">Ganadas</span><b>${won}</b><small>Oportunidades cerradas</small></div><div class="card kpi"><span class="muted">Entrada</span><b>S/ 390</b><small>Landing portafolio</small></div><div class="card kpi"><span class="muted">Versión</span><b>v${V}</b><small>Perú Launch Edition</small></div></div><div class="grid g2" style="margin-top:18px"><div class="card"><h3>Ruta para tu primer cliente</h3><div class="steps">${['Cotiza una Landing Express','Genera la propuesta PDF','Solicita 50% de adelanto','Publica y pide testimonio'].map((s,i)=>`<div class="step"><div class="num">${i+1}</div><div><h4>${s}</h4><p>${['Producto simple para crear portafolio.','Documento con alcance, plazo y condiciones.','No empieces sin compromiso comercial.','Cada entrega debe convertirse en evidencia.'][i]}</p></div></div>`).join('')}</div></div><div class="card"><h3>Referencias iniciales Perú</h3><table><thead><tr><th>Servicio</th><th>Entrada MJM</th><th>Rango</th></tr></thead><tbody>${products.slice(0,7).map(p=>`<tr><td>${p.name}</td><td>${money(p.floor)}</td><td>${money(p.low)} – ${money(p.high)}</td></tr>`).join('')}</tbody></table></div></div>`}
 function quote(){title('Nueva cotización','Motor competitivo y rentable');if(!current)current=blank();let c=calc(current);$('#view').innerHTML=`<div class="grid g3"><div class="card" style="grid-column:span 2"><h2>Datos y alcance</h2><div class="form"><label>Proyecto<input id="name" value="${esc(current.name)}"></label><label>Cliente<input id="client" value="${esc(current.client)}"></label><label>Empresa<input id="company" value="${esc(current.company)}"></label><label>Mercado<select id="country">${Object.entries(markets).map(([k,m])=>`<option value="${k}" ${current.country===k?'selected':''}>${m.name}</option>`).join('')}</select></label><label>Perfil<select id="profile"><option value="portfolio">Portafolio agresivo</option><option value="junior" ${current.profile==='junior'?'selected':''}>Consultora junior</option><option value="studio" ${current.profile==='studio'?'selected':''}>Estudio profesional</option></select></label><label>Producto<select id="product">${products.map(p=>`<option value="${p.id}" ${current.product===p.id?'selected':''}>${p.name}</option>`).join('')}</select></label><label>Complejidad<select id="complexity"><option value="basic">Básica</option><option value="medium" ${current.complexity==='medium'?'selected':''}>Media</option><option value="high" ${current.complexity==='high'?'selected':''}>Alta</option><option value="enterprise" ${current.complexity==='enterprise'?'selected':''}>Empresarial</option></select></label><label>Reutilización<select id="reuse"><option value="high">Plantilla reutilizable</option><option value="medium" ${current.reuse==='medium'?'selected':''}>Componentes propios</option><option value="low" ${current.reuse==='low'?'selected':''}>Poca reutilización</option><option value="none" ${current.reuse==='none'?'selected':''}>Desde cero</option></select></label><label>Urgencia<select id="urgency"><option value="normal">Normal</option><option value="fast" ${current.urgency==='fast'?'selected':''}>Rápida</option><option value="urgent" ${current.urgency==='urgent'?'selected':''}>Urgente</option></select></label><label>Pantallas<input id="screens" type="number" min="1" value="${current.screens}"></label><label class="span3">Objetivo<textarea id="objective">${esc(current.objective)}</textarea></label></div><h3>Funcionalidades</h3><div class="modules">${modules.map(m=>`<label class="module"><input type="checkbox" data-m="${m.id}" ${(current.modules||[]).includes(m.id)?'checked':''}><span><b>${m.name}</b><small>Referencia interna: ${m.hours} h</small></span></label>`).join('')}</div></div><div class="card summary"><span class="eyebrow">Precio recomendado</span><div class="price">${money(c.rec,c.currency)}</div><p class="muted">${c.p.time} · ${c.h} h internas</p><div class="tiers"><div class="tier"><small>Express</small><b>${money(c.express,c.currency)}</b></div><div class="tier"><small>Recomendado</small><b>${money(c.rec,c.currency)}</b></div><div class="tier"><small>Premium</small><b>${money(c.premium,c.currency)}</b></div></div><hr style="border:0;border-top:1px solid var(--line);margin:18px 0"><p><b>Mínimo rentable</b><br>${money(c.min,c.currency)}</p><p><b>Rango de referencia</b><br>${money(c.low,c.currency)} – ${money(c.high,c.currency)}</p><div class="notice">Los precios son configurables y priorizan entrada al mercado sin ocultar tu costo interno.</div><div class="buttons" style="margin-top:15px"><button class="btn primary" onclick="saveQuote()">Guardar</button><button class="btn secondary" onclick="proposal()">Propuesta PDF</button></div></div></div>`;bind()}
 function bind(){let map={name:'name',client:'client',company:'company',country:'country',profile:'profile',product:'product',complexity:'complexity',reuse:'reuse',urgency:'urgency',screens:'screens',objective:'objective'};Object.entries(map).forEach(([id,k])=>$('#'+id).onchange=e=>{current[k]=e.target.value;quote()});document.querySelectorAll('[data-m]').forEach(x=>x.onchange=e=>{let id=e.target.dataset.m;current.modules=e.target.checked?[...new Set([...(current.modules||[]),id])]:(current.modules||[]).filter(y=>y!==id);quote()})}
@@ -168,6 +168,64 @@ function projectMap(nodes){
   return `<div class="project-map">${nodes.map((n,i)=>`${i?'<div class="map-arrow">↓</div>':''}<div class="map-node">${esc(n)}</div>`).join('')}</div>`;
 }
 
+
+function infrastructureCatalog(q){
+  const p=product(q.product), a=implementationPlan(q), isMobile=q.product==='mobile',
+        isWeb=['landing','corporate','catalog','ecommerce','pwa','dashboard','inventory','crm','erp','automation','ai'].includes(q.product),
+        isDesktop=q.product.startsWith('desktop')||q.product==='pos_desktop',
+        needsDb=hasModule(q,'db')||hasModule(q,'crud')||['inventory','crm','erp','ecommerce','pwa','mobile','ai'].includes(q.product),
+        needsAI=hasModule(q,'ai')||q.product==='ai',
+        needsEmail=hasModule(q,'email')||hasModule(q,'notify')||hasModule(q,'contact'),
+        needsPayments=hasModule(q,'payment')||q.product==='ecommerce';
+
+  let items=[];
+  if(isWeb){
+    items.push({id:'domain',name:'Dominio',provider:'Registrador a elección',required:q.product!=='landing'?'Recomendado':'Recomendado',period:'Anual',monthly:0,annual:70,owner:'Cliente',included:false,notes:'Debe registrarse a nombre del cliente.'});
+    items.push({id:'hosting',name:'Hosting frontend',provider:q.product==='landing'?'GitHub Pages / Cloudflare Pages':'Vercel / Firebase Hosting / Cloudflare',required:'Obligatorio',period:'Mensual',monthly:q.product==='landing'?0:35,annual:q.product==='landing'?0:420,owner:'Cliente',included:false,notes:q.product==='landing'?'Puede iniciar en un plan gratuito.':'Puede iniciar gratis y pasar a pago según tráfico.'});
+  }
+  if(needsDb){
+    items.push({id:'database',name:'Base de datos y backend',provider:'Firebase / Supabase / PostgreSQL',required:'Obligatorio',period:'Mensual',monthly:['erp','inventory','crm'].includes(q.product)?90:35,annual:['erp','inventory','crm'].includes(q.product)?1080:420,owner:'Cliente',included:false,notes:'El costo real depende de almacenamiento, lecturas y usuarios.'});
+  }
+  if(needsEmail){
+    items.push({id:'emailservice',name:'Correo transaccional / formularios',provider:'Resend / Brevo / servicio similar',required:'Según volumen',period:'Mensual',monthly:20,annual:240,owner:'Cliente',included:false,notes:'Puede existir un nivel gratuito inicial.'});
+  }
+  if(needsPayments){
+    items.push({id:'payments',name:'Pasarela de pago',provider:'Mercado Pago / Culqi / Stripe',required:'Obligatorio',period:'Por transacción',monthly:0,annual:0,owner:'Cliente',included:false,notes:'La comisión se descuenta por cada operación.'});
+  }
+  if(needsAI){
+    items.push({id:'aiapi',name:'Consumo de API de IA',provider:'OpenAI u otro proveedor',required:'Obligatorio',period:'Por consumo',monthly:60,annual:720,owner:'Cliente',included:false,notes:'Debe configurarse un límite mensual y alertas de consumo.'});
+  }
+  if(isMobile){
+    items.push({id:'play',name:'Cuenta Google Play',provider:'Google',required:'Para Android',period:'Único / según política',monthly:0,annual:100,owner:'Cliente',included:false,notes:'La cuenta debe pertenecer al cliente.'});
+    items.push({id:'apple',name:'Cuenta Apple Developer',provider:'Apple',required:'Para iOS',period:'Anual',monthly:0,annual:380,owner:'Cliente',included:false,notes:'Membresía renovable a nombre del cliente.'});
+  }
+  if(isDesktop){
+    items.push({id:'signing',name:'Firma de código',provider:'Proveedor de certificado',required:'Opcional',period:'Anual',monthly:0,annual:550,owner:'Cliente',included:false,notes:'Reduce advertencias de seguridad al instalar.'});
+    if(q.product==='desktop_multi'||hasModule(q,'network')||hasModule(q,'sync')){
+      items.push({id:'server',name:'Servidor local o nube',provider:'VPS / PC servidor',required:'Obligatorio',period:'Mensual',monthly:80,annual:960,owner:'Cliente',included:false,notes:'Depende de usuarios simultáneos y disponibilidad requerida.'});
+    }
+  }
+  if(hasModule(q,'files')||hasModule(q,'backup')||['inventory','crm','erp'].includes(q.product)){
+    items.push({id:'backup',name:'Backups y almacenamiento',provider:'Storage administrado',required:'Recomendado',period:'Mensual',monthly:25,annual:300,owner:'Cliente',included:false,notes:'Definir retención, restauración y responsable.'});
+  }
+  items.push({id:'corporatemail',name:'Correo corporativo',provider:'Google Workspace / Microsoft 365 / Zoho',required:'Opcional',period:'Mensual',monthly:25,annual:300,owner:'Cliente',included:false,notes:'Costo por cuenta de usuario.'});
+  return items;
+}
+function infraTotals(q){
+  const items=infrastructureCatalog(q);
+  const annual=items.reduce((s,x)=>s+Number(x.annual||0),0);
+  const monthly=items.reduce((s,x)=>s+Number(x.monthly||0),0);
+  const mode=q.infraMode||'direct';
+  const margin=mode==='managed'?Number(settings.infraAdminMargin||0)/100:0;
+  const managedMonthly=Math.round(monthly*(1+margin));
+  const maintenance={none:0,basic:Number(settings.maintenanceBasic||0),business:Number(settings.maintenanceBusiness||0),managed:Number(settings.maintenanceManaged||0)}[q.maintenancePlan||'none'];
+  const firstYear=annual+managedMonthly*12+maintenance*12;
+  return {items,annual,monthly,managedMonthly,maintenance,firstYear,mode};
+}
+function infraModeLabel(mode){
+  return {direct:'Cliente paga directamente',managed:'MJM administra y refactura',included:'Infraestructura incluida temporalmente'}[mode]||'Cliente paga directamente';
+}
+
 function route(){
   title('Ruta de implementación','Arquitectura dinámica según la cotización activa');
   let q=current||blank(),c=calc(q),a=implementationPlan(q);
@@ -224,11 +282,115 @@ function architect(){
     ${['¿Cuántos usuarios simultáneos habrá?','¿Qué ocurre cuando no hay internet?','¿Qué información es crítica y debe respaldarse?','¿Qué equipos, impresoras o lectores se usarán?','¿Qué sistemas externos deben integrarse?','¿Quién administrará usuarios y permisos?','¿Cuánto crecerán los datos en 12 meses?','¿Qué nivel de soporte espera el cliente?'].map(x=>`<div class="question-card"><span>?</span><b>${x}</b></div>`).join('')}
   </div></div>`;
 }
+
+function infrastructure(){
+  title('Infraestructura y costos recurrentes','Dominio, hosting, APIs, mantenimiento y primer año');
+  let q=current||blank(),c=calc(q),t=infraTotals(q);
+  current=q;
+  $('#view').innerHTML=`
+  <div class="grid g3">
+    <div class="card kpi"><span class="muted">Desarrollo inicial</span><b>${money(c.rec,c.currency)}</b><small>Honorarios de MJM Solutions</small></div>
+    <div class="card kpi"><span class="muted">Terceros estimados</span><b>${money(t.annual+t.managedMonthly*12,c.currency)}</b><small>Primer año de infraestructura</small></div>
+    <div class="card kpi"><span class="muted">Mantenimiento</span><b>${money(t.maintenance,c.currency)}/mes</b><small>Plan seleccionado</small></div>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card">
+      <h2>Modalidad de administración</h2>
+      <div class="form">
+        <label class="span2">¿Quién contrata y paga los servicios?
+          <select id="infraMode">
+            <option value="direct" ${q.infraMode==='direct'?'selected':''}>Cliente paga directamente</option>
+            <option value="managed" ${q.infraMode==='managed'?'selected':''}>MJM administra y refactura</option>
+            <option value="included" ${q.infraMode==='included'?'selected':''}>Incluido temporalmente como promoción</option>
+          </select>
+        </label>
+        <label class="span2">Plan de mantenimiento
+          <select id="maintenancePlan">
+            <option value="none" ${q.maintenancePlan==='none'?'selected':''}>Sin mantenimiento</option>
+            <option value="basic" ${q.maintenancePlan==='basic'?'selected':''}>Esencial — ${money(settings.maintenanceBasic)}/mes</option>
+            <option value="business" ${q.maintenancePlan==='business'?'selected':''}>Negocio — ${money(settings.maintenanceBusiness)}/mes</option>
+            <option value="managed" ${q.maintenancePlan==='managed'?'selected':''}>Administrado — ${money(settings.maintenanceManaged)}/mes</option>
+          </select>
+        </label>
+      </div>
+      <div class="notice" style="margin-top:15px">
+        <b>Recomendación:</b> las cuentas deben estar a nombre del cliente. MJM Solutions puede configurarlas y administrarlas, pero el cliente debe conservar la propiedad y el método de pago.
+      </div>
+      <h3 style="margin-top:20px">Qué incluye cada plan</h3>
+      <div class="maintenance-grid">
+        <div class="maintenance-card"><b>Esencial</b><p>Revisión básica, respaldo y ajustes pequeños.</p><strong>${money(settings.maintenanceBasic)}/mes</strong></div>
+        <div class="maintenance-card featured"><b>Negocio</b><p>Soporte, backups, monitoreo y cambios menores.</p><strong>${money(settings.maintenanceBusiness)}/mes</strong></div>
+        <div class="maintenance-card"><b>Administrado</b><p>Gestión completa de infraestructura y continuidad.</p><strong>${money(settings.maintenanceManaged)}/mes</strong></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Resumen económico</h2>
+      <div class="architect-row"><small>Servicios externos mensuales</small><b>${money(t.monthly,c.currency)}</b></div>
+      <div class="architect-row"><small>Servicios externos anuales</small><b>${money(t.annual,c.currency)}</b></div>
+      <div class="architect-row"><small>Cobro mensual administrado por MJM</small><b>${money(t.managedMonthly,c.currency)}</b></div>
+      <div class="architect-row"><small>Mantenimiento seleccionado</small><b>${money(t.maintenance,c.currency)}</b></div>
+      <div class="architect-row total-row"><small>Primer año estimado, incluido desarrollo</small><b>${money(c.rec+t.firstYear,c.currency)}</b></div>
+      <p class="muted">Los montos de proveedores son referencias configurables y pueden variar por consumo, impuestos, promociones y tipo de cambio.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <div class="section-head"><div><h2>Servicios externos recomendados</h2><p class="muted">Separados de los honorarios de desarrollo.</p></div></div>
+    <div class="table-scroll"><table><thead><tr><th>Servicio</th><th>Proveedor sugerido</th><th>Necesidad</th><th>Periodicidad</th><th>Mensual</th><th>Anual</th><th>Responsable</th></tr></thead><tbody>
+      ${t.items.map(x=>`<tr><td><b>${x.name}</b><br><small>${x.notes}</small></td><td>${x.provider}</td><td>${x.required}</td><td>${x.period}</td><td>${money(x.monthly,c.currency)}</td><td>${money(x.annual,c.currency)}</td><td>${x.owner}</td></tr>`).join('')}
+    </tbody></table></div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h2>Reglas comerciales recomendadas</h2>
+    <div class="rule-grid">
+      ${[
+        ['Propiedad','Dominio, hosting, tiendas y APIs deben quedar a nombre del cliente.'],
+        ['Pago','Los servicios externos se pagan por adelantado o directamente al proveedor.'],
+        ['Administración','Si MJM administra, se añade margen por gestión y responsabilidad.'],
+        ['Suspensión','Definir qué ocurre si el cliente no renueva o no paga a tiempo.'],
+        ['Migración','Entregar accesos y permitir migración cuando termine la relación comercial.'],
+        ['Cambios de tarifa','Los proveedores pueden modificar precios; no garantizar montos indefinidamente.']
+      ].map((x,i)=>`<div class="rule-card"><span>${i+1}</span><div><b>${x[0]}</b><p>${x[1]}</p></div></div>`).join('')}
+    </div>
+  </div>`;
+  $('#infraMode').onchange=e=>{current.infraMode=e.target.value;infrastructure()};
+  $('#maintenancePlan').onchange=e=>{current.maintenancePlan=e.target.value;infrastructure()};
+}
+
 function history(){title('Cotizaciones','Historial y seguimiento');$('#view').innerHTML=`<div class="card">${quotes.length?`<table><thead><tr><th>Proyecto</th><th>Cliente</th><th>Precio</th><th>Acciones</th></tr></thead><tbody>${quotes.map(q=>`<tr><td><b>${esc(q.name)}</b><br><small>${product(q.product).name}</small></td><td>${esc(q.client||'Sin cliente')}</td><td>${money(q.price,q.currency||'PEN')}</td><td><button class="btn secondary" onclick="openQuote('${q.id}')">Abrir</button> <button class="btn secondary" onclick="pdfQuote('${q.id}')">PDF</button> <button class="btn danger" onclick="removeQuote('${q.id}')">×</button></td></tr>`).join('')}</tbody></table>`:'<p class="muted">Aún no hay cotizaciones guardadas.</p>'}</div>`}
-function settingsView(){title('Configuración','Tarifas e identidad comercial');$('#view').innerHTML=`<div class="grid g2"><div class="card"><h2>Modelo financiero</h2><div class="form"><label>Costo interno/hora<input id="cost" type="number" value="${settings.cost}"></label><label>Tarifa comercial base<input id="sale" type="number" value="${settings.sale}"></label><label>Margen mínimo %<input id="margin" type="number" value="${settings.margin}"></label><label>Contingencia %<input id="cont" type="number" value="${settings.cont}"></label></div></div><div class="card"><h2>Identidad</h2><div class="form"><label class="span2">Nombre<input id="business" value="${esc(settings.business)}"></label><label class="span2">Eslogan<input id="tagline" value="${esc(settings.tagline)}"></label><label>Correo<input id="email" value="${esc(settings.email)}"></label><label>Teléfono<input id="phone" value="${esc(settings.phone)}"></label></div><button class="btn primary" style="margin-top:15px" onclick="saveSettings()">Guardar</button></div></div>`}
-function saveSettings(){settings={...settings,cost:+cost.value,sale:+sale.value,margin:+margin.value,cont:+cont.value,business:business.value,tagline:tagline.value,email:email.value,phone:phone.value};save();toast('Configuración guardada')}
+function settingsView(){title('Configuración','Tarifas e identidad comercial');$('#view').innerHTML=`<div class="grid g2"><div class="card"><h2>Modelo financiero</h2><div class="form"><label>Costo interno/hora<input id="cost" type="number" value="${settings.cost}"></label><label>Tarifa comercial base<input id="sale" type="number" value="${settings.sale}"></label><label>Margen mínimo %<input id="margin" type="number" value="${settings.margin}"></label><label>Contingencia %<input id="cont" type="number" value="${settings.cont}"></label><label>Margen administración infraestructura %<input id="infraAdminMargin" type="number" value="${settings.infraAdminMargin}"></label><label>Mantenimiento Esencial<input id="maintenanceBasic" type="number" value="${settings.maintenanceBasic}"></label><label>Mantenimiento Negocio<input id="maintenanceBusiness" type="number" value="${settings.maintenanceBusiness}"></label><label>Mantenimiento Administrado<input id="maintenanceManaged" type="number" value="${settings.maintenanceManaged}"></label></div></div><div class="card"><h2>Identidad</h2><div class="form"><label class="span2">Nombre<input id="business" value="${esc(settings.business)}"></label><label class="span2">Eslogan<input id="tagline" value="${esc(settings.tagline)}"></label><label>Correo<input id="email" value="${esc(settings.email)}"></label><label>Teléfono<input id="phone" value="${esc(settings.phone)}"></label></div><button class="btn primary" style="margin-top:15px" onclick="saveSettings()">Guardar</button></div></div>`}
+function saveSettings(){settings={...settings,cost:+cost.value,sale:+sale.value,margin:+margin.value,cont:+cont.value,infraAdminMargin:+infraAdminMargin.value,maintenanceBasic:+maintenanceBasic.value,maintenanceBusiness:+maintenanceBusiness.value,maintenanceManaged:+maintenanceManaged.value,business:business.value,tagline:tagline.value,email:email.value,phone:phone.value};save();toast('Configuración guardada')}
 function saveQuote(){let c=calc(current);current={...current,price:c.rec,currency:c.currency,hours:c.h};let i=quotes.findIndex(q=>q.id===current.id);i>=0?quotes[i]={...current}:quotes.unshift({...current});save();toast('Cotización guardada')}
-function proposalHTML(q){let c=calc(q),a=implementationPlan(q),r={steps:a.steps};return `<!doctype html><html><head><meta charset="utf-8"><title>Propuesta</title><style>@page{size:A4;margin:16mm}body{font-family:Arial;color:#172033}header{display:flex;justify-content:space-between;border-bottom:3px solid #2563eb;padding-bottom:18px}.logo{font-size:22px;font-weight:800}h1{font-size:30px;margin:32px 0 5px}h2{font-size:16px;margin-top:27px;color:#17427f}.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.box{border:1px solid #dce3ed;border-radius:10px;padding:12px}.price{font-size:30px;font-weight:800;color:#174dbb}table{width:100%;border-collapse:collapse}td{padding:9px;border-bottom:1px solid #e2e7ee}.sign{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:60px}.line{border-top:1px solid #555;padding-top:8px}.foot{margin-top:35px;font-size:11px;color:#667085}</style></head><body><header><div><div class="logo">${esc(settings.business)}</div><div>${esc(settings.tagline)}</div></div><b>PROPUESTA COMERCIAL</b></header><h1>${esc(q.name)}</h1><p>Preparada para <b>${esc(q.client||q.company||'Cliente')}</b> · ${new Date().toLocaleDateString('es-PE')}</p><div class="meta"><div class="box"><small>Solución</small><br><b>${c.p.name}</b></div><div class="box"><small>Plazo</small><br><b>${c.p.time}</b></div><div class="box"><small>Modalidad</small><br><b>Precio cerrado</b></div></div><h2>Resumen ejecutivo</h2><p>${esc(q.objective)}</p><h2>Alcance incluido</h2><table>${c.selected.map(m=>`<tr><td>✓</td><td>${m.name}</td></tr>`).join('')}</table><h2>Plan de implementación</h2><ol>${r.steps.slice(0,7).map(s=>`<li>${s}</li>`).join('')}</ol><h2>Inversión</h2><div class="box"><div class="price">${money(c.rec,c.currency)}</div></div><h2>Condiciones</h2><p>50% para iniciar y 50% antes de publicación. Vigencia: 10 días. Incluye 15 días de garantía por errores respecto al alcance aprobado. Dominio, hosting, APIs y otros servicios de terceros no están incluidos salvo indicación expresa.</p><div class="sign"><div class="line">${esc(settings.business)}<br>${esc(settings.email)} ${esc(settings.phone)}</div><div class="line">Conformidad del cliente</div></div><div class="foot">Generado con QuoteOS v${V}. Los plazos dependen de la entrega oportuna de información y aprobaciones.</div><script>setTimeout(()=>window.print(),400)<\/script></body></html>`}
+function proposalHTML(q){
+  let c=calc(q),a=implementationPlan(q),t=infraTotals(q),r={steps:a.steps};
+  const extAnnual=t.annual+t.managedMonthly*12;
+  const firstYear=c.rec+t.firstYear;
+  return `<!doctype html><html><head><meta charset="utf-8"><title>Propuesta</title><style>
+  @page{size:A4;margin:15mm}*{box-sizing:border-box}body{font-family:Arial;color:#172033;margin:0;line-height:1.45}
+  header{display:flex;justify-content:space-between;border-bottom:3px solid #2563eb;padding-bottom:16px}.logo{font-size:22px;font-weight:800}.tag{color:#64748b;font-size:12px}
+  h1{font-size:29px;margin:28px 0 4px}h2{font-size:16px;margin-top:25px;color:#17427f;border-bottom:1px solid #dfe6ef;padding-bottom:6px}
+  .meta,.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.box{border:1px solid #dce3ed;border-radius:10px;padding:11px}.price{font-size:29px;font-weight:800;color:#174dbb}
+  table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:8px;border-bottom:1px solid #e2e7ee;text-align:left}th{background:#f5f7fb}
+  .callout{padding:11px;border-radius:10px;background:#eef4ff;color:#17427f}.sign{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:55px}.line{border-top:1px solid #555;padding-top:8px}.foot{margin-top:30px;font-size:10px;color:#667085}
+  </style></head><body>
+  <header><div><div class="logo">${esc(settings.business)}</div><div class="tag">${esc(settings.tagline)}</div></div><b>PROPUESTA COMERCIAL</b></header>
+  <h1>${esc(q.name)}</h1><p>Preparada para <b>${esc(q.client||q.company||'Cliente')}</b> · ${new Date().toLocaleDateString('es-PE')}</p>
+  <div class="meta"><div class="box"><small>Solución</small><br><b>${c.p.name}</b></div><div class="box"><small>Plazo</small><br><b>${c.p.time}</b></div><div class="box"><small>Modalidad</small><br><b>Precio cerrado</b></div></div>
+  <h2>Resumen ejecutivo</h2><p>${esc(q.objective)}</p>
+  <h2>Alcance incluido</h2><table>${c.selected.map(m=>`<tr><td>✓</td><td>${m.name}</td></tr>`).join('')}</table>
+  <h2>Plan de implementación</h2><ol>${r.steps.slice(0,7).map(s=>`<li>${s}</li>`).join('')}</ol>
+  <h2>Inversión de desarrollo</h2><div class="summary"><div class="box"><small>Honorarios MJM Solutions</small><div class="price">${money(c.rec,c.currency)}</div></div><div class="box"><small>Plazo estimado</small><b>${c.p.time}</b></div><div class="box"><small>Garantía</small><b>15 días</b></div></div>
+  <h2>Costos externos y recurrentes</h2>
+  <p class="callout">Estos costos corresponden a proveedores externos y no forman parte de los honorarios de desarrollo, salvo contratación expresa de un plan administrado.</p>
+  <table><thead><tr><th>Servicio</th><th>Periodicidad</th><th>Estimado mensual</th><th>Estimado anual</th><th>Responsable</th></tr></thead><tbody>
+    ${t.items.map(x=>`<tr><td>${x.name}</td><td>${x.period}</td><td>${money(x.monthly,c.currency)}</td><td>${money(x.annual,c.currency)}</td><td>${x.owner}</td></tr>`).join('')}
+  </tbody></table>
+  <h2>Resumen del primer año</h2><div class="summary"><div class="box"><small>Desarrollo inicial</small><b>${money(c.rec,c.currency)}</b></div><div class="box"><small>Infraestructura estimada</small><b>${money(extAnnual,c.currency)}</b></div><div class="box"><small>Mantenimiento anual</small><b>${money(t.maintenance*12,c.currency)}</b></div></div>
+  <p><b>Total estimado del primer año:</b> ${money(firstYear,c.currency)}</p>
+  <h2>Condiciones comerciales</h2><p>50% para iniciar y 50% antes de publicación. Vigencia: 10 días. Las cuentas de dominio, hosting, tiendas, APIs y pasarelas deben quedar a nombre del cliente. Los precios de proveedores pueden variar. La modalidad seleccionada para infraestructura es: <b>${infraModeLabel(q.infraMode)}</b>.</p>
+  <div class="sign"><div class="line">${esc(settings.business)}<br>${esc(settings.email)} ${esc(settings.phone)}</div><div class="line">Conformidad del cliente</div></div>
+  <div class="foot">Generado con QuoteOS v${V}. Los montos recurrentes son estimaciones y deben validarse al momento de contratación.</div>
+  <script>setTimeout(()=>window.print(),400)<\/script></body></html>`;
+}
 function proposal(){let w=open('','_blank');w.document.write(proposalHTML(current));w.document.close()}function pdfQuote(id){let q=quotes.find(x=>x.id===id),w=open('','_blank');w.document.write(proposalHTML(q));w.document.close()}
 function newQuote(){current=blank();go('quote')}function openQuote(id){current=JSON.parse(JSON.stringify(quotes.find(q=>q.id===id)));go('quote')}function removeQuote(id){if(confirm('¿Eliminar cotización?')){quotes=quotes.filter(q=>q.id!==id);save();history()}}
 $('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#theme').onclick=()=>{let t=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=t;localStorage.setItem('mjm_theme',t)};document.documentElement.dataset.theme=localStorage.getItem('mjm_theme')||'light';render();
