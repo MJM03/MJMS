@@ -1,88 +1,162 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07111f"><title>QuoteForge v6.1.0</title><link rel="icon" href="icon.svg"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css?v=6.1.0"></head><body>
-<div id="app"><header class="top"><div class="brand"><img class="brandLogo" src="logo-mjm.jpg" alt="MJM Systems"><div><b>QuoteForge</b><span>MJM Systems · v6.1.0</span></div></div><div class="actions"><button id="newBtn">Nueva</button><button id="saveBtn">Guardar</button><button id="historyBtn">Historial</button><button class="primary" id="printBtn">Propuesta PDF</button></div></header>
-<aside class="side"><small>COTIZACIÓN</small><h1 id="sideTitle">Plataforma comercial</h1><nav id="nav"><button class="active" data-step="summary">01 Resumen</button><button data-step="diagnostic">02 Diagnóstico</button><button data-step="modules">03 Módulos</button><button data-step="commercial">04 Comercial</button><button data-step="timeline">05 Cronograma</button><button data-step="proposal">06 Propuesta</button></nav><div class="preset"><small>PRESET CLIENTE</small><b>CMS + catálogo + analítica</b><p>Carga el requerimiento recibido.</p><button class="primary full" id="presetBtn">Aplicar requerimiento</button></div><footer>MJMsystems.c@gmail.com<br>+51 936 702 029</footer></aside>
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/><meta content="#07111f" name="theme-color"/><title>QuoteForge v7.0.0</title><link href="icon.svg" rel="icon"/><link href="manifest.webmanifest" rel="manifest"/><link href="styles.css?v=7.0.0" rel="stylesheet"/></head><body>
+<div id="app"><header class="top"><div class="brand"><img alt="MJM Systems" class="brandLogo" src="logo-mjm.jpg"/><div><b>QuoteForge</b><span>MJM Systems · v7.0.0</span></div></div><div class="actions"><button id="newBtn">Nueva</button><button id="saveBtn">Guardar</button><button id="historyBtn">Historial</button><button class="primary" id="printBtn">Propuesta PDF</button></div></header>
+<aside class="side"><small>COTIZACIÓN</small><h1 id="sideTitle">Plataforma comercial</h1><nav id="nav"><button class="active" data-step="summary">01 Resumen</button><button data-step="diagnostic">02 Diagnóstico</button><button data-step="modules">03 Módulos</button><button data-step="commercial">04 Comercial</button><button data-step="timeline">05 Cronograma</button><button data-step="proposal">06 Propuesta</button></nav><div class="preset"><small>PRESET CLIENTE</small><b>CMS + catálogo + analítica</b><p>Carga el requerimiento recibido.</p><button class="primary full" id="presetBtn">Aplicar requerimiento</button></div><footer>MJMsystems.c@gmail.com<br/>+51 936 702 029</footer></aside>
 <main class="main"><section class="mainHead"><div><small id="eyebrow">COTIZACIÓN PRELIMINAR</small><h2 id="title">Resumen del proyecto</h2><p id="subtitle">Configura los datos generales.</p></div><select id="status"><option>Borrador</option><option>En revisión</option><option>Enviada</option><option>Negociación</option><option>Ganada</option></select></section>
 <div class="layout"><div class="content">
-<section class="panel active" data-panel="summary"><div class="card"><div class="cardHead"><div><small>INFORMACIÓN GENERAL</small><h3>Proyecto y cliente</h3></div><span>01</span></div><div class="grid"><label>Proyecto<input id="project" value="Plataforma de Gestión Comercial y Marketing"></label><label>Cliente<input id="client" placeholder="Nombre del cliente"></label><label>Rubro<input id="sector" value="Comercio / catálogo de productos"></label><label>Tipo<select id="type"><option>Software a medida</option><option selected>CMS y catálogo web</option><option>ERP</option><option>App móvil</option></select></label><label class="wide">Objetivo<textarea id="objective">Desarrollar una plataforma web administrable para gestionar banners, categorías, productos y publicaciones, medir visitas, clics e interés por producto y generar reportes exportables.</textarea></label><label class="wide">Notas internas<textarea id="notes" placeholder="Preguntas pendientes, acuerdos o restricciones..."></textarea></label></div></div><div class="hero"><div><small>REQUERIMIENTO DETECTADO</small><h3>Plataforma comercial y de marketing</h3><p>Panel administrativo, analítica, catálogo, contenidos, reportes y usuarios.</p></div><div class="heroStats"><div><b>14</b><span>módulos</span></div><div><b>18</b><span>pantallas</span></div><div><b>5–7</b><span>semanas</span></div></div></div></section>
-<section class="panel" data-panel="diagnostic"><div class="card"><div class="cardHead"><div><small>DIAGNÓSTICO GUIADO</small><h3>Contexto y complejidad</h3></div><span>02</span></div><div class="grid three"><label>Complejidad<select id="complexity"><option value=".88">Media</option><option value="1" selected>Alta</option><option value="1.18">Empresarial</option></select></label><label>Plataforma<select id="platform"><option value="1">Web responsive</option><option value="1.08">Web + PWA</option><option value="1.22">Web + app</option></select></label><label>Usuarios<select id="users"><option value="0">Hasta 5</option><option value="4" selected>6–15</option><option value="9">16–50</option></select></label><label>Pantallas<input id="screens" type="number" value="18"></label><label>Productos<select id="volume"><option value="0">Hasta 100</option><option value="4" selected>101–1,000</option><option value="10">1,001–10,000</option></select></label><label>Migración<select id="migration"><option value="0">No incluida</option><option value="8" selected>Básica</option><option value="18">Completa</option></select></label><label>Reutilización<select id="reuse"><option value="1">Desde cero</option><option value=".84" selected>Base propia</option><option value=".72">Proyecto similar</option></select></label><label>Urgencia<select id="urgency"><option value="1">Normal</option><option value="1.12">Prioritaria</option><option value="1.28">Urgente</option></select></label></div></div><div class="card"><div class="cardHead"><div><small>PENDIENTES</small><h3>Preguntas por confirmar</h3></div></div><div id="questions" class="questions"></div></div></section>
-<section class="panel" data-panel="modules"><div class="card"><div class="cardHead"><div><small>ALCANCE FUNCIONAL</small><h3>Módulos</h3></div><span id="moduleCount">0 módulos</span></div><div class="toolbar"><button id="allBtn">Seleccionar todo</button><button id="noneBtn">Limpiar</button><button id="customBtn">Añadir módulo</button></div><div id="modulesList" class="modules"></div></div></section>
+<section class="panel active" data-panel="summary"><div class="card"><div class="cardHead"><div><small>INFORMACIÓN GENERAL</small><h3>Proyecto y cliente</h3></div><span>01</span></div><div class="grid"><label>Proyecto<input id="project" value="Plataforma de Gestión Comercial y Marketing"/></label><label>Cliente<input id="client" placeholder="Nombre del cliente"/></label><label>Rubro<input id="sector" value="Comercio / catálogo de productos"/></label><label>Tipo<select id="type"><option>Software a medida</option><option selected="">CMS y catálogo web</option><option>ERP</option><option>App móvil</option></select></label><label class="wide">Objetivo<textarea id="objective">Desarrollar una plataforma web administrable para gestionar banners, categorías, productos y publicaciones, medir visitas, clics e interés por producto y generar reportes exportables.</textarea></label><label class="wide">Notas internas<textarea id="notes" placeholder="Preguntas pendientes, acuerdos o restricciones..."></textarea></label></div></div><div class="hero"><div><small>REQUERIMIENTO DETECTADO</small><h3>Plataforma comercial y de marketing</h3><p>Panel administrativo, analítica, catálogo, contenidos, reportes y usuarios.</p></div><div class="heroStats"><div><b>14</b><span>módulos</span></div><div><b>18</b><span>pantallas</span></div><div><b>5–7</b><span>semanas</span></div></div></div></section>
+<section class="panel" data-panel="diagnostic"><div class="card"><div class="cardHead"><div><small>DIAGNÓSTICO GUIADO</small><h3>Contexto y complejidad</h3></div><span>02</span></div><div class="grid three"><label>Complejidad<select id="complexity"><option value=".88">Media</option><option selected="" value="1">Alta</option><option value="1.18">Empresarial</option></select></label><label>Plataforma<select id="platform"><option value="1">Web responsive</option><option value="1.08">Web + PWA</option><option value="1.22">Web + app</option></select></label><label>Usuarios<select id="users"><option value="0">Hasta 5</option><option selected="" value="4">6–15</option><option value="9">16–50</option></select></label><label>Pantallas<input id="screens" type="number" value="18"/></label><label>Productos<select id="volume"><option value="0">Hasta 100</option><option selected="" value="4">101–1,000</option><option value="10">1,001–10,000</option></select></label><label>Migración<select id="migration"><option value="0">No incluida</option><option selected="" value="8">Básica</option><option value="18">Completa</option></select></label><label>Reutilización<select id="reuse"><option value="1">Desde cero</option><option selected="" value=".84">Base propia</option><option value=".72">Proyecto similar</option></select></label><label>Urgencia<select id="urgency"><option value="1">Normal</option><option value="1.12">Prioritaria</option><option value="1.28">Urgente</option></select></label></div></div><div class="card"><div class="cardHead"><div><small>PENDIENTES</small><h3>Preguntas por confirmar</h3></div></div><div class="questions" id="questions"></div></div></section>
+<section class="panel" data-panel="modules"><div class="card"><div class="cardHead"><div><small>ALCANCE FUNCIONAL</small><h3>Módulos</h3></div><span id="moduleCount">0 módulos</span></div><div class="toolbar"><button id="allBtn">Seleccionar todo</button><button id="noneBtn">Limpiar</button><button id="customBtn">Añadir módulo</button></div><div class="modules" id="modulesList"></div></div></section>
 <section class="panel" data-panel="commercial">
 <div class="card">
-  <div class="cardHead"><div><small>ESTRATEGIA COMERCIAL</small><h3>Precio según etapa de MJM</h3></div><span>04</span></div>
-
-  <div class="portfolioMode active" id="portfolioModeCard">
-    <div>
-      <small>PRECIO CONFIGURADO</small>
-      <b>Tarifa inicial</b>
-      <p>Usa un precio manual ajustado al alcance y a las condiciones comerciales acordadas.</p>
-    </div>
-    <label class="switch"><input id="portfolioMode" type="checkbox" checked><span></span></label>
-  </div>
-
-  <div class="grid three">
-    <label>Perfil de precio
-      <select id="profile">
-        <option value="first_client" selected>Precio inicial — S/ 2,500</option>
-        <option value="launch">Precio intermedio — S/ 3,200</option>
-        <option value="recommended">Recomendado — S/ 5,000</option>
-        <option value="professional">Empresarial — S/ 8,500</option>
-        <option value="calculated">Cálculo por horas</option>
-      </select>
-    </label>
-    <label>Precio estratégico manual
-      <input id="manualPrice" type="number" min="0" step="50" value="2500">
-    </label>
-    <label>Costo interno / hora
-      <input id="costRate" type="number" value="10">
-    </label>
-    <label>Venta / hora
-      <input id="sellRate" type="number" value="18">
-    </label>
-    <label>Contingencia %
-      <input id="contingency" type="number" value="5">
-    </label>
-    <label>Descuento %
-      <input id="discount" type="number" value="0">
-    </label>
-    <label>IGV
-      <select id="tax"><option value="0" selected>Sin IGV</option><option value=".18">18%</option></select>
-    </label>
-    <label>Pago
-      <select id="payment">
-        <option selected>40% / 30% / 30%</option>
-        <option>50% / 50%</option>
-        <option>Por fases</option>
-      </select>
-    </label>
-    <label>Soporte
-      <select id="support"><option>15 días</option><option selected>30 días</option><option>60 días</option></select>
-    </label>
-    <label>Validez
-      <select id="validity"><option>7 días</option><option selected>15 días</option><option>30 días</option></select>
-    </label>
-  </div>
-
-  <div class="portfolioTerms">
-    <label><input id="portfolioPermission" type="checkbox" checked> Autorización opcional para mostrar el proyecto en el portafolio.</label>
-    <label><input id="testimonialRequired" type="checkbox" checked> Solicitud opcional de testimonio al finalizar.</label>
-    <label><input id="scopeLocked" type="checkbox" checked> El precio especial aplica únicamente al alcance definido.</label>
-  </div>
+<div class="cardHead"><div><small>ESTRATEGIA COMERCIAL</small><h3>Precio según etapa de MJM</h3></div><span>04</span></div>
+<div class="portfolioMode active" id="portfolioModeCard">
+<div>
+<small>PRECIO CONFIGURADO</small>
+<b>Tarifa inicial</b>
+<p>Usa un precio manual ajustado al alcance y a las condiciones comerciales acordadas.</p>
 </div>
-
+<label class="switch"><input checked="" id="portfolioMode" type="checkbox"/><span></span></label>
+</div>
+<div class="grid three">
+<label>Perfil de precio
+      <select id="profile">
+<option selected="" value="first_client">Precio configurado — S/ 2,500</option>
+<option value="launch">Escenario alternativo — S/ 3,200</option>
+<option value="recommended">Recomendado — S/ 5,000</option>
+<option value="professional">Empresarial — S/ 8,500</option>
+<option value="calculated">Cálculo por horas</option>
+</select>
+</label>
+<label>Precio estratégico manual
+      <input id="manualPrice" min="0" step="50" type="number" value="2500"/>
+</label>
+<label>Costo interno / hora
+      <input id="costRate" type="number" value="10"/>
+</label>
+<label>Venta / hora
+      <input id="sellRate" type="number" value="18"/>
+</label>
+<label>Contingencia %
+      <input id="contingency" type="number" value="5"/>
+</label>
+<label>Descuento %
+      <input id="discount" type="number" value="0"/>
+</label>
+<label>IGV
+      <select id="tax"><option selected="" value="0">Sin IGV</option><option value=".18">18%</option></select>
+</label>
+<label>Pago
+      <select id="payment">
+<option selected="">40% / 30% / 30%</option>
+<option>50% / 50%</option>
+<option>Por fases</option>
+</select>
+</label>
+<label>Soporte
+      <select id="support"><option>15 días</option><option selected="">30 días</option><option>60 días</option></select>
+</label>
+<label>Validez
+      <select id="validity"><option>7 días</option><option selected="">15 días</option><option>30 días</option></select>
+</label>
+</div>
+<div class="portfolioTerms">
+<label><input checked="" id="portfolioPermission" type="checkbox"/> Autorización opcional para mostrar el proyecto en el portafolio.</label>
+<label><input checked="" id="testimonialRequired" type="checkbox"/> Solicitud opcional de testimonio al finalizar.</label>
+<label><input checked="" id="scopeLocked" type="checkbox"/> El precio aplica únicamente al alcance definido.</label>
+</div>
+</div>
 <div class="card">
-  <div class="cardHead"><div><small>TERCEROS</small><h3>Costos externos</h3></div></div>
-  <div class="extras">
-    <label><input id="hostOn" type="checkbox"> Hosting anual <input id="hostCost" type="number" value="360"></label>
-    <label><input id="domainOn" type="checkbox"> Dominio anual <input id="domainCost" type="number" value="80"></label>
-    <label><input id="emailOn" type="checkbox"> Correos corporativos <input id="emailCost" type="number" value="240"></label>
-    <label><input id="maintOn" type="checkbox"> Mantenimiento mensual <input id="maintCost" type="number" value="250"></label>
-  </div>
+<div class="cardHead"><div><small>TERCEROS</small><h3>Costos externos</h3></div></div>
+<div class="extras">
+<label><input id="hostOn" type="checkbox"/> Hosting anual <input id="hostCost" type="number" value="360"/></label>
+<label><input id="domainOn" type="checkbox"/> Dominio anual <input id="domainCost" type="number" value="80"/></label>
+<label><input id="emailOn" type="checkbox"/> Correos corporativos <input id="emailCost" type="number" value="240"/></label>
+<label><input id="maintOn" type="checkbox"/> Mantenimiento mensual <input id="maintCost" type="number" value="250"/></label>
+</div>
 </div>
 </section>
-<section class="panel" data-panel="timeline"><div class="card"><div class="cardHead"><div><small>PLAN</small><h3>Cronograma por fases</h3></div><span>05</span></div><div id="timeline" class="timeline"></div></div><div class="card"><div class="cardHead"><div><small>RIESGOS</small><h3>Supuestos y alertas</h3></div></div><div id="risks" class="risks"></div></div></section>
-<section class="panel" data-panel="proposal"><article class="proposal" id="proposal"><header class="proposalBrand"><img class="proposalLogo" src="logo-mjm.jpg" alt="MJM Systems"><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div></header><div class="proposalTitle"><small>PROPUESTA COMERCIAL</small><h1 id="pProject"></h1><p id="pClient"></p></div><div class="pStats"><div><span>Inversión</span><b id="pPrice"></b></div><div><span>Plazo</span><b id="pWeeks"></b></div><div><span>Validez</span><b id="pValidity"></b></div></div><section><h3>Objetivo</h3><p id="pObjective"></p></section><section><h3>Alcance</h3><div id="pModules"></div></section><section><h3>Cronograma</h3><div id="pTimeline"></div></section><section><h3>Condiciones</h3><div class="conditions"><p><b>Pago:</b> <span id="pPayment"></span></p><p><b>Soporte:</b> <span id="pSupport"></span>.</p><p><b>Adicionales:</b> cualquier funcionalidad fuera del alcance será cotizada por separado.</p></div></section><footer><b>MJM Systems</b><span>MJMsystems.c@gmail.com · +51 936 702 029</span></footer></article></section>
+<section class="panel" data-panel="timeline"><div class="card"><div class="cardHead"><div><small>PLAN</small><h3>Cronograma por fases</h3></div><span>05</span></div><div class="timeline" id="timeline"></div></div><div class="card"><div class="cardHead"><div><small>RIESGOS</small><h3>Supuestos y alertas</h3></div></div><div class="risks" id="risks"></div></div></section>
+<section class="panel" data-panel="proposal">
+<div class="pdfDocument" id="proposal">
+<section class="pdfPage coverPage">
+<header class="pdfHeader">
+<div class="pdfBrand"><img alt="MJM Systems" src="logo-mjm.jpg"/><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div></div>
+<div class="proposalCode"><span>PROPUESTA</span><b id="pCode">MJM-2026-001</b></div>
+</header>
+<main class="coverContent">
+<small>PROPUESTA COMERCIAL</small>
+<h1 id="pProject"></h1>
+<p id="pClient"></p>
+<div class="coverLine"></div>
+<p class="coverIntro">Propuesta para el diseño, desarrollo e implementación de una plataforma web administrable, preparada según el alcance funcional definido.</p>
+<div class="pStats">
+<div><span>Inversión</span><b id="pPrice"></b></div>
+<div><span>Plazo estimado</span><b id="pWeeks"></b></div>
+<div><span>Validez</span><b id="pValidity"></b></div>
 </div>
-<aside class="summary"><div class="price"><small>INVERSIÓN RECOMENDADA</small><b id="price">S/ 0</b><span id="range">Rango: —</span></div><div class="metrics"><div><span>Horas</span><b id="hours">0</b></div><div><span>Plazo</span><b id="weeks">—</b></div><div><span>Costo interno</span><b id="internal">S/ 0</b></div><div><span>Margen</span><b id="margin">0%</b></div></div><div class="sumCard"><h4>Escenarios MJM</h4><p><span>Precio inicial</span><b id="floor">S/ 2,500</b></p><p><span>Precio intermedio</span><b id="launch">S/ 3,200</b></p><p><span>Precio recomendado</span><b id="recommended">S/ 5,000</b></p><p><span>Precio empresarial</span><b id="professional">S/ 8,500</b></p></div><div class="sumCard"><h4>Distribución</h4><div id="bars"></div></div><div id="alert" class="alert"></div><button id="jsonBtn">Exportar JSON</button><button id="csvBtn">Exportar CSV</button><button class="primary" id="proposalBtn">Ver propuesta</button></aside>
+</main>
+<footer class="pdfFooter"><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div><div><span class="pdfDate"></span><b>Página 1 de 4</b></div></footer>
+</section>
+<section class="pdfPage">
+<header class="pdfHeader">
+<div class="pdfBrand"><img alt="MJM Systems" src="logo-mjm.jpg"/><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div></div>
+<div class="pageSection">ALCANCE DEL PROYECTO</div>
+</header>
+<main class="pdfBody">
+<section class="pdfBlock"><h2>Objetivo</h2><p id="pObjective"></p></section>
+<section class="pdfBlock"><h2>Funcionalidades incluidas</h2><div class="proposalModules" id="pModulesA"></div></section>
+<section class="pdfBlock"><h2>Continuación del alcance</h2><div class="proposalModules compact" id="pModulesB"></div></section>
+<div class="noteBox"><b>Control de alcance</b><p>La inversión indicada considera únicamente las funcionalidades descritas en esta propuesta. Cambios o ampliaciones posteriores se evaluarán y cotizarán por separado.</p></div>
+</main>
+<footer class="pdfFooter"><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div><div><span class="pdfDate"></span><b>Página 2 de 4</b></div></footer>
+</section>
+<section class="pdfPage">
+<header class="pdfHeader">
+<div class="pdfBrand"><img alt="MJM Systems" src="logo-mjm.jpg"/><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div></div>
+<div class="pageSection">PLAN DE EJECUCIÓN</div>
+</header>
+<main class="pdfBody">
+<section class="pdfBlock"><h2>Cronograma por fases</h2><div class="proposalTimeline" id="pTimeline"></div></section>
+<section class="pdfBlock twoCols">
+<div><h2>Supuestos</h2><ul class="cleanList"><li>El cliente entregará la información, accesos y archivos requeridos.</li><li>Las validaciones se realizarán dentro de los plazos acordados.</li><li>El alcance se mantendrá estable durante el desarrollo.</li><li>La migración dependerá de la calidad y estructura de los datos.</li></ul></div>
+<div><h2>No incluido</h2><ul class="cleanList"><li>Hosting, dominio o licencias, salvo indicación expresa.</li><li>Aplicaciones móviles nativas.</li><li>Integraciones no descritas en el alcance.</li><li>Nuevas funcionalidades solicitadas después de la aprobación.</li></ul></div>
+</section>
+<section class="pdfBlock"><h2>Garantía y soporte</h2><p>Se incluyen <b id="pSupport"></b> de soporte correctivo después de la entrega. La garantía cubre errores asociados a las funcionalidades aprobadas; no incluye ampliaciones ni cambios de alcance.</p></section>
+</main>
+<footer class="pdfFooter"><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div><div><span class="pdfDate"></span><b>Página 3 de 4</b></div></footer>
+</section>
+<section class="pdfPage">
+<header class="pdfHeader">
+<div class="pdfBrand"><img alt="MJM Systems" src="logo-mjm.jpg"/><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div></div>
+<div class="pageSection">INVERSIÓN Y APROBACIÓN</div>
+</header>
+<main class="pdfBody">
+<section class="investmentCard">
+<span>Inversión total del proyecto</span>
+<b id="pPriceFinal"></b>
+<small id="pTaxNote">Importe según la configuración tributaria seleccionada.</small>
+</section>
+<section class="pdfBlock"><h2>Forma de pago</h2>
+<div class="paymentTable">
+<div class="paymentHead"><span>Etapa</span><span>Porcentaje</span><span>Monto</span></div>
+<div><span>Aprobación e inicio del proyecto</span><b>40%</b><strong id="pay40"></strong></div>
+<div><span>Primera versión funcional</span><b>30%</b><strong id="pay30a"></strong></div>
+<div><span>Entrega final y puesta en producción</span><b>30%</b><strong id="pay30b"></strong></div>
+</div>
+</section>
+<section class="pdfBlock"><h2>Condiciones comerciales</h2><div class="conditions"><p><b>Validez:</b> <span id="pValidity2"></span>.</p><p><b>Inicio:</b> posterior a la aprobación y confirmación del primer pago.</p><p><b>Comunicación:</b> se compartirán avances y entregas parciales durante la ejecución.</p><p><b>Adicionales:</b> cualquier requerimiento fuera del alcance será evaluado y cotizado por separado.</p></div></section>
+<section class="signatures">
+<div><span>Por el cliente</span><i></i><b>Nombre y firma</b><small>Fecha: ____ / ____ / ______</small></div>
+<div><span>Por MJM Systems</span><i></i><b>MJM Systems</b><small>Soluciones de software a medida</small></div>
+</section>
+</main>
+<footer class="pdfFooter"><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div><div><span class="pdfDate"></span><b>Página 4 de 4</b></div></footer>
+</section>
+</div>
+</section>
+</div>
+<aside class="summary"><div class="price"><small>INVERSIÓN RECOMENDADA</small><b id="price">S/ 0</b><span id="range">Rango: —</span></div><div class="metrics"><div><span>Horas</span><b id="hours">0</b></div><div><span>Plazo</span><b id="weeks">—</b></div><div><span>Costo interno</span><b id="internal">S/ 0</b></div><div><span>Margen</span><b id="margin">0%</b></div></div><div class="sumCard"><h4>Escenarios MJM</h4><p><span>Precio inicial</span><b id="floor">S/ 2,500</b></p><p><span>Precio intermedio</span><b id="launch">S/ 3,200</b></p><p><span>Precio recomendado</span><b id="recommended">S/ 5,000</b></p><p><span>Precio empresarial</span><b id="professional">S/ 8,500</b></p></div><div class="sumCard"><h4>Distribución</h4><div id="bars"></div></div><div class="alert" id="alert"></div><button id="jsonBtn">Exportar JSON</button><button id="csvBtn">Exportar CSV</button><button class="primary" id="proposalBtn">Ver propuesta</button></aside>
 </div></main></div>
-<dialog id="historyDialog"><div class="dialogHead"><h2>Historial</h2><button data-close>×</button></div><div id="historyList"></div></dialog><dialog id="customDialog"><div class="dialogHead"><h2>Nuevo módulo</h2><button data-close>×</button></div><label>Nombre<input id="customName"></label><label>Horas<input id="customHours" type="number" value="12"></label><label>Descripción<textarea id="customDesc"></textarea></label><button class="primary full" id="customSave">Añadir</button></dialog>
-<script src="app.js?v=6.1.0"></script></body></html>
+<dialog id="historyDialog"><div class="dialogHead"><h2>Historial</h2><button data-close="">×</button></div><div id="historyList"></div></dialog><dialog id="customDialog"><div class="dialogHead"><h2>Nuevo módulo</h2><button data-close="">×</button></div><label>Nombre<input id="customName"/></label><label>Horas<input id="customHours" type="number" value="12"/></label><label>Descripción<textarea id="customDesc"></textarea></label><button class="primary full" id="customSave">Añadir</button></dialog>
+<script src="app.js?v=7.0.0"></script></body></html>

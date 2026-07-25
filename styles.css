@@ -12,3 +12,37 @@
 .proposalLogo{width:74px;height:74px;border-radius:18px;object-fit:cover;border:1px solid #d8e0eb;box-shadow:0 8px 22px #13233a20}
 @media(max-width:650px){.brandLogo{width:44px;height:44px}.proposalLogo{width:62px;height:62px}}
 @media print{.proposalLogo{width:70px;height:70px;print-color-adjust:exact;-webkit-print-color-adjust:exact}.proposalBrand{page-break-inside:avoid}}
+
+/* QuoteForge v7 — propuesta white-label paginada */
+.pdfDocument{display:grid;gap:22px}
+.pdfPage{position:relative;min-height:1120px;background:#fff;color:#182235;border-radius:18px;padding:34px 42px 86px;box-shadow:0 24px 65px #0004;overflow:hidden}
+.pdfHeader{display:flex;align-items:center;justify-content:space-between;padding-bottom:17px;border-bottom:1px solid #dce4ee}
+.pdfBrand{display:flex;align-items:center;gap:12px}.pdfBrand img{width:60px;height:60px;border-radius:15px;object-fit:cover;border:1px solid #d7e0ea}.pdfBrand b,.pdfBrand span{display:block}.pdfBrand b{font-size:14px}.pdfBrand span{font-size:9px;color:#69778a;margin-top:3px}
+.proposalCode,.pageSection{text-align:right}.proposalCode span,.proposalCode b{display:block}.proposalCode span,.pageSection{font-size:8px;color:#2563eb;letter-spacing:.13em;font-weight:900}.proposalCode b{font-size:11px;margin-top:4px}
+.coverContent{padding-top:115px}.coverContent>small{font-size:9px;color:#2563eb;letter-spacing:.18em;font-weight:900}.coverContent h1{max-width:760px;font-size:38px;line-height:1.12;margin:12px 0 10px}.coverContent>p{font-size:12px;color:#68768a}.coverLine{width:82px;height:5px;border-radius:99px;background:#2563eb;margin:38px 0 20px}.coverIntro{max-width:650px;line-height:1.7!important}
+.pdfPage .pStats{margin-top:55px}.pdfPage .pStats div{padding:18px}.pdfPage .pStats span{font-size:9px}.pdfPage .pStats b{font-size:19px;margin-top:5px}
+.pdfBody{padding-top:25px}.pdfBlock{margin-top:22px}.pdfBlock:first-child{margin-top:0}.pdfBlock h2{font-size:15px;margin:0 0 10px}.pdfBlock p{font-size:10px;line-height:1.65;color:#4f5c6f}
+.proposalModules{display:grid;grid-template-columns:1fr 1fr;gap:8px}.proposalModules .pMod{margin:0;min-height:64px;line-height:1.45}.proposalModules.compact .pMod{min-height:58px}
+.noteBox{margin-top:20px;padding:13px 15px;border:1px solid #bdd1f2;border-radius:11px;background:#f1f6ff}.noteBox b{font-size:10px;color:#1e55ad}.noteBox p{font-size:9px;line-height:1.55;color:#50617a;margin:4px 0 0}
+.proposalTimeline{display:grid;gap:8px}.proposalTimeline .pPhase{display:grid;grid-template-columns:35px 1fr;gap:9px;align-items:center;margin:0;padding:10px}.proposalTimeline .pPhase>span{width:35px;height:35px;border-radius:10px;display:grid;place-items:center;background:#eaf1ff;color:#2563eb;font-weight:900}.proposalTimeline b,.proposalTimeline small{display:block}.proposalTimeline small{font-size:8px;color:#6f7d90;margin-top:3px}
+.twoCols{display:grid;grid-template-columns:1fr 1fr;gap:22px}.cleanList{margin:0;padding-left:17px}.cleanList li{font-size:9px;line-height:1.6;color:#4f5d70;margin-bottom:5px}
+.investmentCard{text-align:center;padding:25px;border-radius:15px;background:linear-gradient(145deg,#edf4ff,#f7faff);border:1px solid #cbdcf8}.investmentCard span,.investmentCard b,.investmentCard small{display:block}.investmentCard span{font-size:9px;color:#61728a}.investmentCard b{font-size:34px;margin:7px}.investmentCard small{font-size:8px;color:#7b899c}
+.paymentTable{border:1px solid #dbe3ec;border-radius:12px;overflow:hidden}.paymentTable>div{display:grid;grid-template-columns:1fr 100px 120px;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid #e3e9f0;font-size:9px}.paymentTable>div:last-child{border:0}.paymentTable .paymentHead{background:#f2f6fb;color:#657489;font-weight:800}.paymentTable b,.paymentTable strong{text-align:right}.paymentTable strong{color:#1c4f9f}
+.signatures{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:54px}.signatures>div{display:grid;gap:6px}.signatures span{font-size:8px;color:#7b8899}.signatures i{display:block;height:55px;border-bottom:1px solid #9da9b7}.signatures b{font-size:9px}.signatures small{font-size:8px;color:#7a8798}
+.pdfFooter{position:absolute;left:42px;right:42px;bottom:24px;display:flex;justify-content:space-between;align-items:flex-end;padding-top:12px;border-top:1px solid #dce4ee}.pdfFooter>div:last-child{text-align:right}.pdfFooter b,.pdfFooter span{display:block}.pdfFooter b{font-size:8px}.pdfFooter span{font-size:7px;color:#748196;margin-top:2px}
+@page{size:A4;margin:0}
+@media print{
+ html,body{background:#fff!important}
+ .pdfDocument{display:block}
+ .pdfPage{width:210mm;height:297mm;min-height:297mm;border-radius:0;box-shadow:none;margin:0;padding:14mm 15mm 23mm;page-break-after:always;break-after:page;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .pdfPage:last-child{page-break-after:auto}
+ .pdfHeader{padding-bottom:5mm}.pdfBrand img{width:16mm;height:16mm}.coverContent{padding-top:32mm}.coverContent h1{font-size:28pt}
+ .pdfFooter{left:15mm;right:15mm;bottom:8mm}
+ .proposalModules .pMod{font-size:7.5pt;min-height:auto;padding:7px}
+ .pdfBlock p,.cleanList li{font-size:8pt}
+ .paymentTable>div{font-size:8pt}
+}
+@media(max-width:700px){
+ .pdfPage{min-height:auto;padding:20px 18px 76px}.coverContent{padding-top:55px}.coverContent h1{font-size:28px}
+ .proposalModules,.twoCols,.signatures{grid-template-columns:1fr}.paymentTable>div{grid-template-columns:1fr 60px 80px}.pdfFooter{left:18px;right:18px}
+}
