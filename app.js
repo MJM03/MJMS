@@ -71,4 +71,43 @@ function save(){const c=calc(),a=JSON.parse(localStorage.getItem('qf_quotes_v61'
 function history(){const a=JSON.parse(localStorage.getItem('qf_quotes_v61')||'[]');$('#historyList').innerHTML=a.length?a.map(q=>`<div class="historyItem" data-id="${q.id}"><div><b>${q.form.project||'Proyecto sin nombre'}</b><small>${q.form.client||'Cliente por confirmar'} · ${new Date(q.date).toLocaleString('es-PE')} · ${money(q.total)}</small></div><div><button data-load>Cargar</button><button data-del>Eliminar</button></div></div>`).join(''):'<p>No hay cotizaciones guardadas.</p>';$$('.historyItem').forEach(r=>{const q=a.find(x=>x.id===r.dataset.id);r.querySelector('[data-load]').onclick=()=>load(q);r.querySelector('[data-del]').onclick=()=>{localStorage.setItem('qf_quotes_v61',JSON.stringify(a.filter(x=>x.id!==q.id)));history()}})}
 function load(q){state=JSON.parse(JSON.stringify(q.state));Object.entries(q.form).forEach(([k,v])=>{const map={project:'project',client:'client',sector:'sector',type:'type',objective:'objective',notes:'notes',status:'status',complexity:'complexity',platform:'platform',users:'users',screens:'screens',volume:'volume',migration:'migration',reuse:'reuse',urgency:'urgency',sell:'sellRate',cost:'costRate',cont:'contingency',discount:'discount',tax:'tax',profile:'profile',payment:'payment',support:'support',validity:'validity',manualPrice:'manualPrice',portfolioMode:'portfolioMode',portfolioPermission:'portfolioPermission',testimonialRequired:'testimonialRequired',scopeLocked:'scopeLocked'},el=$(`#${map[k]||''}`);if(el){if(el.type==='checkbox')el.checked=!!v;else el.value=(k==='cont'||k==='discount')?v*100:v}});renderModules();update();step(state.step||'summary');$('#historyDialog').close()}
 function download(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),500)}
-$('#questions').innerHTML=questions.map((q,i)=>`<div class="question"><span>${i+1}</span><div><b>${q}</b><p>Pendiente antes de cerrar presupuesto.</p></div></div>`).join('');$$('#nav button').forEach(b=>b.onclick=()=>step(b.dataset.step));$$('input,select,textarea').forEach(e=>e.addEventListener('input',update));$('#presetBtn').onclick=preset;$('#allBtn').onclick=()=>{state.modules.forEach(m=>m.selected=true);renderModules();update()};$('#noneBtn').onclick=()=>{state.modules.forEach(m=>m.selected=false);renderModules();update()};$('#customBtn').onclick=()=>$('#customDialog').showModal();$('#customSave').onclick=()=>{const name=$('#customName').value.trim();if(!name)return;state.modules.push({id:uid(),category:'Personalizado',name,hours:Math.max(1,+$('#customHours').value||1),description:$('#customDesc').value.trim()||'Funcionalidad personalizada.',selected:true});$('#customDialog').close();renderModules();update()};$('#saveBtn').onclick=save;$('#historyBtn').onclick=()=>{history();$('#historyDialog').showModal()};$('#newBtn').onclick=()=>{if(confirm('¿Crear nueva cotización?')){state={id:uid(),modules:JSON.parse(JSON.stringify(base)),step:'summary'};preset();$('#client').value='';$('#notes').value=''}};$('#proposalBtn').onclick=()=>step('proposal');$('#printBtn').onclick=()=>{update();updateProposalFooter();step('proposal');setTimeout(()=>window.print(),180)};$('#jsonBtn').onclick=()=>{const c=calc();download(new Blob([JSON.stringify({version:'6.1.1',state,form:c.f,calculation:c},null,2)],{type:'application/json'}),'quoteforge-cotizacion.json')};$('#csvBtn').onclick=()=>{const rows=[['Módulo','Categoría','Horas','Descripción'],...selected().map(m=>[m.name,m.category,m.hours,m.description])],csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');download(new Blob(['\ufeff'+csv],{type:'text/csv'}),'quoteforge-modulos.csv')};$$('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());renderModules();preset();
+
+async function generateDirectPdf(){
+  const btn=$('#printBtn'),loader=$('#pdfLoading');
+  try{
+    update();step('proposal');
+    if(!window.html2canvas||!window.jspdf?.jsPDF) throw new Error('No se pudieron cargar las librerías PDF. Verifica tu conexión e inténtalo nuevamente.');
+    btn.disabled=true;btn.textContent='Generando…';loader.hidden=false;
+    await document.fonts?.ready;
+    const source=$('#proposal');
+    const wrap=document.createElement('div');
+    wrap.className='pdfCapture';
+    wrap.style.cssText='position:fixed;left:-10000px;top:0;width:794px;background:#fff;z-index:-1;';
+    const clone=source.cloneNode(true);clone.removeAttribute('id');wrap.appendChild(clone);document.body.appendChild(wrap);
+    await Promise.all([...clone.querySelectorAll('img')].map(img=>img.complete?Promise.resolve():new Promise(r=>{img.onload=img.onerror=r})));
+    const canvas=await html2canvas(clone,{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false,windowWidth:794});
+    wrap.remove();
+    const {jsPDF}=window.jspdf,pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true});
+    const pageW=210,pageH=297,margin=8,usableW=pageW-margin*2,usableH=pageH-margin*2;
+    const pxPerMm=canvas.width/usableW;
+    const slicePx=Math.floor(usableH*pxPerMm);
+    let y=0,page=0;
+    while(y<canvas.height){
+      if(page>0)pdf.addPage();
+      const h=Math.min(slicePx,canvas.height-y),slice=document.createElement('canvas');
+      slice.width=canvas.width;slice.height=h;
+      slice.getContext('2d').drawImage(canvas,0,y,canvas.width,h,0,0,canvas.width,h);
+      const img=slice.toDataURL('image/jpeg',0.94),renderH=h/pxPerMm;
+      pdf.addImage(img,'JPEG',margin,margin,usableW,renderH,undefined,'FAST');
+      y+=h;page++;
+    }
+    const clean=(form().project||'propuesta-mjm').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    pdf.save(`${clean||'propuesta-mjm'}.pdf`);
+  }catch(err){
+    console.error(err);alert(err.message||'No se pudo generar el PDF.');
+  }finally{
+    btn.disabled=false;btn.textContent='Descargar PDF';loader.hidden=true;
+  }
+}
+
+$('#questions').innerHTML=questions.map((q,i)=>`<div class="question"><span>${i+1}</span><div><b>${q}</b><p>Pendiente antes de cerrar presupuesto.</p></div></div>`).join('');$$('#nav button').forEach(b=>b.onclick=()=>step(b.dataset.step));$$('input,select,textarea').forEach(e=>e.addEventListener('input',update));$('#presetBtn').onclick=preset;$('#allBtn').onclick=()=>{state.modules.forEach(m=>m.selected=true);renderModules();update()};$('#noneBtn').onclick=()=>{state.modules.forEach(m=>m.selected=false);renderModules();update()};$('#customBtn').onclick=()=>$('#customDialog').showModal();$('#customSave').onclick=()=>{const name=$('#customName').value.trim();if(!name)return;state.modules.push({id:uid(),category:'Personalizado',name,hours:Math.max(1,+$('#customHours').value||1),description:$('#customDesc').value.trim()||'Funcionalidad personalizada.',selected:true});$('#customDialog').close();renderModules();update()};$('#saveBtn').onclick=save;$('#historyBtn').onclick=()=>{history();$('#historyDialog').showModal()};$('#newBtn').onclick=()=>{if(confirm('¿Crear nueva cotización?')){state={id:uid(),modules:JSON.parse(JSON.stringify(base)),step:'summary'};preset();$('#client').value='';$('#notes').value=''}};$('#proposalBtn').onclick=()=>step('proposal');$('#printBtn').onclick=generateDirectPdf;$('#jsonBtn').onclick=()=>{const c=calc();download(new Blob([JSON.stringify({version:'6.1.2',state,form:c.f,calculation:c},null,2)],{type:'application/json'}),'quoteforge-cotizacion.json')};$('#csvBtn').onclick=()=>{const rows=[['Módulo','Categoría','Horas','Descripción'],...selected().map(m=>[m.name,m.category,m.hours,m.description])],csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');download(new Blob(['\ufeff'+csv],{type:'text/csv'}),'quoteforge-modulos.csv')};$$('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());renderModules();preset();

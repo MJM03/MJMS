@@ -1,12 +1,12 @@
-# QuoteForge v6.1.1 - Footer corregido
+# QuoteForge v6.1.2 — PDF directo
 
-Esta compilación conserva exactamente la estructura visual de QuoteForge v6.1.0.
+Esta versión conserva el diseño anterior y reemplaza la impresión del navegador por una descarga PDF generada directamente desde la aplicación.
 
-Único cambio principal en la propuesta/PDF:
+## Resultado
+- No aparece la URL de GitHub.
+- No aparece la fecha del navegador.
+- No aparece la numeración automática del navegador.
+- Se conserva el footer propio de MJM Systems.
+- El botón ahora dice “Descargar PDF”.
 
-- Izquierda: MJM Systems / Soluciones de software a medida.
-- Derecha: fecha automática y total estimado de páginas.
-- Se retiraron correo y teléfono del pie de la propuesta.
-- Se mantiene la cotización del cliente por defecto en S/ 2,500.
-
-Nota: el URL, la hora y la numeración gris que Chrome/Safari puede añadir fuera del diseño pertenecen a la opción «Encabezados y pies de página» del cuadro de impresión. Desactívala al guardar el PDF.
+La generación utiliza html2canvas y jsPDF desde CDN, por lo que requiere conexión a internet al abrir la aplicación por primera vez.
