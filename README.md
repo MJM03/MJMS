@@ -1,33 +1,17 @@
-# QuoteForge v7.0.0 — Propuesta profesional MJM Systems
+# QuoteForge v7.0.1 — Cache Fix
 
-Versión completa con la cotización del cliente cargada por defecto en S/ 2,500.
+Versión corregida y lista para GitHub Pages.
 
-## PDF white-label
+## Importante al actualizar
+1. Elimina los archivos anteriores del repositorio.
+2. Sube todos los archivos de este ZIP a la raíz.
+3. Espera 1–3 minutos y abre la página en una pestaña privada.
 
-La propuesta exportable contiene cuatro páginas A4:
+Los archivos CSS y JS usan nombres nuevos para impedir que GitHub Pages o el navegador reutilicen versiones antiguas.
 
-1. Portada e inversión.
-2. Objetivo y alcance.
-3. Cronograma, supuestos, exclusiones, garantía y soporte.
-4. Inversión, pagos 40/30/30, condiciones y firmas.
-
-Cada página muestra:
-
-- Logo de MJM Systems.
-- “Soluciones de software a medida”.
-- Fecha.
-- Numeración Página X de 4.
-
-No muestra GitHub, QuoteForge ni números de versión dentro del PDF.
-
-## Forma de pago predeterminada
-
-- 40% al aprobar e iniciar.
-- 30% con la primera versión funcional.
-- 30% con la entrega final.
-
-Los montos se calculan automáticamente según el precio total.
-
-## Publicación
-
-Sube todos los archivos a la raíz de GitHub Pages.
+## Incluye
+- Cotización predeterminada de S/ 2,500.
+- Logo MJM Systems en la app y PDF.
+- PDF white-label de 4 páginas.
+- Pie: Soluciones de software a medida, fecha y página X de 4.
+- Pago 40% / 30% / 30%.
