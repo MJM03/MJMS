@@ -5,4 +5,10 @@
 .portfolioMode small,.portfolioMode b,.portfolioMode p{display:block}.portfolioMode small{font-size:8px;color:#68d398;font-weight:900;letter-spacing:.12em}.portfolioMode b{font-size:12px;margin-top:4px}.portfolioMode p{font-size:9px;line-height:1.5;color:#93a7bc;margin:5px 0 0}
 .switch{position:relative;flex:none}.switch input{display:none}.switch span{display:block;width:48px;height:27px;border-radius:999px;background:#26364d;position:relative;transition:.2s}.switch span:after{content:"";position:absolute;width:21px;height:21px;left:3px;top:3px;border-radius:50%;background:#fff;transition:.2s}.switch input:checked+span{background:#22c55e}.switch input:checked+span:after{transform:translateX(21px)}
 .portfolioTerms{display:grid;gap:8px;margin-top:14px;padding:12px;border-radius:12px;background:#0c1728;border:1px solid var(--line)}.portfolioTerms label{font-size:9px;color:#aab8ca}.portfolioTerms input{accent-color:#22c55e}
-.portfolioProposalNote{margin-top:22px;padding:14px;border-radius:12px;background:#edf8f2;border:1px solid #b8e7ce;color:#1c5135}.portfolioProposalNote b{font-size:12px}.portfolioProposalNote p{margin:5px 0 0!important;color:#3d6651!important}
+
+
+.brandLogo{width:48px;height:48px;border-radius:14px;object-fit:cover;border:1px solid #ffffff30;box-shadow:0 8px 22px #0005;flex:none}
+.proposalBrand{display:flex;align-items:center;gap:12px}
+.proposalLogo{width:74px;height:74px;border-radius:18px;object-fit:cover;border:1px solid #d8e0eb;box-shadow:0 8px 22px #13233a20}
+@media(max-width:650px){.brandLogo{width:44px;height:44px}.proposalLogo{width:62px;height:62px}}
+@media print{.proposalLogo{width:70px;height:70px;print-color-adjust:exact;-webkit-print-color-adjust:exact}.proposalBrand{page-break-inside:avoid}}

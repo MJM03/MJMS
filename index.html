@@ -1,5 +1,5 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07111f"><title>QuoteForge v6.0.0</title><link rel="icon" href="icon.svg"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css?v=6.0.0"></head><body>
-<div id="app"><header class="top"><div class="brand"><div class="logo">QF</div><div><b>QuoteForge</b><span>MJM Systems · v6.0.0</span></div></div><div class="actions"><button id="newBtn">Nueva</button><button id="saveBtn">Guardar</button><button id="historyBtn">Historial</button><button class="primary" id="printBtn">Propuesta PDF</button></div></header>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07111f"><title>QuoteForge v6.1.0</title><link rel="icon" href="icon.svg"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css?v=6.1.0"></head><body>
+<div id="app"><header class="top"><div class="brand"><img class="brandLogo" src="logo-mjm.jpg" alt="MJM Systems"><div><b>QuoteForge</b><span>MJM Systems · v6.1.0</span></div></div><div class="actions"><button id="newBtn">Nueva</button><button id="saveBtn">Guardar</button><button id="historyBtn">Historial</button><button class="primary" id="printBtn">Propuesta PDF</button></div></header>
 <aside class="side"><small>COTIZACIÓN</small><h1 id="sideTitle">Plataforma comercial</h1><nav id="nav"><button class="active" data-step="summary">01 Resumen</button><button data-step="diagnostic">02 Diagnóstico</button><button data-step="modules">03 Módulos</button><button data-step="commercial">04 Comercial</button><button data-step="timeline">05 Cronograma</button><button data-step="proposal">06 Propuesta</button></nav><div class="preset"><small>PRESET CLIENTE</small><b>CMS + catálogo + analítica</b><p>Carga el requerimiento recibido.</p><button class="primary full" id="presetBtn">Aplicar requerimiento</button></div><footer>MJMsystems.c@gmail.com<br>+51 936 702 029</footer></aside>
 <main class="main"><section class="mainHead"><div><small id="eyebrow">COTIZACIÓN PRELIMINAR</small><h2 id="title">Resumen del proyecto</h2><p id="subtitle">Configura los datos generales.</p></div><select id="status"><option>Borrador</option><option>En revisión</option><option>Enviada</option><option>Negociación</option><option>Ganada</option></select></section>
 <div class="layout"><div class="content">
@@ -12,9 +12,9 @@
 
   <div class="portfolioMode active" id="portfolioModeCard">
     <div>
-      <small>MODO PORTAFOLIO</small>
-      <b>Primer cliente / caso de éxito</b>
-      <p>Usa un precio estratégico para obtener experiencia, testimonio y autorización para mostrar el proyecto.</p>
+      <small>PRECIO CONFIGURADO</small>
+      <b>Tarifa inicial</b>
+      <p>Usa un precio manual ajustado al alcance y a las condiciones comerciales acordadas.</p>
     </div>
     <label class="switch"><input id="portfolioMode" type="checkbox" checked><span></span></label>
   </div>
@@ -22,8 +22,8 @@
   <div class="grid three">
     <label>Perfil de precio
       <select id="profile">
-        <option value="first_client" selected>Primer cliente — S/ 2,500</option>
-        <option value="launch">Lanzamiento MJM — S/ 3,200</option>
+        <option value="first_client" selected>Precio inicial — S/ 2,500</option>
+        <option value="launch">Precio intermedio — S/ 3,200</option>
         <option value="recommended">Recomendado — S/ 5,000</option>
         <option value="professional">Empresarial — S/ 8,500</option>
         <option value="calculated">Cálculo por horas</option>
@@ -63,8 +63,8 @@
   </div>
 
   <div class="portfolioTerms">
-    <label><input id="portfolioPermission" type="checkbox" checked> El cliente autoriza mostrar el proyecto en el portafolio.</label>
-    <label><input id="testimonialRequired" type="checkbox" checked> Se solicitará testimonio al finalizar.</label>
+    <label><input id="portfolioPermission" type="checkbox" checked> Autorización opcional para mostrar el proyecto en el portafolio.</label>
+    <label><input id="testimonialRequired" type="checkbox" checked> Solicitud opcional de testimonio al finalizar.</label>
     <label><input id="scopeLocked" type="checkbox" checked> El precio especial aplica únicamente al alcance definido.</label>
   </div>
 </div>
@@ -80,9 +80,9 @@
 </div>
 </section>
 <section class="panel" data-panel="timeline"><div class="card"><div class="cardHead"><div><small>PLAN</small><h3>Cronograma por fases</h3></div><span>05</span></div><div id="timeline" class="timeline"></div></div><div class="card"><div class="cardHead"><div><small>RIESGOS</small><h3>Supuestos y alertas</h3></div></div><div id="risks" class="risks"></div></div></section>
-<section class="panel" data-panel="proposal"><article class="proposal" id="proposal"><header><div class="logo">M</div><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div></header><div class="proposalTitle"><small>PROPUESTA COMERCIAL</small><h1 id="pProject"></h1><p id="pClient"></p></div><div class="pStats"><div><span>Inversión</span><b id="pPrice"></b></div><div><span>Plazo</span><b id="pWeeks"></b></div><div><span>Validez</span><b id="pValidity"></b></div></div><section><h3>Objetivo</h3><p id="pObjective"></p></section><section><h3>Alcance</h3><div id="pModules"></div></section><section><h3>Cronograma</h3><div id="pTimeline"></div></section><div class="portfolioProposalNote" id="portfolioProposalNote"><b>Precio especial de lanzamiento</b><p>Esta inversión corresponde a una tarifa preferencial por incorporación del proyecto al portafolio de MJM Systems. El beneficio aplica exclusivamente al alcance indicado en esta propuesta.</p></div><section><h3>Condiciones</h3><div class="conditions"><p><b>Pago:</b> <span id="pPayment"></span></p><p><b>Soporte:</b> <span id="pSupport"></span>.</p><p><b>Adicionales:</b> cualquier funcionalidad fuera del alcance será cotizada por separado.</p></div></section><footer><b>MJM Systems</b><span>MJMsystems.c@gmail.com · +51 936 702 029</span></footer></article></section>
+<section class="panel" data-panel="proposal"><article class="proposal" id="proposal"><header class="proposalBrand"><img class="proposalLogo" src="logo-mjm.jpg" alt="MJM Systems"><div><b>MJM Systems</b><span>Soluciones de software a medida</span></div></header><div class="proposalTitle"><small>PROPUESTA COMERCIAL</small><h1 id="pProject"></h1><p id="pClient"></p></div><div class="pStats"><div><span>Inversión</span><b id="pPrice"></b></div><div><span>Plazo</span><b id="pWeeks"></b></div><div><span>Validez</span><b id="pValidity"></b></div></div><section><h3>Objetivo</h3><p id="pObjective"></p></section><section><h3>Alcance</h3><div id="pModules"></div></section><section><h3>Cronograma</h3><div id="pTimeline"></div></section><section><h3>Condiciones</h3><div class="conditions"><p><b>Pago:</b> <span id="pPayment"></span></p><p><b>Soporte:</b> <span id="pSupport"></span>.</p><p><b>Adicionales:</b> cualquier funcionalidad fuera del alcance será cotizada por separado.</p></div></section><footer><b>MJM Systems</b><span>MJMsystems.c@gmail.com · +51 936 702 029</span></footer></article></section>
 </div>
-<aside class="summary"><div class="price"><small>INVERSIÓN RECOMENDADA</small><b id="price">S/ 0</b><span id="range">Rango: —</span></div><div class="metrics"><div><span>Horas</span><b id="hours">0</b></div><div><span>Plazo</span><b id="weeks">—</b></div><div><span>Costo interno</span><b id="internal">S/ 0</b></div><div><span>Margen</span><b id="margin">0%</b></div></div><div class="sumCard"><h4>Escenarios MJM</h4><p><span>Primer cliente</span><b id="floor">S/ 2,500</b></p><p><span>Lanzamiento MJM</span><b id="launch">S/ 3,200</b></p><p><span>Precio recomendado</span><b id="recommended">S/ 5,000</b></p><p><span>Precio empresarial</span><b id="professional">S/ 8,500</b></p></div><div class="sumCard"><h4>Distribución</h4><div id="bars"></div></div><div id="alert" class="alert"></div><button id="jsonBtn">Exportar JSON</button><button id="csvBtn">Exportar CSV</button><button class="primary" id="proposalBtn">Ver propuesta</button></aside>
+<aside class="summary"><div class="price"><small>INVERSIÓN RECOMENDADA</small><b id="price">S/ 0</b><span id="range">Rango: —</span></div><div class="metrics"><div><span>Horas</span><b id="hours">0</b></div><div><span>Plazo</span><b id="weeks">—</b></div><div><span>Costo interno</span><b id="internal">S/ 0</b></div><div><span>Margen</span><b id="margin">0%</b></div></div><div class="sumCard"><h4>Escenarios MJM</h4><p><span>Precio inicial</span><b id="floor">S/ 2,500</b></p><p><span>Precio intermedio</span><b id="launch">S/ 3,200</b></p><p><span>Precio recomendado</span><b id="recommended">S/ 5,000</b></p><p><span>Precio empresarial</span><b id="professional">S/ 8,500</b></p></div><div class="sumCard"><h4>Distribución</h4><div id="bars"></div></div><div id="alert" class="alert"></div><button id="jsonBtn">Exportar JSON</button><button id="csvBtn">Exportar CSV</button><button class="primary" id="proposalBtn">Ver propuesta</button></aside>
 </div></main></div>
 <dialog id="historyDialog"><div class="dialogHead"><h2>Historial</h2><button data-close>×</button></div><div id="historyList"></div></dialog><dialog id="customDialog"><div class="dialogHead"><h2>Nuevo módulo</h2><button data-close>×</button></div><label>Nombre<input id="customName"></label><label>Horas<input id="customHours" type="number" value="12"></label><label>Descripción<textarea id="customDesc"></textarea></label><button class="primary full" id="customSave">Añadir</button></dialog>
-<script src="app.js?v=6.0.0"></script></body></html>
+<script src="app.js?v=6.1.0"></script></body></html>
