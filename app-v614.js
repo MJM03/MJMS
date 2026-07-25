@@ -1,0 +1,119 @@
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],money=n=>`S/ ${Math.round(n).toLocaleString('es-PE')}`,uid=()=>`q_${Date.now().toString(36)}${Math.random().toString(36).slice(2,6)}`;
+const base=[['analytics','Analítica','Dashboard de estadísticas',22,'Visitas, clics, productos consultados, fechas y permanencia.'],['contact','Analítica','Intentos de compra / contacto',14,'Clics en Contactar, ranking y reportes.'],['banners','Contenido','Administración de banners',10,'Crear, editar, ordenar y activar.'],['categories','Contenido','Administración de categorías',9,'CRUD, orden y estados.'],['products','Catálogo','Administración de productos',20,'Registro, edición, búsqueda, filtros y estados.'],['excel','Catálogo','Carga masiva por Excel',24,'Alta y actualización de productos e imágenes.'],['blog','Contenido','Administración de blog',18,'Publicaciones, categorías, programación y estados.'],['reports','Reportes','Reportes y exportación Excel',16,'Filtros por fechas, categorías y productos.'],['auth','Seguridad','Login y recuperación',10,'Acceso seguro al panel.'],['roles','Seguridad','Usuarios y permisos',16,'Administrador, editor y control de accesos.'],['audit','Seguridad','Registro de acciones',10,'Auditoría básica.'],['storage','Infraestructura','Gestión de imágenes',12,'Carga, reemplazo y organización.'],['responsive','Experiencia','Responsive y móvil',10,'Computadora, tablet y celular.'],['qa','Entrega','Pruebas, capacitación y despliegue',18,'QA, publicación y capacitación.']].map(x=>({id:x[0],category:x[1],name:x[2],hours:x[3],description:x[4],selected:true}));
+let state={id:uid(),modules:JSON.parse(JSON.stringify(base)),step:'summary'};
+const meta={summary:['COTIZACIÓN PRELIMINAR','Resumen del proyecto','Configura los datos generales.'],diagnostic:['ANÁLISIS TÉCNICO','Diagnóstico guiado','Ajusta complejidad, volumen y contexto.'],modules:['ALCANCE FUNCIONAL','Módulos del proyecto','Define las funcionalidades incluidas.'],commercial:['ESTRATEGIA COMERCIAL','Costos y rentabilidad','Ajusta tarifas y condiciones.'],timeline:['PLAN DE TRABAJO','Cronograma y riesgos','Revisa fases y supuestos.'],proposal:['DOCUMENTO FINAL','Propuesta comercial','Lista para imprimir o guardar como PDF.']};
+const questions=['¿Cuántos productos administrará inicialmente?','¿Cada producto tendrá una o varias imágenes?','¿La web pública ya existe?','¿Google Analytics o analítica propia?','¿Cuántos usuarios internos usarán el panel?','¿Qué estructura tiene el Excel actual?','¿Se migrará información histórica?','¿Requiere hosting, dominio y correos?'];
+const risks=[['Excel no confirmado','La importación puede variar según formato, columnas y calidad de datos.'],['Analítica pendiente','Debe definirse si será propia, Google Analytics o mixta.'],['Web pública','Falta confirmar si el catálogo público también debe rediseñarse.'],['Volumen de imágenes','Puede requerir compresión y políticas de almacenamiento.'],['Publicación programada','Puede requerir backend o tareas automáticas.']];
+const selected=()=>state.modules.filter(m=>m.selected),form=()=>({
+project:$('#project').value.trim(),client:$('#client').value.trim(),sector:$('#sector').value.trim(),type:$('#type').value,
+objective:$('#objective').value.trim(),notes:$('#notes').value.trim(),status:$('#status').value,
+complexity:+$('#complexity').value,platform:+$('#platform').value,users:+$('#users').value,
+screens:Math.max(1,+$('#screens').value||1),volume:+$('#volume').value,migration:+$('#migration').value,
+reuse:+$('#reuse').value,urgency:+$('#urgency').value,sell:+$('#sellRate').value||18,cost:+$('#costRate').value||10,
+cont:(+$('#contingency').value||0)/100,discount:(+$('#discount').value||0)/100,tax:+$('#tax').value,
+profile:$('#profile').value,portfolioMode:$('#portfolioMode').checked,manualPrice:+$('#manualPrice').value||2500,
+portfolioPermission:$('#portfolioPermission').checked,testimonialRequired:$('#testimonialRequired').checked,
+scopeLocked:$('#scopeLocked').checked,payment:$('#payment').value,support:$('#support').value,validity:$('#validity').value,
+extras:{host:$('#hostOn').checked?(+$('#hostCost').value||0):0,domain:$('#domainOn').checked?(+$('#domainCost').value||0):0,
+email:$('#emailOn').checked?(+$('#emailCost').value||0):0,maint:$('#maintOn').checked?(+$('#maintCost').value||0):0}});
+function calc(){
+ const f=form(),mh=selected().reduce((s,m)=>s+(+m.hours||0),0);
+ const raw=(mh+Math.max(0,f.screens-8)*1.6+f.users+f.volume+f.migration)*f.complexity*f.platform*f.reuse*f.urgency;
+ const h=Math.max(8,Math.round(raw)),internal=h*f.cost;
+ const calculated=Math.ceil(h*f.sell*(1+f.cont)*(1-f.discount)/50)*50;
+ const profiles={first_client:2500,launch:3200,recommended:5000,professional:8500};
+ let basePrice=f.profile==='calculated'?calculated:(profiles[f.profile]||2500);
+ if(f.portfolioMode) basePrice=f.manualPrice||2500;
+ basePrice=Math.max(0,Math.round(basePrice/50)*50);
+ const extras=f.extras.host+f.extras.domain+f.extras.email;
+ const total=(basePrice+extras)*(1+f.tax);
+ const margin=basePrice?((basePrice-internal)/basePrice)*100:0,weeks=4;
+ return{f,mh,h,internal,calculated,basePrice,total,margin,weeks,
+ firstClient:2500,launch:3200,recommended:5000,professional:8500,
+ min:Math.max(2500,Math.round(basePrice*.9/50)*50),max:Math.max(3200,Math.round(basePrice*1.2/50)*50)}
+}
+function renderModules(){$('#modulesList').innerHTML=state.modules.map(m=>`<div class="module ${m.selected?'active':''}" data-id="${m.id}"><input type="checkbox" ${m.selected?'checked':''}><div><b>${m.name}</b><small>${m.category} · ${m.description}</small></div><input type="number" min="1" value="${m.hours}"><button>×</button></div>`).join('');$$('.module').forEach(r=>{const m=state.modules.find(x=>x.id===r.dataset.id);r.querySelector('input[type=checkbox]').onchange=e=>{m.selected=e.target.checked;renderModules();update()};r.querySelector('input[type=number]').oninput=e=>{m.hours=Math.max(1,+e.target.value||1);update()};r.querySelector('button').onclick=()=>{state.modules=state.modules.filter(x=>x.id!==m.id);renderModules();update()}});$('#moduleCount').textContent=`${selected().length} módulos`}
+function phases(c){return [
+ {name:'Levantamiento y análisis',desc:'Validación de requerimientos, alcance, datos, flujos y planificación técnica.',h:Math.round(c.h*.18),label:'Semana 1'},
+ {name:'Diseño y base del sistema',desc:'Interfaz, navegación, autenticación y estructura técnica principal.',h:Math.round(c.h*.17),label:'Semana 1'},
+ {name:'Desarrollo de módulos',desc:'Implementación del panel, catálogo, contenidos, usuarios, analítica, reportes e importación.',h:Math.round(c.h*.48),label:'Semanas 2–3'},
+ {name:'Pruebas y correcciones',desc:'Validación funcional, revisión con el cliente y ajustes finales.',h:Math.round(c.h*.10),label:'Semana 4'},
+ {name:'Capacitación y producción',desc:'Publicación, guía de uso, capacitación y entrega final.',h:Math.round(c.h*.07),label:'Semana 4'}
+]}
+function renderTimeline(c){$('#timeline').innerHTML=phases(c).map((p,i)=>`<div class="timeItem"><div class="phase">${String(i+1).padStart(2,'0')}</div><div><b>${p.name}</b><small>${p.desc} · ${p.h} h</small></div><span>${p.label}</span></div>`).join('');$('#risks').innerHTML=risks.map(r=>`<div class="risk"><i></i><div><b>${r[0]}</b><p>${r[1]}</p></div></div>`).join('')}
+function bars(){const g={};selected().forEach(m=>g[m.category]=(g[m.category]||0)+(+m.hours||0));const a=Object.entries(g).sort((x,y)=>y[1]-x[1]),max=Math.max(1,...a.map(x=>x[1]));$('#bars').innerHTML=a.map(([n,h])=>`<div class="barRow"><span>${n}</span><div class="track"><div class="fill" style="width:${h/max*100}%"></div></div><b>${h}h</b></div>`).join('')}
+function proposal(c){const f=c.f;$('#pProject').textContent=f.project||'Proyecto de software';$('#pClient').textContent=`Preparado para: ${f.client||'Empresa de Vidriería y Aluminio'}`;$('#pPrice').textContent=money(c.total);$('#pWeeks').textContent='3–4 semanas';$('#pValidity').textContent=f.validity;$('#pObjective').textContent=f.objective;$('#pPayment').textContent=f.payment;$('#pSupport').textContent=f.support;const p40=$('#pPay40'),p30a=$('#pPay30A'),p30b=$('#pPay30B');if(p40)p40.textContent=money(c.total*.40);if(p30a)p30a.textContent=money(c.total*.30);if(p30b)p30b.textContent=money(c.total*.30);$('#pModules').innerHTML=selected().map(m=>`<div class="pMod"><b>${m.name}</b><br>${m.description}</div>`).join('');$('#pTimeline').innerHTML=phases(c).map((p,i)=>`<div class="pPhase"><b>${i+1}. ${p.name}</b> — ${p.label}<br>${p.desc}</div>`).join('');updateProposalFooter()}
+function updateProposalFooter(){
+ const date=new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'2-digit',year:'numeric'});
+ const proposal=$('#proposal');
+ // Estimación del total impreso sin cambiar la estructura visual original.
+ const printablePx=1020;
+ const pages=Math.max(1,Math.ceil((proposal?.scrollHeight||printablePx)/printablePx));
+ const dateEl=$('#pFooterDate'),pagesEl=$('#pFooterPages');
+ if(dateEl)dateEl.textContent=`Fecha: ${date}`;
+ if(pagesEl)pagesEl.textContent=`Total estimado: ${pages} página${pages===1?'':'s'}`;
+}
+function update(){
+ const c=calc();
+ $('#sideTitle').textContent=c.f.project||'Proyecto sin nombre';
+ $('#price').textContent=money(c.total);
+ $('#range').textContent=c.f.portfolioMode?'Precio configurado manualmente':`Rango: ${money(c.min)} – ${money(c.max)}`;
+ $('#hours').textContent=`${c.h} h`;$('#weeks').textContent='3–4 sem.';
+ $('#internal').textContent=money(c.internal);$('#margin').textContent=`${Math.round(c.margin)}%`;
+ $('#floor').textContent=money(c.firstClient);$('#launch').textContent=money(c.launch);
+ $('#recommended').textContent=money(c.recommended);$('#professional').textContent=money(c.professional);
+ const modeCard=$('#portfolioModeCard');if(modeCard)modeCard.classList.toggle('active',c.f.portfolioMode);
+ $('#manualPrice').disabled=!c.f.portfolioMode;
+ $('#alert').className=`alert ${c.margin>=15?'good':'warn'}`;
+ $('#alert').textContent=c.f.portfolioMode
+ ?`Precio manual activo: ${money(c.basePrice)}. Mantén el alcance definido para evitar cambios fuera de presupuesto.`
+ :(c.margin>=45?'Margen saludable: cubre análisis, desarrollo, pruebas, contingencia y despliegue.':'Margen ajustado: revisa tarifa, descuento o alcance.');
+ renderTimeline(c);bars();proposal(c);
+ localStorage.setItem('qf_draft_v614',JSON.stringify({state,form:c.f}))
+}
+function step(s){state.step=s;$$('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.step===s));$$('.panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===s));const m=meta[s];$('#eyebrow').textContent=m[0];$('#title').textContent=m[1];$('#subtitle').textContent=m[2];window.scrollTo({top:0,behavior:'smooth'})}
+function preset(){state.modules=JSON.parse(JSON.stringify(base));$('#project').value='Plataforma de Gestión Comercial y Marketing';$('#client').value='Empresa de Vidriería y Aluminio';$('#sector').value='Comercio / catálogo de productos';$('#type').value='CMS y catálogo web';$('#objective').value='Desarrollar una plataforma web administrable para gestionar banners, categorías, productos y publicaciones, medir visitas, clics e interés por producto y generar reportes exportables.';$('#complexity').value='1';$('#platform').value='1';$('#users').value='4';$('#screens').value='18';$('#volume').value='4';$('#migration').value='8';$('#reuse').value='.84';$('#urgency').value='1';$('#profile').value='first_client';$('#portfolioMode').checked=true;$('#manualPrice').value='2500';$('#portfolioPermission').checked=true;$('#testimonialRequired').checked=true;$('#scopeLocked').checked=true;renderModules();update();step('summary')}
+function save(){const c=calc(),a=JSON.parse(localStorage.getItem('qf_quotes_v614')||'[]'),q={id:state.id,date:new Date().toISOString(),state:JSON.parse(JSON.stringify(state)),form:c.f,total:c.total,h:c.h};localStorage.setItem('qf_quotes_v614',JSON.stringify([q,...a.filter(x=>x.id!==q.id)].slice(0,50)));history();alert('Cotización guardada.')}
+function history(){const a=JSON.parse(localStorage.getItem('qf_quotes_v614')||'[]');$('#historyList').innerHTML=a.length?a.map(q=>`<div class="historyItem" data-id="${q.id}"><div><b>${q.form.project||'Proyecto sin nombre'}</b><small>${q.form.client||'Cliente por confirmar'} · ${new Date(q.date).toLocaleString('es-PE')} · ${money(q.total)}</small></div><div><button data-load>Cargar</button><button data-del>Eliminar</button></div></div>`).join(''):'<p>No hay cotizaciones guardadas.</p>';$$('.historyItem').forEach(r=>{const q=a.find(x=>x.id===r.dataset.id);r.querySelector('[data-load]').onclick=()=>load(q);r.querySelector('[data-del]').onclick=()=>{localStorage.setItem('qf_quotes_v614',JSON.stringify(a.filter(x=>x.id!==q.id)));history()}})}
+function load(q){state=JSON.parse(JSON.stringify(q.state));Object.entries(q.form).forEach(([k,v])=>{const map={project:'project',client:'client',sector:'sector',type:'type',objective:'objective',notes:'notes',status:'status',complexity:'complexity',platform:'platform',users:'users',screens:'screens',volume:'volume',migration:'migration',reuse:'reuse',urgency:'urgency',sell:'sellRate',cost:'costRate',cont:'contingency',discount:'discount',tax:'tax',profile:'profile',payment:'payment',support:'support',validity:'validity',manualPrice:'manualPrice',portfolioMode:'portfolioMode',portfolioPermission:'portfolioPermission',testimonialRequired:'testimonialRequired',scopeLocked:'scopeLocked'},el=$(`#${map[k]||''}`);if(el){if(el.type==='checkbox')el.checked=!!v;else el.value=(k==='cont'||k==='discount')?v*100:v}});renderModules();update();step(state.step||'summary');$('#historyDialog').close()}
+function download(blob,name){const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),500)}
+
+async function generateDirectPdf(){
+  const btn=$('#printBtn'),loader=$('#pdfLoading');
+  try{
+    update();step('proposal');
+    if(!window.html2canvas||!window.jspdf?.jsPDF) throw new Error('No se pudieron cargar las librerías PDF. Verifica tu conexión e inténtalo nuevamente.');
+    btn.disabled=true;btn.textContent='Generando…';loader.hidden=false;
+    await document.fonts?.ready;
+    const source=$('#proposal');
+    const wrap=document.createElement('div');
+    wrap.className='pdfCapture';
+    wrap.style.cssText='position:fixed;left:-10000px;top:0;width:794px;background:#fff;z-index:-1;';
+    const clone=source.cloneNode(true);clone.removeAttribute('id');wrap.appendChild(clone);document.body.appendChild(wrap);
+    await Promise.all([...clone.querySelectorAll('img')].map(img=>img.complete?Promise.resolve():new Promise(r=>{img.onload=img.onerror=r})));
+    const canvas=await html2canvas(clone,{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false,windowWidth:794});
+    wrap.remove();
+    const {jsPDF}=window.jspdf,pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4',compress:true});
+    const pageW=210,pageH=297,margin=8,usableW=pageW-margin*2,usableH=pageH-margin*2;
+    const pxPerMm=canvas.width/usableW;
+    const slicePx=Math.floor(usableH*pxPerMm);
+    let y=0,page=0;
+    while(y<canvas.height){
+      if(page>0)pdf.addPage();
+      const h=Math.min(slicePx,canvas.height-y),slice=document.createElement('canvas');
+      slice.width=canvas.width;slice.height=h;
+      slice.getContext('2d').drawImage(canvas,0,y,canvas.width,h,0,0,canvas.width,h);
+      const img=slice.toDataURL('image/jpeg',0.94),renderH=h/pxPerMm;
+      pdf.addImage(img,'JPEG',margin,margin,usableW,renderH,undefined,'FAST');
+      y+=h;page++;
+    }
+    const clean=(form().project||'propuesta-mjm').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    pdf.save(`${clean||'propuesta-mjm'}.pdf`);
+  }catch(err){
+    console.error(err);alert(err.message||'No se pudo generar el PDF.');
+  }finally{
+    btn.disabled=false;btn.textContent='Descargar PDF';loader.hidden=true;
+  }
+}
+
+$('#questions').innerHTML=questions.map((q,i)=>`<div class="question"><span>${i+1}</span><div><b>${q}</b><p>Pendiente antes de cerrar presupuesto.</p></div></div>`).join('');$$('#nav button').forEach(b=>b.onclick=()=>step(b.dataset.step));$$('input,select,textarea').forEach(e=>e.addEventListener('input',update));$('#presetBtn').onclick=preset;$('#allBtn').onclick=()=>{state.modules.forEach(m=>m.selected=true);renderModules();update()};$('#noneBtn').onclick=()=>{state.modules.forEach(m=>m.selected=false);renderModules();update()};$('#customBtn').onclick=()=>$('#customDialog').showModal();$('#customSave').onclick=()=>{const name=$('#customName').value.trim();if(!name)return;state.modules.push({id:uid(),category:'Personalizado',name,hours:Math.max(1,+$('#customHours').value||1),description:$('#customDesc').value.trim()||'Funcionalidad personalizada.',selected:true});$('#customDialog').close();renderModules();update()};$('#saveBtn').onclick=save;$('#historyBtn').onclick=()=>{history();$('#historyDialog').showModal()};$('#newBtn').onclick=()=>{if(confirm('¿Crear nueva cotización?')){state={id:uid(),modules:JSON.parse(JSON.stringify(base)),step:'summary'};preset();$('#notes').value=''}};$('#proposalBtn').onclick=()=>step('proposal');$('#printBtn').onclick=generateDirectPdf;$('#jsonBtn').onclick=()=>{const c=calc();download(new Blob([JSON.stringify({version:'6.1.4',state,form:c.f,calculation:c},null,2)],{type:'application/json'}),'quoteforge-cotizacion.json')};$('#csvBtn').onclick=()=>{const rows=[['Módulo','Categoría','Horas','Descripción'],...selected().map(m=>[m.name,m.category,m.hours,m.description])],csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');download(new Blob(['\ufeff'+csv],{type:'text/csv'}),'quoteforge-modulos.csv')};$$('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());renderModules();preset();
