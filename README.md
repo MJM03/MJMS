@@ -1,17 +1,12 @@
-# QuoteForge v7.0.1 — Cache Fix
+# QuoteForge v6.1.1 - Footer corregido
 
-Versión corregida y lista para GitHub Pages.
+Esta compilación conserva exactamente la estructura visual de QuoteForge v6.1.0.
 
-## Importante al actualizar
-1. Elimina los archivos anteriores del repositorio.
-2. Sube todos los archivos de este ZIP a la raíz.
-3. Espera 1–3 minutos y abre la página en una pestaña privada.
+Único cambio principal en la propuesta/PDF:
 
-Los archivos CSS y JS usan nombres nuevos para impedir que GitHub Pages o el navegador reutilicen versiones antiguas.
+- Izquierda: MJM Systems / Soluciones de software a medida.
+- Derecha: fecha automática y total estimado de páginas.
+- Se retiraron correo y teléfono del pie de la propuesta.
+- Se mantiene la cotización del cliente por defecto en S/ 2,500.
 
-## Incluye
-- Cotización predeterminada de S/ 2,500.
-- Logo MJM Systems en la app y PDF.
-- PDF white-label de 4 páginas.
-- Pie: Soluciones de software a medida, fecha y página X de 4.
-- Pago 40% / 30% / 30%.
+Nota: el URL, la hora y la numeración gris que Chrome/Safari puede añadir fuera del diseño pertenecen a la opción «Encabezados y pies de página» del cuadro de impresión. Desactívala al guardar el PDF.
